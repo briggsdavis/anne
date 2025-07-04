@@ -48,7 +48,7 @@ export default function AddJewelryPage() {
     fields: materialFields,
     append: appendMaterial,
     remove: removeMaterial,
-  } = useFieldArray({ control, name: "materials" })
+  } = useFieldArray({ control, name: "materials" as never })
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || [])
@@ -76,7 +76,12 @@ export default function AddJewelryPage() {
   }
 
   const addMaterial = (material: string) => {
-    if (material && !materialFields.find((field) => field.value === material)) {
+    if (
+      material &&
+      !materialFields.find(
+        (field) => (field as unknown as { value: string }).value === material,
+      )
+    ) {
       appendMaterial(material)
     }
   }
@@ -349,7 +354,10 @@ export default function AddJewelryPage() {
                       </p>
                       <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
                         {imagePreviews.map((preview, index) => (
-                          <div key={index} className="group relative aspect-square">
+                          <div
+                            key={index}
+                            className="group relative aspect-square"
+                          >
                             <Image
                               src={preview}
                               alt={`Preview ${index + 1}`}

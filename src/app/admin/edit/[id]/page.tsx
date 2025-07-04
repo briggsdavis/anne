@@ -61,9 +61,9 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
     fields: materialFields,
     append: appendMaterial,
     remove: removeMaterial,
-  } = useFieldArray<JewelryFormData, "materials">({
+  } = useFieldArray({
     control,
-    name: "materials",
+    name: "materials" as never,
   })
 
   // Load piece data
@@ -135,7 +135,12 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
   }
 
   const addMaterial = (material: string) => {
-    if (material && !materialFields.find((field) => field.value === material)) {
+    if (
+      material &&
+      !materialFields.find(
+        (field) => (field as unknown as { value: string }).value === material,
+      )
+    ) {
       appendMaterial(material)
     }
   }
@@ -418,7 +423,10 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
                       </p>
                       <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
                         {existingImages.map((image) => (
-                          <div key={image.id} className="group relative aspect-square">
+                          <div
+                            key={image.id}
+                            className="group relative aspect-square"
+                          >
                             <Image
                               src={image.image_url}
                               alt={image.alt_text}
@@ -476,7 +484,10 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
                       </p>
                       <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
                         {newImagePreviews.map((preview, index) => (
-                          <div key={index} className="group relative aspect-square">
+                          <div
+                            key={index}
+                            className="group relative aspect-square"
+                          >
                             <Image
                               src={preview}
                               alt={`New preview ${index + 1}`}
