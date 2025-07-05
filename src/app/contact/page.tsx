@@ -1,20 +1,7 @@
 "use client"
 
-import { zodResolver } from "@hookform/resolvers/zod"
 import { motion } from "framer-motion"
-import { Clock, Mail, MapPin, Phone, Send } from "lucide-react"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-
-const contactSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  subject: z.string().min(5, "Subject must be at least 5 characters"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-})
-
-type ContactFormData = z.infer<typeof contactSchema>
+import { Clock, Mail, MapPin, Phone } from "lucide-react"
 
 const contactInfo = [
   {
@@ -44,33 +31,6 @@ const contactInfo = [
 ]
 
 export default function ContactPage() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema),
-  })
-
-  const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true)
-
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-
-    console.log("Contact form submitted:", data)
-    setIsSubmitted(true)
-    setIsSubmitting(false)
-    reset()
-
-    // Reset success message after 5 seconds
-    setTimeout(() => setIsSubmitted(false), 5000)
-  }
-
   return (
     <div className="min-h-screen bg-neutral-50">
       {/* Hero Section */}
@@ -156,7 +116,6 @@ export default function ContactPage() {
               </motion.div>
             </motion.div>
 
-            {/* Contact Form */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -164,124 +123,22 @@ export default function ContactPage() {
               className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm"
             >
               <h2 className="mb-6 text-2xl font-bold text-neutral-900">
-                Send us a Message
+                Find Us
               </h2>
 
-              {isSubmitted && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mb-6 rounded-lg border border-green-200 bg-green-50 p-4"
-                >
-                  <p className="font-medium text-green-700">
-                    Thank you! Your message has been sent successfully.
-                  </p>
-                </motion.div>
-              )}
+              <h5>Our New Store</h5>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.417362516006!2d38.75495587511357!3d9.02563748904136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b854a1fa5f731%3A0x314309aaa190a0dd!2sREBTEK%20APARTMENTS!5e0!3m2!1sen!2set!4v1751699677237!5m2!1sen!2set"
+                loading="lazy"
+                className="aspect-[4/3] w-full rounded-md border border-neutral-300"
+              />
 
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="mb-2 block text-sm font-medium text-neutral-700"
-                  >
-                    Full Name
-                  </label>
-                  <input
-                    {...register("name")}
-                    type="text"
-                    id="name"
-                    className="input"
-                    placeholder="Your full name"
-                  />
-                  {errors.name && (
-                    <p className="mt-1 text-sm text-red-600">
-                      {errors.name.message}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="mb-2 block text-sm font-medium text-neutral-700"
-                  >
-                    Email Address
-                  </label>
-                  <input
-                    {...register("email")}
-                    type="email"
-                    id="email"
-                    className="input"
-                    placeholder="your.email@example.com"
-                  />
-                  {errors.email && (
-                    <p className="mt-1 text-sm text-red-600">
-                      {errors.email.message}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="subject"
-                    className="mb-2 block text-sm font-medium text-neutral-700"
-                  >
-                    Subject
-                  </label>
-                  <input
-                    {...register("subject")}
-                    type="text"
-                    id="subject"
-                    className="input"
-                    placeholder="What is your inquiry about?"
-                  />
-                  {errors.subject && (
-                    <p className="mt-1 text-sm text-red-600">
-                      {errors.subject.message}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="mb-2 block text-sm font-medium text-neutral-700"
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    {...register("message")}
-                    id="message"
-                    rows={6}
-                    className="input resize-none"
-                    placeholder="Tell us more about your inquiry..."
-                  />
-                  {errors.message && (
-                    <p className="mt-1 text-sm text-red-600">
-                      {errors.message.message}
-                    </p>
-                  )}
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="btn btn-primary w-full"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      Send Message
-                      <Send className="h-4 w-4" />
-                    </>
-                  )}
-                </button>
-              </form>
+              <h5 className="mt-6">Our Main Store</h5>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.417298063436!2d38.75497097511348!3d9.025643389041221!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8564353f1f8f%3A0xbf2d6ac168e0d288!2sAnne%20Silver%20Ethiopia!5e0!3m2!1sen!2set!4v1751699616507!5m2!1sen!2set"
+                loading="lazy"
+                className="aspect-[4/3] w-full rounded-md border border-neutral-300"
+              />
             </motion.div>
           </div>
         </div>
