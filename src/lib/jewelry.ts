@@ -4,22 +4,25 @@ import type {
   JewelryPiece,
 } from "@/types/jewelry"
 import { supabase } from "./supabase-client"
+import { logger } from "@/utils/logger"
 
 export class JewelryService {
-  // Get all jewelry pieces with their images
+
+  // Get all jewelry pieces with their images and ring sizes
   static async getAllPieces(): Promise<JewelryPiece[]> {
     const { data: pieces, error } = await supabase
       .from("jewelry_pieces")
       .select(
         `
         *,
-        images:jewelry_images(*)
+        images:jewelry_images(*),
+        ring_sizes(*)
       `,
       )
       .order("created_at", { ascending: false })
 
     if (error) {
-      console.error("Error fetching jewelry pieces:", error)
+      logger.apiError("getAllPieces", error)
       throw new Error("Failed to fetch jewelry pieces")
     }
 
@@ -33,14 +36,15 @@ export class JewelryService {
       .select(
         `
         *,
-        images:jewelry_images(*)
+        images:jewelry_images(*),
+        ring_sizes(*)
       `,
       )
       .eq("is_sold", false)
       .order("created_at", { ascending: false })
 
     if (error) {
-      console.error("Error fetching available jewelry pieces:", error)
+      logger.apiError("getAvailablePieces", error)
       throw new Error("Failed to fetch available jewelry pieces")
     }
 
@@ -54,7 +58,8 @@ export class JewelryService {
       .select(
         `
         *,
-        images:jewelry_images(*)
+        images:jewelry_images(*),
+        ring_sizes(*)
       `,
       )
       .eq("is_featured", true)
@@ -63,7 +68,7 @@ export class JewelryService {
       .limit(6)
 
     if (error) {
-      console.error("Error fetching featured jewelry pieces:", error)
+      logger.apiError("getFeaturedPieces", error)
       throw new Error("Failed to fetch featured jewelry pieces")
     }
 
@@ -77,14 +82,15 @@ export class JewelryService {
       .select(
         `
         *,
-        images:jewelry_images(*)
+        images:jewelry_images(*),
+        ring_sizes(*)
       `,
       )
       .eq("id", id)
       .single()
 
     if (error) {
-      console.error("Error fetching jewelry piece:", error)
+      logger.apiError("getPieceById", error, { pieceId: id })
       return null
     }
 
@@ -93,15 +99,23 @@ export class JewelryService {
 
   // Create new jewelry piece
   static async createPiece(data: JewelryFormData): Promise<JewelryPiece> {
+    // Separate ring sizes from the main data
+    const { available_sizes, ...pieceData } = data
+    
     const { data: piece, error } = await supabase
       .from("jewelry_pieces")
-      .insert([data])
+      .insert([pieceData])
       .select()
       .single()
 
     if (error) {
-      console.error("Error creating jewelry piece:", error)
+      logger.apiError("createPiece", error, { pieceData })
       throw new Error("Failed to create jewelry piece")
+    }
+
+    // If this is a ring and has available sizes, create the ring size records
+    if (piece.category === "rings" && available_sizes && available_sizes.length > 0) {
+      await this.addRingSizes(piece.id, available_sizes)
     }
 
     return piece
@@ -112,16 +126,29 @@ export class JewelryService {
     id: string,
     data: Partial<JewelryFormData>,
   ): Promise<JewelryPiece> {
+    // Separate ring sizes from the main data
+    const { available_sizes, ...pieceData } = data
+    
     const { data: piece, error } = await supabase
       .from("jewelry_pieces")
-      .update(data)
+      .update(pieceData)
       .eq("id", id)
       .select()
       .single()
 
     if (error) {
-      console.error("Error updating jewelry piece:", error)
+      logger.apiError("updatePiece", error, { pieceId: id, updateData: pieceData })
       throw new Error("Failed to update jewelry piece")
+    }
+
+    // If this is a ring and available_sizes is provided, update the ring sizes
+    if (piece.category === "rings" && available_sizes !== undefined) {
+      // First remove existing sizes
+      await this.removeRingSizes(id)
+      // Then add new sizes if any
+      if (available_sizes.length > 0) {
+        await this.addRingSizes(id, available_sizes)
+      }
     }
 
     return piece
@@ -135,7 +162,7 @@ export class JewelryService {
       .eq("id", id)
 
     if (error) {
-      console.error("Error marking piece as sold:", error)
+      logger.apiError("markAsSold", error, { pieceId: id })
       throw new Error("Failed to mark piece as sold")
     }
   }
@@ -148,7 +175,7 @@ export class JewelryService {
       .eq("id", id)
 
     if (error) {
-      console.error("Error marking piece as available:", error)
+      logger.apiError("markAsAvailable", error, { pieceId: id })
       throw new Error("Failed to mark piece as available")
     }
   }
@@ -162,7 +189,7 @@ export class JewelryService {
       .eq("jewelry_piece_id", id)
 
     if (fetchError) {
-      console.error("Error fetching images for deletion:", fetchError)
+      logger.apiError("deletePiece - fetchImages", fetchError, { pieceId: id })
       // Continue with piece deletion even if we can't fetch images
     }
 
@@ -182,7 +209,7 @@ export class JewelryService {
       .eq("id", id)
 
     if (error) {
-      console.error("Error deleting jewelry piece:", error)
+      logger.apiError("deletePiece", error, { pieceId: id })
       throw new Error("Failed to delete jewelry piece")
     }
   }
@@ -197,7 +224,7 @@ export class JewelryService {
       .upload(fileName, file)
 
     if (uploadError) {
-      console.error("Error uploading image:", uploadError)
+      logger.apiError("uploadImage", uploadError, { fileName: file.name, pieceId })
       throw new Error("Failed to upload image")
     }
 
@@ -231,7 +258,7 @@ export class JewelryService {
       .single()
 
     if (error) {
-      console.error("Error adding image record:", error)
+      logger.apiError("addImage", error, { jewelryPieceId, imageUrl, altText })
       throw new Error("Failed to add image record")
     }
 
@@ -245,7 +272,7 @@ export class JewelryService {
       // Public URLs are in format: https://[project-id].supabase.co/storage/v1/object/public/jewelry-images/[file-path]
       const urlParts = imageUrl.split('/storage/v1/object/public/jewelry-images/')
       if (urlParts.length !== 2) {
-        console.error("Invalid image URL format:", imageUrl)
+        logger.error("Invalid image URL format", { imageUrl })
         return
       }
       
@@ -256,11 +283,11 @@ export class JewelryService {
         .remove([filePath])
 
       if (error) {
-        console.error("Error deleting image from storage:", error)
+        logger.apiError("deleteImageFromStorage", error, { imageUrl })
         // Don't throw error here to avoid breaking the main operation
       }
     } catch (error) {
-      console.error("Error parsing image URL or deleting from storage:", error)
+      logger.apiError("deleteImageFromStorage - parse", error, { imageUrl })
     }
   }
 
@@ -274,7 +301,7 @@ export class JewelryService {
       .single()
 
     if (fetchError) {
-      console.error("Error fetching image record:", fetchError)
+      logger.apiError("deleteImage - fetchRecord", fetchError, { imageId })
       throw new Error("Failed to fetch image record")
     }
 
@@ -290,7 +317,7 @@ export class JewelryService {
       .eq("id", imageId)
 
     if (error) {
-      console.error("Error deleting image record:", error)
+      logger.apiError("deleteImage", error, { imageId })
       throw new Error("Failed to delete image record")
     }
   }
@@ -299,13 +326,15 @@ export class JewelryService {
   static async searchPieces(
     query: string,
     category?: string,
+    gender?: string,
   ): Promise<JewelryPiece[]> {
     let queryBuilder = supabase
       .from("jewelry_pieces")
       .select(
         `
         *,
-        images:jewelry_images(*)
+        images:jewelry_images(*),
+        ring_sizes(*)
       `,
       )
       .eq("is_sold", false)
@@ -320,15 +349,65 @@ export class JewelryService {
       queryBuilder = queryBuilder.eq("category", category)
     }
 
+    if (gender) {
+      queryBuilder = queryBuilder.eq("gender", gender)
+    }
+
     const { data: pieces, error } = await queryBuilder.order("created_at", {
       ascending: false,
     })
 
     if (error) {
-      console.error("Error searching jewelry pieces:", error)
+      logger.apiError("searchPieces", error, { query, category })
       throw new Error("Failed to search jewelry pieces")
     }
 
     return pieces || []
+  }
+
+  // Add ring sizes for a jewelry piece
+  static async addRingSizes(jewelryPieceId: string, sizes: number[]): Promise<void> {
+    const ringSizeRecords = sizes.map(size => ({
+      jewelry_piece_id: jewelryPieceId,
+      size
+    }))
+
+    const { error } = await supabase
+      .from("ring_sizes")
+      .insert(ringSizeRecords)
+
+    if (error) {
+      logger.apiError("addRingSizes", error, { jewelryPieceId, sizes })
+      throw new Error("Failed to add ring sizes")
+    }
+  }
+
+  // Remove all ring sizes for a jewelry piece
+  static async removeRingSizes(jewelryPieceId: string): Promise<void> {
+    const { error } = await supabase
+      .from("ring_sizes")
+      .delete()
+      .eq("jewelry_piece_id", jewelryPieceId)
+
+    if (error) {
+      logger.apiError("removeRingSizes", error, { jewelryPieceId })
+      throw new Error("Failed to remove ring sizes")
+    }
+  }
+
+  // Get ring sizes for a specific jewelry piece
+  static async getRingSizes(jewelryPieceId: string): Promise<number[]> {
+    const { data: sizes, error } = await supabase
+      .from("ring_sizes")
+      .select("size")
+      .eq("jewelry_piece_id", jewelryPieceId)
+      .order("size", { ascending: true })
+
+    if (error) {
+      logger.apiError("getRingSizes", error, { jewelryPieceId })
+      throw new Error("Failed to fetch ring sizes")
+    }
+
+    return sizes?.map(s => s.size) || []
   }
 }

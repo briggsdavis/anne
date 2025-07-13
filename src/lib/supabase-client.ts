@@ -8,5 +8,5 @@ export const createClient = () => {
   return createBrowserClient(supabaseUrl, supabaseAnonKey)
 }
 
-// Legacy client for backward compatibility (use createClient() instead)
+// Singleton client instance
 export const supabase = createClient()

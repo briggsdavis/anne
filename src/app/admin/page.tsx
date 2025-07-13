@@ -5,6 +5,7 @@ import { useAuth } from "@/components/providers/SupabaseAuthProvider"
 import LoadingSpinner from "@/components/ui/LoadingSpinner"
 import { JewelryService } from "@/lib/jewelry"
 import type { JewelryPiece } from "@/types/jewelry"
+import { logger } from "@/utils/logger"
 import { motion } from "framer-motion"
 import {
   DollarSign,
@@ -55,7 +56,7 @@ export default function AdminPage() {
           totalValue,
         })
       } catch (error) {
-        console.error("Error loading dashboard data:", error)
+        logger.apiError("loadDashboardData", error)
       } finally {
         setLoading(false)
       }
@@ -260,6 +261,9 @@ export default function AdminPage() {
                             Category
                           </th>
                           <th className="px-6 py-4 text-left font-medium text-neutral-900">
+                            Gender
+                          </th>
+                          <th className="px-6 py-4 text-left font-medium text-neutral-900">
                             Price
                           </th>
                           <th className="px-6 py-4 text-left font-medium text-neutral-900">
@@ -305,6 +309,15 @@ export default function AdminPage() {
                               <span className="inline-block rounded-md bg-neutral-100 px-2 py-1 text-xs text-neutral-700 capitalize">
                                 {piece.category}
                               </span>
+                            </td>
+                            <td className="px-6 py-4">
+                              {piece.gender ? (
+                                <span className="inline-block rounded-md bg-neutral-100 px-2 py-1 text-xs text-neutral-700 capitalize">
+                                  {piece.gender}
+                                </span>
+                              ) : (
+                                <span className="text-xs text-neutral-400">Not specified</span>
+                              )}
                             </td>
                             <td className="px-6 py-4 font-medium">
                               ETB {piece.price.toLocaleString('en-US', { maximumFractionDigits: 0 })}

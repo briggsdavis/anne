@@ -159,11 +159,16 @@ export default function JewelryDetail({ piece }: JewelryDetailProps) {
               </div>
             </div>
 
-            {/* Category */}
-            <div>
+            {/* Category and Gender */}
+            <div className="flex items-center space-x-3">
               <span className="inline-block bg-primary-100 text-primary-700 px-3 py-1 rounded-md text-sm font-medium capitalize">
                 {piece.category}
               </span>
+              {piece.gender && (
+                <span className="inline-block bg-secondary-100 text-secondary-700 px-3 py-1 rounded-md text-sm font-medium capitalize">
+                  {piece.gender}
+                </span>
+              )}
             </div>
 
             {/* Description */}
@@ -187,6 +192,31 @@ export default function JewelryDetail({ piece }: JewelryDetailProps) {
                       {material}
                     </span>
                   ))}
+                </div>
+              </div>
+            )}
+
+            {/* Ring Sizes (only for rings) */}
+            {piece.category === "rings" && piece.ring_sizes && piece.ring_sizes.length > 0 && (
+              <div>
+                <h2 className="text-xl font-semibold text-neutral-900 mb-3">Available Sizes</h2>
+                <div className="space-y-3">
+                  <div className="flex flex-wrap gap-2">
+                    {piece.ring_sizes
+                      .map(rs => rs.size)
+                      .sort((a, b) => a - b)
+                      .map((size, index) => (
+                        <span
+                          key={index}
+                          className="inline-flex items-center justify-center bg-primary-100 text-primary-700 px-3 py-2 rounded-lg text-sm font-medium min-w-[3rem]"
+                        >
+                          {size}
+                        </span>
+                      ))}
+                  </div>
+                  <p className="text-sm text-neutral-500">
+                    US ring sizes. Contact us for other sizes or custom fitting.
+                  </p>
                 </div>
               </div>
             )}

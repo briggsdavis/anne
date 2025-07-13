@@ -1,9 +1,17 @@
 "use client"
 
 import AdminGuard from "@/components/admin/AdminGuard"
+import ErrorAlert, { useErrorAlert } from "@/components/ui/ErrorAlert"
+import SuccessAlert, { useSuccessAlert } from "@/components/ui/SuccessAlert"
 import { JewelryService } from "@/lib/jewelry"
 import type { JewelryImage, JewelryPiece } from "@/types/jewelry"
-import { COMMON_MATERIALS, JEWELRY_CATEGORIES } from "@/types/jewelry"
+import {
+  COMMON_MATERIALS,
+  JEWELRY_CATEGORIES,
+  JEWELRY_GENDERS,
+  RING_SIZES,
+} from "@/types/jewelry"
+import { sanitizeJewelryFormData } from "@/utils/sanitize"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { motion } from "framer-motion"
 import { ArrowLeft, Plus, Save, Upload, X } from "lucide-react"
@@ -22,6 +30,8 @@ const jewelrySchema = z.object({
   materials: z.array(z.string()).min(1, "At least one material is required"),
   is_featured: z.boolean(),
   admin_notes: z.string().optional(),
+  gender: z.string().optional(),
+  available_sizes: z.array(z.number()).optional(),
 })
 
 type JewelryFormData = z.infer<typeof jewelrySchema>
@@ -40,20 +50,37 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
   const [newImages, setNewImages] = useState<File[]>([])
   const [newImagePreviews, setNewImagePreviews] = useState<string[]>([])
   const [imagesToDelete, setImagesToDelete] = useState<string[]>([])
+  const [selectedCategory, setSelectedCategory] = useState<string>("")
+  const [selectedSizes, setSelectedSizes] = useState<number[]>([])
   const [pieceId, setPieceId] = useState<string>("")
   const router = useRouter()
+
+  const {
+    error,
+    isVisible: showError,
+    showError: displayError,
+    hideError,
+  } = useErrorAlert()
+  const {
+    message: successMessage,
+    isVisible: showSuccess,
+    showSuccess: displaySuccess,
+    hideSuccess,
+  } = useSuccessAlert()
 
   const {
     register,
     handleSubmit,
     control,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<JewelryFormData>({
     resolver: zodResolver(jewelrySchema),
     defaultValues: {
       materials: [],
       is_featured: false,
+      available_sizes: [],
     },
   })
 
@@ -63,8 +90,9 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
     remove: removeMaterial,
   } = useFieldArray({
     control,
-    name: "materials" as never,
-  })
+    name: "materials",
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } as any)
 
   // Load piece data
   useEffect(() => {
@@ -82,6 +110,11 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
 
         setPiece(pieceData)
         setExistingImages(pieceData.images || [])
+        setSelectedCategory(pieceData.category)
+        
+        // Initialize ring sizes if this is a ring
+        const ringSizes = pieceData.ring_sizes?.map(rs => rs.size).sort((a, b) => a - b) || []
+        setSelectedSizes(ringSizes)
 
         // Populate form with existing data
         reset({
@@ -92,6 +125,8 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
           materials: pieceData.materials,
           is_featured: pieceData.is_featured,
           admin_notes: pieceData.admin_notes || "",
+          gender: pieceData.gender || "",
+          available_sizes: ringSizes,
         })
       } catch (error) {
         console.error("Error loading piece:", error)
@@ -107,15 +142,38 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
   const handleNewImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || [])
 
+    // Validate file count
     if (files.length + newImages.length + existingImages.length > 5) {
-      alert("Maximum 5 images allowed")
+      displayError("Maximum 5 images allowed")
       return
     }
 
-    setNewImages((prev) => [...prev, ...files])
+    // Validate file types and sizes
+    const validFiles = files.filter((file) => {
+      const validTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"]
+      const maxSize = 10 * 1024 * 1024 // 10MB
+
+      if (!validTypes.includes(file.type)) {
+        displayError(
+          `Invalid file type: ${file.name}. Only JPEG, PNG, and WebP are allowed.`,
+        )
+        return false
+      }
+
+      if (file.size > maxSize) {
+        displayError(`File too large: ${file.name}. Maximum size is 10MB.`)
+        return false
+      }
+
+      return true
+    })
+
+    if (validFiles.length === 0) return
+
+    setNewImages((prev) => [...prev, ...validFiles])
 
     // Create previews for new images
-    files.forEach((file) => {
+    validFiles.forEach((file) => {
       const reader = new FileReader()
       reader.onload = (e) => {
         setNewImagePreviews((prev) => [...prev, e.target?.result as string])
@@ -135,27 +193,57 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
   }
 
   const addMaterial = (material: string) => {
-    if (
-      material &&
-      !materialFields.find(
-        (field) => (field as unknown as { value: string }).value === material,
-      )
-    ) {
-      appendMaterial(material)
+    if (material) {
+      // Check if material already exists by examining the form values
+      const currentMaterials = materialFields
+        .map(
+          (_, index) =>
+            (
+              document.querySelector(
+                `input[name="materials.${index}"]`,
+              ) as HTMLInputElement
+            )?.value,
+        )
+        .filter(Boolean)
+
+      if (!currentMaterials.includes(material)) {
+        appendMaterial(material)
+      }
     }
+  }
+
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category)
+    // Clear ring sizes if not selecting rings
+    if (category !== "rings") {
+      setSelectedSizes([])
+      setValue("available_sizes", [])
+    }
+  }
+
+  const handleSizeToggle = (size: number) => {
+    const newSizes = selectedSizes.includes(size)
+      ? selectedSizes.filter(s => s !== size)
+      : [...selectedSizes, size].sort((a, b) => a - b)
+    
+    setSelectedSizes(newSizes)
+    setValue("available_sizes", newSizes)
   }
 
   const onSubmit = async (data: JewelryFormData) => {
     if (existingImages.length + newImages.length === 0) {
-      alert("Please keep at least one image")
+      displayError("Please keep at least one image")
       return
     }
 
     setIsSubmitting(true)
 
     try {
+      // Sanitize form data before submission
+      const sanitizedData = sanitizeJewelryFormData(data)
+
       // Update the jewelry piece data
-      await JewelryService.updatePiece(pieceId, data)
+      await JewelryService.updatePiece(pieceId, sanitizedData)
 
       // Delete marked images
       for (const imageId of imagesToDelete) {
@@ -174,10 +262,11 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
         )
       }
 
-      router.push("/admin")
+      displaySuccess("Jewelry piece updated successfully!")
+      setTimeout(() => router.push("/admin"), 1500)
     } catch (error) {
       console.error("Error updating jewelry piece:", error)
-      alert("Error updating jewelry piece. Please try again.")
+      displayError("Error updating jewelry piece. Please try again.")
     } finally {
       setIsSubmitting(false)
     }
@@ -213,6 +302,12 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
 
   return (
     <AdminGuard>
+      <ErrorAlert message={error} isVisible={showError} onClose={hideError} />
+      <SuccessAlert
+        message={successMessage}
+        isVisible={showSuccess}
+        onClose={hideSuccess}
+      />
       <div className="min-h-screen bg-neutral-50">
         {/* Header */}
         <div className="border-b border-neutral-200 bg-white">
@@ -228,7 +323,7 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
                 <h1 className="text-3xl font-bold text-neutral-900">
                   Edit Piece
                 </h1>
-                <p className="mt-1 text-neutral-600">Update {piece.title}</p>
+                <p className="mb-0 text-neutral-600">Update {piece.title}</p>
               </div>
             </div>
           </div>
@@ -303,6 +398,7 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
                       {...register("category")}
                       id="category"
                       className="input"
+                      onChange={(e) => handleCategoryChange(e.target.value)}
                     >
                       <option value="">Select a category</option>
                       {JEWELRY_CATEGORIES.map((category) => (
@@ -316,6 +412,27 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
                         {errors.category.message}
                       </p>
                     )}
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="gender"
+                      className="mb-2 block text-sm font-medium text-neutral-700"
+                    >
+                      Target Gender (Optional)
+                    </label>
+                    <select
+                      {...register("gender")}
+                      id="gender"
+                      className="input"
+                    >
+                      <option value="">Not specified</option>
+                      {JEWELRY_GENDERS.map((gender) => (
+                        <option key={gender.value} value={gender.value}>
+                          {gender.label}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
                   <div className="md:col-span-2">
@@ -407,6 +524,46 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
                   </div>
                 </div>
               </div>
+
+              {/* Ring Sizes (only for rings category) */}
+              {selectedCategory === "rings" && (
+                <div className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm">
+                  <h2 className="mb-6 text-xl font-semibold text-neutral-900">
+                    Available Ring Sizes
+                  </h2>
+
+                  <div className="space-y-4">
+                    <p className="text-sm text-neutral-600">
+                      Select all available sizes for this ring (US sizes):
+                    </p>
+                    
+                    <div className="grid grid-cols-6 gap-3 md:grid-cols-8">
+                      {RING_SIZES.map((size) => (
+                        <button
+                          key={size}
+                          type="button"
+                          onClick={() => handleSizeToggle(size)}
+                          className={`rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
+                            selectedSizes.includes(size)
+                              ? 'border-primary-500 bg-primary-50 text-primary-700'
+                              : 'border-neutral-300 bg-white text-neutral-700 hover:border-primary-300 hover:bg-primary-50'
+                          }`}
+                        >
+                          {size}
+                        </button>
+                      ))}
+                    </div>
+
+                    {selectedSizes.length > 0 && (
+                      <div className="rounded-md bg-neutral-50 p-3">
+                        <p className="text-sm text-neutral-600">
+                          Selected sizes: {selectedSizes.join(', ')}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
 
               {/* Images */}
               <div className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm">

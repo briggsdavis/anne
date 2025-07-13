@@ -12,7 +12,7 @@ interface AuthContextType {
     password: string,
   ) => Promise<{ error?: string }>
   signOut: () => Promise<void>
-  isAdmin: boolean
+  isAuthenticated: boolean
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -40,7 +40,8 @@ export function SupabaseAuthProvider({ children }: AuthProviderProps) {
       const {
         data: { session },
       } = await supabase.auth.getSession()
-      setUser(session?.user ?? null)
+      const user = session?.user ?? null
+      setUser(user)
       setLoading(false)
     }
 
@@ -50,7 +51,8 @@ export function SupabaseAuthProvider({ children }: AuthProviderProps) {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
-      setUser(session?.user ?? null)
+      const user = session?.user ?? null
+      setUser(user)
       setLoading(false)
     })
 
@@ -78,16 +80,12 @@ export function SupabaseAuthProvider({ children }: AuthProviderProps) {
     await supabase.auth.signOut()
   }
 
-  // Check if user is admin - any authenticated user is considered admin
-  // since only admin accounts will be created in Supabase
-  const isAdmin = !!user
-
   const value: AuthContextType = {
     user,
     loading,
     signInWithEmail,
     signOut,
-    isAdmin,
+    isAuthenticated: !!user,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

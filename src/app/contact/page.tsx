@@ -25,7 +25,7 @@ const contactInfo = [
   {
     icon: Clock,
     title: "Hours",
-    content: "Mon - Fri: 9AM - 6PM",
+    content: "Mon - Fri: 9AM - 7:30PM",
     description: "Ethiopian Standard Time (EAT)",
   },
 ]

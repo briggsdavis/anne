@@ -1,17 +1,21 @@
-'use client'
+"use client"
 
-import { motion } from 'framer-motion'
-import Image from 'next/image'
-import Link from 'next/link'
-import type { JewelryPiece } from '@/types/jewelry'
+import type { JewelryPiece } from "@/types/jewelry"
+import { motion } from "framer-motion"
+import Image from "next/image"
+import Link from "next/link"
 
 interface JewelryCardProps {
   piece: JewelryPiece
   priority?: boolean
 }
 
-export default function JewelryCard({ piece, priority = false }: JewelryCardProps) {
-  const primaryImage = piece.images?.find(img => img.is_primary) || piece.images?.[0]
+export default function JewelryCard({
+  piece,
+  priority = false,
+}: JewelryCardProps) {
+  const primaryImage =
+    piece.images?.find((img) => img.is_primary) || piece.images?.[0]
 
   return (
     <motion.div
@@ -32,40 +36,45 @@ export default function JewelryCard({ piece, priority = false }: JewelryCardProp
                 priority={priority}
               />
             ) : (
-              <div className="flex items-center justify-center h-full bg-neutral-100">
-                <span className="text-neutral-400 text-sm">No image</span>
+              <div className="flex h-full items-center justify-center bg-neutral-100">
+                <span className="text-sm text-neutral-400">No image</span>
               </div>
             )}
             {piece.is_sold && (
-              <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-                <span className="bg-red-600 text-white px-3 py-1 rounded-md text-sm font-medium">
+              <div className="absolute inset-0 flex items-center justify-center bg-black/60">
+                <span className="rounded-md bg-red-600 px-3 py-1 text-sm font-medium text-white">
                   SOLD
                 </span>
               </div>
             )}
           </div>
-          
+
           <div className="product-info">
-            <h3 className="product-title">{piece.title}</h3>
+            <h3 className="product-title overflow-hidden overflow-ellipsis whitespace-nowrap">
+              {piece.title}
+            </h3>
             <p className="product-price">
-              ETB {piece.price.toLocaleString('en-US', { maximumFractionDigits: 0 })}
+              ETB{" "}
+              {piece.price.toLocaleString("en-US", {
+                maximumFractionDigits: 0,
+              })}
             </p>
             <p className="product-description line-clamp-2">
               {piece.description}
             </p>
-            
+
             {piece.materials.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-1">
                 {piece.materials.slice(0, 2).map((material, index) => (
                   <span
                     key={index}
-                    className="inline-block bg-primary-100 text-primary-700 text-xs px-2 py-1 rounded-md"
+                    className="inline-block rounded-md bg-primary-100 px-2 py-1 text-xs text-primary-700"
                   >
                     {material}
                   </span>
                 ))}
                 {piece.materials.length > 2 && (
-                  <span className="inline-block text-neutral-500 text-xs px-2 py-1">
+                  <span className="inline-block px-2 py-1 text-xs text-neutral-500">
                     +{piece.materials.length - 2} more
                   </span>
                 )}

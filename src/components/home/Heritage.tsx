@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import Link from "next/link"
+import Image from "next/image"
 
 export default function Heritage() {
   return (
@@ -18,7 +18,7 @@ export default function Heritage() {
               Heritage in Every Detail
             </h2>
             <p className="mb-6 text-lg leading-relaxed text-neutral-600">
-              Our jewelry is more than adornment—it&apos;s a celebration of
+              Our jewelry is more than adornment-it&apos;s a celebration of
               Ethiopian culture, history, and the ancient art of goldsmithing
               that has been passed down through generations.
             </p>
@@ -27,9 +27,6 @@ export default function Heritage() {
               to the careful selection of materials, each piece tells a story of
               our rich cultural heritage.
             </p>
-            <Link href="/about" className="btn btn-secondary">
-              Learn Our Story
-            </Link>
           </motion.div>
 
           <motion.div
@@ -39,23 +36,14 @@ export default function Heritage() {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="aspect-square overflow-hidden rounded-2xl bg-gradient-to-br from-primary-100 to-secondary-100">
-              {/* Placeholder for heritage image */}
-              <div className="flex h-full w-full items-center justify-center">
-                <div className="p-8 text-center">
-                  <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-primary-200">
-                    <span className="text-2xl font-bold text-primary-700">
-                      AS
-                    </span>
-                  </div>
-                  <p className="font-medium text-neutral-600">
-                    Ethiopian Heritage
-                  </p>
-                  <p className="mt-2 text-sm text-neutral-500">
-                    Traditional Craftsmanship
-                  </p>
-                </div>
-              </div>
+            <div className="aspect-square overflow-hidden rounded-2xl">
+              <Image
+                src="/case.jpg"
+                alt="Ethiopian Heritage - Traditional Craftsmanship"
+                width={1000}
+                height={1000}
+                className="h-full w-full object-cover"
+              />
             </div>
 
             {/* Decorative patterns */}
