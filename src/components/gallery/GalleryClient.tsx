@@ -8,6 +8,7 @@ import { JEWELRY_CATEGORIES, JEWELRY_GENDERS } from "@/types/jewelry"
 import { sanitizeSearchQuery } from "@/utils/sanitize"
 import { motion } from "framer-motion"
 import { Search } from "lucide-react"
+import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -138,9 +139,19 @@ export default function GalleryClient({ initialCategory, initialGender }: Galler
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <h1 className="brand-accent mb-4 text-4xl font-bold text-neutral-900 md:text-5xl">
-            Gallery
-          </h1>
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
+            <h1 className="brand-accent text-4xl font-bold text-neutral-900 md:text-5xl">
+              Gallery
+            </h1>
+            <Link
+              href="/catalog.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary whitespace-nowrap"
+            >
+              View Full Catalog
+            </Link>
+          </div>
           <p className="max-w-2xl text-lg text-neutral-600">
             Explore our complete collection of handcrafted Ethiopian jewelry.
             Each piece is a unique work of art celebrating our rich heritage.

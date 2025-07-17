@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 
-const ML = motion(Link)
+const ML = motion.create(Link)
 
 const categories = [
   { name: "Earrings", slug: "earrings", image: "/earrings.png" },
@@ -26,13 +26,13 @@ function Card({ index }: { index: number }) {
       transition={{ duration: 0.8, delay: index * 0.01 }}
       viewport={{ once: true }}
       href={`/gallery?category=${slug}`}
-      className={`relative block rounded-xl ${portrait ? "aspect-[1/2] w-1/2" : "aspect-[2/1] w-full"}`}
+      className={`group relative block overflow-hidden rounded-xl ${portrait ? "aspect-[1/2] w-1/2" : "aspect-[2/1] w-full"}`}
     >
       <Image
         src={image}
         alt={`${name} Collection`}
         fill
-        className="rounded-xl object-cover"
+        className="rounded-xl object-cover transition-transform duration-300 group-hover:scale-105"
       />
 
       <div className="absolute inset-0 rounded-xl bg-black/50" />
@@ -75,6 +75,15 @@ export default function CategoryGrid() {
             <Card index={1} />
             <Card index={2} />
           </div>
+        </div>
+
+        <div className="my-16 text-center">
+          <h2>Sparkle up Your Life</h2>
+
+          <p className="mx-auto max-w-3xl">
+            Discover unique jewelry collections crafted to showcase Ethiopian
+            heritage, elegance, and timeless artistry.
+          </p>
         </div>
 
         <div className="flex gap-6">

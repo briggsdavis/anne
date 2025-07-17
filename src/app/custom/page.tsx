@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Gem, Sparkles } from "lucide-react"
+import Image from "next/image"
 
 export default function CustomPage() {
   return (
@@ -46,16 +46,16 @@ export default function CustomPage() {
                 create pieces that are truly one-of-a-kind.
               </p>
               <p className="mb-6 text-lg leading-relaxed text-neutral-600">
-                Whether you&apos;re commemorating a special occasion, honoring your
-                heritage, or simply bringing a dream design to life, our team
-                will guide you through every step of the creation process. From
-                initial sketches to the final polish, your custom piece will
-                receive the meticulous attention it deserves.
+                Whether you&apos;re commemorating a special occasion, honoring
+                your heritage, or simply bringing a dream design to life, our
+                team will guide you through every step of the creation process.
+                From initial sketches to the final polish, your custom piece
+                will receive the meticulous attention it deserves.
               </p>
               <p className="text-lg leading-relaxed text-neutral-600">
-                Each custom creation is more than jewelry – it&apos;s a wearable work
-                of art that carries your personal story and the rich tradition
-                of Ethiopian craftsmanship.
+                Each custom creation is more than jewelry - it&apos;s a wearable
+                work of art that carries your personal story and the rich
+                tradition of Ethiopian craftsmanship.
               </p>
             </motion.div>
 
@@ -65,22 +65,15 @@ export default function CustomPage() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
-              className="relative"
+              className="relative flex items-center justify-center"
             >
-              <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-gradient-to-br from-primary-100 to-secondary-100">
-                <div className="flex h-full w-full items-center justify-center">
-                  <div className="p-8 text-center">
-                    <div className="mx-auto mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-primary-200">
-                      <Gem className="h-16 w-16 text-primary-700" />
-                    </div>
-                    <p className="text-lg font-medium text-neutral-700">
-                      Custom Design Process
-                    </p>
-                    <p className="mt-2 text-sm text-neutral-500">
-                      From Concept to Creation
-                    </p>
-                  </div>
-                </div>
+              <div className="relative aspect-[4/5] w-[80%] overflow-hidden rounded-2xl">
+                <Image
+                  src="/filler.png"
+                  alt="Custom design process"
+                  fill
+                  className="object-cover"
+                />
               </div>
             </motion.div>
           </div>
@@ -124,16 +117,30 @@ export default function CustomPage() {
                   <div className="relative z-10 flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-primary-600 text-2xl font-bold text-white shadow-lg">
                     1
                   </div>
-                  <div className="flex-1 rounded-xl bg-white p-8 shadow-sm">
-                    <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
-                      Initial Consultation
-                    </h3>
-                    <p className="mb-0 leading-relaxed text-neutral-600">
-                      Share your ideas, inspirations, and preferences. We&apos;ll
-                      discuss design possibilities, materials, and incorporate
-                      traditional Ethiopian elements that resonate with your
-                      vision.
-                    </p>
+                  <div className="flex-1 overflow-hidden rounded-xl bg-white shadow-sm">
+                    <div className="flex items-center gap-0">
+                      <div className="flex-1 p-8">
+                        <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
+                          Initial Consultation
+                        </h3>
+                        <p className="mb-0 leading-relaxed text-neutral-600">
+                          Share your ideas, inspirations, and preferences.
+                          We&apos;ll discuss design possibilities, materials,
+                          and incorporate traditional Ethiopian elements that
+                          resonate with your vision.
+                        </p>
+                      </div>
+                      <div className="h-full flex-shrink-0">
+                        <div className="relative aspect-square h-[200px]">
+                          <Image
+                            src="/initial.png"
+                            alt="Initial consultation process"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
 
@@ -148,15 +155,30 @@ export default function CustomPage() {
                   <div className="relative z-10 flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-primary-600 text-2xl font-bold text-white shadow-lg md:absolute md:left-0">
                     2
                   </div>
-                  <div className="flex-1 rounded-xl bg-white p-8 shadow-sm md:ml-24">
-                    <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
-                      Design Development
-                    </h3>
-                    <p className="mb-0 leading-relaxed text-neutral-600">
-                      Our artisans create detailed sketches and 3D renderings of
-                      your piece. We refine the design together until every
-                      detail perfectly captures your vision.
-                    </p>
+                  <div className="flex-1 overflow-hidden rounded-xl bg-white shadow-sm md:ml-24">
+                    <div className="flex items-center gap-0">
+                      <div className="flex-1 p-8">
+                        <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
+                          Design Development
+                        </h3>
+                        <p className="mb-0 leading-relaxed text-neutral-600">
+                          Our artisans create detailed sketches and 3D
+                          renderings of your piece. We refine the design
+                          together until every detail perfectly captures your
+                          vision.
+                        </p>
+                      </div>
+                      <div className="h-full flex-shrink-0">
+                        <div className="relative aspect-square h-[200px]">
+                          <Image
+                            src="/design.png"
+                            alt="Design development process"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
 
@@ -171,15 +193,30 @@ export default function CustomPage() {
                   <div className="relative z-10 flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-primary-600 text-2xl font-bold text-white shadow-lg">
                     3
                   </div>
-                  <div className="flex-1 rounded-xl bg-white p-8 shadow-sm">
-                    <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
-                      Craftsmanship
-                    </h3>
-                    <p className="mb-0 leading-relaxed text-neutral-600">
-                      Your piece is meticulously handcrafted using traditional
-                      techniques. We provide updates throughout the process,
-                      ensuring transparency and your complete satisfaction.
-                    </p>
+                  <div className="flex-1 overflow-hidden rounded-xl bg-white shadow-sm">
+                    <div className="flex items-center gap-0">
+                      <div className="flex-1 p-8">
+                        <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
+                          Craftsmanship
+                        </h3>
+                        <p className="mb-0 leading-relaxed text-neutral-600">
+                          Your piece is meticulously handcrafted using
+                          traditional techniques. We provide updates throughout
+                          the process, ensuring transparency and your complete
+                          satisfaction.
+                        </p>
+                      </div>
+                      <div className="h-full flex-shrink-0">
+                        <div className="relative aspect-square h-[200px]">
+                          <Image
+                            src="/crafting.png"
+                            alt="Craftsmanship process"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
 
@@ -194,15 +231,29 @@ export default function CustomPage() {
                   <div className="relative z-10 flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-primary-600 text-2xl font-bold text-white shadow-lg md:absolute md:left-0">
                     4
                   </div>
-                  <div className="flex-1 rounded-xl bg-white p-8 shadow-sm md:ml-24">
-                    <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
-                      Final Presentation
-                    </h3>
-                    <p className="mb-0 leading-relaxed text-neutral-600">
-                      Your completed custom piece is presented with a
-                      certificate of authenticity and care instructions, ready
-                      to become a treasured part of your story.
-                    </p>
+                  <div className="flex-1 overflow-hidden rounded-xl bg-white shadow-sm md:ml-24">
+                    <div className="flex items-center gap-0">
+                      <div className="flex-1 p-8">
+                        <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
+                          Final Presentation
+                        </h3>
+                        <p className="mb-0 leading-relaxed text-neutral-600">
+                          Your completed custom piece is presented with a
+                          certificate of authenticity and care instructions,
+                          ready to become a treasured part of your story.
+                        </p>
+                      </div>
+                      <div className="h-full flex-shrink-0">
+                        <div className="relative aspect-square h-[200px]">
+                          <Image
+                            src="/presentation.png"
+                            alt="Final presentation"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
               </div>
@@ -216,20 +267,13 @@ export default function CustomPage() {
               viewport={{ once: true }}
               className="mt-16"
             >
-              <div className="aspect-[16/9] overflow-hidden rounded-2xl bg-gradient-to-br from-secondary-100 to-primary-100">
-                <div className="flex h-full w-full items-center justify-center">
-                  <div className="p-8 text-center">
-                    <div className="mx-auto mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-secondary-200">
-                      <Sparkles className="h-16 w-16 text-secondary-700" />
-                    </div>
-                    <p className="text-lg font-medium text-neutral-700">
-                      Artisan at Work
-                    </p>
-                    <p className="mt-2 text-sm text-neutral-500">
-                      Traditional Techniques
-                    </p>
-                  </div>
-                </div>
+              <div className="relative aspect-[16/9] overflow-hidden rounded-2xl">
+                <Image
+                  src="/artisan.png"
+                  alt="Artisan at work - Traditional Ethiopian jewelry craftsmanship"
+                  fill
+                  className="object-cover"
+                />
               </div>
             </motion.div>
           </div>
@@ -251,8 +295,8 @@ export default function CustomPage() {
             </h2>
             <p className="mb-8 text-lg leading-relaxed text-neutral-600">
               Ready to create something extraordinary? Contact us to begin
-              designing your custom piece. Let&apos;s transform your vision into a
-              timeless work of art.
+              designing your custom piece. Let&apos;s transform your vision into
+              a timeless work of art.
             </p>
             <motion.a
               href="/contact"

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { Calendar, Clock, Hammer, Users } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 
 const workshopFeatures = [
   {
@@ -75,11 +76,11 @@ export default function WorkshopPage() {
                 own silver jewelry.
               </p>
               <p className="mb-6 text-lg leading-relaxed text-neutral-600">
-                Whether you&apos;re a complete beginner or an experienced jewelry
-                enthusiast, our workshops are designed to accommodate all skill
-                levels. You&apos;ll work with professional tools and high-quality
-                materials while learning about the cultural significance behind
-                traditional Ethiopian designs.
+                Whether you&apos;re a complete beginner or an experienced
+                jewelry enthusiast, our workshops are designed to accommodate
+                all skill levels. You&apos;ll work with professional tools and
+                high-quality materials while learning about the cultural
+                significance behind traditional Ethiopian designs.
               </p>
               <p className="text-lg leading-relaxed text-neutral-600">
                 Each participant leaves with their handcrafted piece and a
@@ -183,13 +184,19 @@ export default function WorkshopPage() {
                 className="flex flex-col justify-between"
               >
                 <div className="rounded-xl bg-neutral-50 p-6">
-                  <h3 className="mb-3 text-xl font-semibold text-neutral-900">
+                  <h3 className="mb-2 text-xl font-semibold text-neutral-900">
                     Introduction to Silver Working
                   </h3>
-                  <p className="mb-2 text-sm font-medium text-primary-600">
-                    Half-Day Workshop
-                  </p>
-                  <p className="mb-0 leading-relaxed text-neutral-600">
+
+                  <Link
+                    href="https://instagram.com/annesilver_ethiopia1"
+                    target="_blank"
+                    className="text-sm font-medium text-primary-600"
+                  >
+                    Check our Instagram for more information
+                  </Link>
+
+                  <p className="mt-2 leading-relaxed text-neutral-600">
                     Perfect for beginners. Learn basic techniques including
                     sawing, filing, and polishing. Create a simple pendant or
                     ring while discovering Ethiopian design traditions.
@@ -197,13 +204,19 @@ export default function WorkshopPage() {
                 </div>
 
                 <div className="rounded-xl bg-neutral-50 p-6">
-                  <h3 className="mb-3 text-xl font-semibold text-neutral-900">
+                  <h3 className="mb-2 text-xl font-semibold text-neutral-900">
                     Traditional Ethiopian Techniques
                   </h3>
-                  <p className="mb-2 text-sm font-medium text-primary-600">
-                    Full-Day Workshop
-                  </p>
-                  <p className="mb-0 leading-relaxed text-neutral-600">
+
+                  <Link
+                    href="https://instagram.com/annesilver_ethiopia1"
+                    target="_blank"
+                    className="text-sm font-medium text-primary-600"
+                  >
+                    Check our Instagram for more information
+                  </Link>
+
+                  <p className="mt-2 leading-relaxed text-neutral-600">
                     Explore traditional methods including filigree work and
                     granulation. Create an authentic Ethiopian-style piece while
                     learning about cultural symbolism.

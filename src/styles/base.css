@@ -89,7 +89,7 @@
   }
 
   a {
-    @apply text-primary-600 no-underline transition-colors hover:text-primary-700 hover:underline;
+    @apply text-primary-600 no-underline transition-colors hover:text-primary-700;
   }
 
   img {

@@ -15,7 +15,7 @@ export default function Hero() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="flex h-[35rem] flex-col justify-end bg-gradient-to-b from-transparent to-black/30">
+      <div className="flex h-[40rem] flex-col justify-end bg-gradient-to-b from-transparent to-black/30">
         <div className="mx-auto max-w-3xl px-8 py-12 text-center">
           <motion.p
             initial={{ opacity: 0, y: 20 }}

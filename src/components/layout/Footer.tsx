@@ -1,11 +1,9 @@
 "use client"
 
-import { useAuth } from "@/components/providers/SupabaseAuthProvider"
 import { Facebook, Instagram } from "lucide-react"
 import Link from "next/link"
 
 export default function Footer() {
-  const { isAuthenticated } = useAuth()
   return (
     <footer className="bg-neutral-900 text-neutral-300">
       <div className="container py-12">
@@ -89,16 +87,14 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 grid border-t border-neutral-800 pt-8 md:grid-cols-3">
-          {isAuthenticated && (
-            <Link
-              href="/admin"
-              className="mb-4 h-fit w-fit text-primary-300 transition-colors hover:text-primary-200 md:mb-0"
-            >
-              Admin
-            </Link>
-          )}
+          <Link
+            href="/admin"
+            className="mb-4 h-fit w-fit text-primary-300 transition-colors hover:text-primary-200 md:mb-0"
+          >
+            Admin
+          </Link>
 
-          <p className={`md:justify-self-center ${!isAuthenticated ? 'md:col-start-1' : ''}`}>
+          <p className="md:justify-self-center">
             © {new Date().getFullYear()} Anne Silver. All rights reserved.
           </p>
 

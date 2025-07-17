@@ -126,16 +126,16 @@ export default function ContactPage() {
                 Find Us
               </h2>
 
-              <h5>Our New Store</h5>
+              <h5>Our Main Store</h5>
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.417362516006!2d38.75495587511357!3d9.02563748904136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b854a1fa5f731%3A0x314309aaa190a0dd!2sREBTEK%20APARTMENTS!5e0!3m2!1sen!2set!4v1751699677237!5m2!1sen!2set"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.417298063436!2d38.75497097511348!3d9.025643389041221!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8564353f1f8f%3A0xbf2d6ac168e0d288!2sAnne%20Silver%20Ethiopia!5e0!3m2!1sen!2set!4v1751699616507!5m2!1sen!2set"
                 loading="lazy"
                 className="aspect-[4/3] w-full rounded-md border border-neutral-300"
               />
 
-              <h5 className="mt-6">Our Main Store</h5>
+              <h5 className="mt-6">Our Second Store</h5>
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.417298063436!2d38.75497097511348!3d9.025643389041221!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8564353f1f8f%3A0xbf2d6ac168e0d288!2sAnne%20Silver%20Ethiopia!5e0!3m2!1sen!2set!4v1751699616507!5m2!1sen!2set"
+                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3940.5946833674047!2d38.78824300000001!3d9.009390999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOcKwMDAnMzMuOCJOIDM4wrA0NycxNy43IkU!5e0!3m2!1sen!2set!4v1752522382061!5m2!1sen!2set"
                 loading="lazy"
                 className="aspect-[4/3] w-full rounded-md border border-neutral-300"
               />
