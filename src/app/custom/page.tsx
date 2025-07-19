@@ -118,7 +118,7 @@ export default function CustomPage() {
                     1
                   </div>
                   <div className="flex-1 overflow-hidden rounded-xl bg-white shadow-sm">
-                    <div className="flex items-center gap-0">
+                    <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-0">
                       <div className="flex-1 p-8">
                         <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
                           Initial Consultation
@@ -130,8 +130,8 @@ export default function CustomPage() {
                           resonate with your vision.
                         </p>
                       </div>
-                      <div className="h-full flex-shrink-0">
-                        <div className="relative aspect-square h-[200px]">
+                      <div className="w-full flex-shrink-0 md:h-full md:w-auto">
+                        <div className="relative aspect-square h-[200px] w-full md:w-[200px]">
                           <Image
                             src="/initial.png"
                             alt="Initial consultation process"
@@ -156,7 +156,7 @@ export default function CustomPage() {
                     2
                   </div>
                   <div className="flex-1 overflow-hidden rounded-xl bg-white shadow-sm md:ml-24">
-                    <div className="flex items-center gap-0">
+                    <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-0">
                       <div className="flex-1 p-8">
                         <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
                           Design Development
@@ -168,8 +168,8 @@ export default function CustomPage() {
                           vision.
                         </p>
                       </div>
-                      <div className="h-full flex-shrink-0">
-                        <div className="relative aspect-square h-[200px]">
+                      <div className="w-full flex-shrink-0 md:h-full md:w-auto">
+                        <div className="relative aspect-square h-[200px] w-full md:w-[200px]">
                           <Image
                             src="/design.png"
                             alt="Design development process"
@@ -194,7 +194,7 @@ export default function CustomPage() {
                     3
                   </div>
                   <div className="flex-1 overflow-hidden rounded-xl bg-white shadow-sm">
-                    <div className="flex items-center gap-0">
+                    <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-0">
                       <div className="flex-1 p-8">
                         <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
                           Craftsmanship
@@ -206,8 +206,8 @@ export default function CustomPage() {
                           satisfaction.
                         </p>
                       </div>
-                      <div className="h-full flex-shrink-0">
-                        <div className="relative aspect-square h-[200px]">
+                      <div className="w-full flex-shrink-0 md:h-full md:w-auto">
+                        <div className="relative aspect-square h-[200px] w-full md:w-[200px]">
                           <Image
                             src="/crafting.png"
                             alt="Craftsmanship process"
@@ -232,7 +232,7 @@ export default function CustomPage() {
                     4
                   </div>
                   <div className="flex-1 overflow-hidden rounded-xl bg-white shadow-sm md:ml-24">
-                    <div className="flex items-center gap-0">
+                    <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-0">
                       <div className="flex-1 p-8">
                         <h3 className="mb-3 text-2xl font-semibold text-neutral-900">
                           Final Presentation
@@ -243,8 +243,8 @@ export default function CustomPage() {
                           ready to become a treasured part of your story.
                         </p>
                       </div>
-                      <div className="h-full flex-shrink-0">
-                        <div className="relative aspect-square h-[200px]">
+                      <div className="w-full flex-shrink-0 md:h-full md:w-auto">
+                        <div className="relative aspect-square h-[200px] w-full md:w-[200px]">
                           <Image
                             src="/presentation.png"
                             alt="Final presentation"
