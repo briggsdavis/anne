@@ -9,10 +9,8 @@ export default function Hero() {
     <section
       className="relative overflow-hidden"
       style={{
-        backgroundImage: "url(/hero.webp)",
+        backgroundImage: "url(/newhero.png)",
         backgroundSize: "cover",
-        backgroundPosition: "top",
-        backgroundRepeat: "no-repeat",
       }}
     >
       <div className="flex h-[40rem] flex-col justify-end bg-gradient-to-b from-transparent to-black/30">

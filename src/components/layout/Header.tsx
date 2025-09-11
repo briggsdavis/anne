@@ -9,9 +9,9 @@ import { useEffect, useRef, useState } from "react"
 
 const navigation = [
   { name: "Home", href: "/" },
+  { name: "Gallery", href: "/gallery" },
   { name: "Women", href: "/gallery?gender=female" },
   { name: "Men", href: "/gallery?gender=male" },
-  { name: "Gallery", href: "/gallery" },
   { name: "Custom", href: "/custom" },
   { name: "Workshops", href: "/workshops" },
   { name: "Contact", href: "/contact" },
@@ -60,7 +60,7 @@ export default function Header() {
                 alt="Anne Silver"
                 width={300}
                 height={100}
-                className="mx-auto w-auto md:h-16"
+                className="mx-auto h-12 w-auto md:h-16"
                 priority
               />
             </Link>
