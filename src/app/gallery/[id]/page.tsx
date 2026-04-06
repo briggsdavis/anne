@@ -1,7 +1,7 @@
-import JewelryDetail from "@/components/gallery/JewelryDetail"
-import { JewelryService } from "@/lib/jewelry"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
+import JewelryDetail from "@/components/gallery/JewelryDetail"
+import { JewelryService } from "@/lib/jewelry"
 
 interface Props {
   params: Promise<{ id: string }>

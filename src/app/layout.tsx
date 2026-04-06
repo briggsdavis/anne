@@ -1,20 +1,20 @@
-import Footer from "@/components/layout/Footer"
-import Header from "@/components/layout/Header"
-import Providers from "@/components/providers/Providers"
-import ErrorBoundary from "@/components/ui/ErrorBoundary"
-import "@/styles/base.css"
 import { Metadata } from "next"
 import { GFS_Didot, Nunito_Sans } from "next/font/google"
 import { ReactNode } from "react"
+import Footer from "@/components/layout/Footer"
+import "@/styles/base.css"
+import Header from "@/components/layout/Header"
+import Providers from "@/components/providers/Providers"
+import ErrorBoundary from "@/components/ui/ErrorBoundary"
 
-const didot = GFS_Didot({ 
-  weight: "400", 
+const didot = GFS_Didot({
+  weight: "400",
   variable: "--font-didot",
-  subsets: ["greek"]
+  subsets: ["greek"],
 })
-const nunito = Nunito_Sans({ 
+const nunito = Nunito_Sans({
   variable: "--font-nunito",
-  subsets: ["latin"]
+  subsets: ["latin"],
 })
 
 export const metadata: Metadata = {

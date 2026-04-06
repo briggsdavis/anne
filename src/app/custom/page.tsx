@@ -72,6 +72,7 @@ export default function CustomPage() {
                   src="/filler.png"
                   alt="Custom design process"
                   fill
+                  sizes="(max-width: 768px) 80vw, 600px"
                   className="object-cover"
                 />
               </div>
@@ -136,6 +137,7 @@ export default function CustomPage() {
                             src="/initial.png"
                             alt="Initial consultation process"
                             fill
+                            sizes="(max-width: 768px) 100vw, 200px"
                             className="object-cover"
                           />
                         </div>
@@ -174,6 +176,7 @@ export default function CustomPage() {
                             src="/design.png"
                             alt="Design development process"
                             fill
+                            sizes="(max-width: 768px) 100vw, 200px"
                             className="object-cover"
                           />
                         </div>
@@ -212,6 +215,7 @@ export default function CustomPage() {
                             src="/crafting.png"
                             alt="Craftsmanship process"
                             fill
+                            sizes="(max-width: 768px) 100vw, 200px"
                             className="object-cover"
                           />
                         </div>
@@ -249,6 +253,7 @@ export default function CustomPage() {
                             src="/presentation.png"
                             alt="Final presentation"
                             fill
+                            sizes="(max-width: 768px) 100vw, 200px"
                             className="object-cover"
                           />
                         </div>
@@ -272,6 +277,7 @@ export default function CustomPage() {
                   src="/artisan.png"
                   alt="Artisan at work - Traditional Ethiopian jewelry craftsmanship"
                   fill
+                  sizes="(max-width: 768px) 100vw, 840px"
                   className="object-cover"
                 />
               </div>

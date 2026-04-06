@@ -13,5 +13,10 @@ export default async function GalleryPage(props: {
   const initialCategory = Array.isArray(category) ? category[0] : category
   const initialGender = Array.isArray(gender) ? gender[0] : gender
 
-  return <GalleryClient initialCategory={initialCategory} initialGender={initialGender} />
+  return (
+    <GalleryClient
+      initialCategory={initialCategory}
+      initialGender={initialGender}
+    />
+  )
 }

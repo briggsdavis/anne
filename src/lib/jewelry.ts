@@ -3,11 +3,10 @@ import type {
   JewelryImage,
   JewelryPiece,
 } from "@/types/jewelry"
-import { supabase } from "./supabase-client"
 import { logger } from "@/utils/logger"
+import { supabase } from "./supabase-client"
 
 export class JewelryService {
-
   // Get all jewelry pieces with their images and ring sizes
   static async getAllPieces(): Promise<JewelryPiece[]> {
     const { data: pieces, error } = await supabase
@@ -101,7 +100,7 @@ export class JewelryService {
   static async createPiece(data: JewelryFormData): Promise<JewelryPiece> {
     // Separate ring sizes from the main data
     const { available_sizes, ...pieceData } = data
-    
+
     const { data: piece, error } = await supabase
       .from("jewelry_pieces")
       .insert([pieceData])
@@ -114,7 +113,11 @@ export class JewelryService {
     }
 
     // If this is a ring and has available sizes, create the ring size records
-    if (piece.category === "rings" && available_sizes && available_sizes.length > 0) {
+    if (
+      piece.category === "rings" &&
+      available_sizes &&
+      available_sizes.length > 0
+    ) {
       await this.addRingSizes(piece.id, available_sizes)
     }
 
@@ -128,7 +131,7 @@ export class JewelryService {
   ): Promise<JewelryPiece> {
     // Separate ring sizes from the main data
     const { available_sizes, ...pieceData } = data
-    
+
     const { data: piece, error } = await supabase
       .from("jewelry_pieces")
       .update(pieceData)
@@ -137,7 +140,10 @@ export class JewelryService {
       .single()
 
     if (error) {
-      logger.apiError("updatePiece", error, { pieceId: id, updateData: pieceData })
+      logger.apiError("updatePiece", error, {
+        pieceId: id,
+        updateData: pieceData,
+      })
       throw new Error("Failed to update jewelry piece")
     }
 
@@ -224,7 +230,10 @@ export class JewelryService {
       .upload(fileName, file)
 
     if (uploadError) {
-      logger.apiError("uploadImage", uploadError, { fileName: file.name, pieceId })
+      logger.apiError("uploadImage", uploadError, {
+        fileName: file.name,
+        pieceId,
+      })
       throw new Error("Failed to upload image")
     }
 
@@ -270,14 +279,16 @@ export class JewelryService {
     try {
       // Extract the file path from the public URL
       // Public URLs are in format: https://[project-id].supabase.co/storage/v1/object/public/jewelry-images/[file-path]
-      const urlParts = imageUrl.split('/storage/v1/object/public/jewelry-images/')
+      const urlParts = imageUrl.split(
+        "/storage/v1/object/public/jewelry-images/",
+      )
       if (urlParts.length !== 2) {
         logger.error("Invalid image URL format", { imageUrl })
         return
       }
-      
+
       const filePath = urlParts[1]
-      
+
       const { error } = await supabase.storage
         .from("jewelry-images")
         .remove([filePath])
@@ -366,15 +377,16 @@ export class JewelryService {
   }
 
   // Add ring sizes for a jewelry piece
-  static async addRingSizes(jewelryPieceId: string, sizes: number[]): Promise<void> {
-    const ringSizeRecords = sizes.map(size => ({
+  static async addRingSizes(
+    jewelryPieceId: string,
+    sizes: number[],
+  ): Promise<void> {
+    const ringSizeRecords = sizes.map((size) => ({
       jewelry_piece_id: jewelryPieceId,
-      size
+      size,
     }))
 
-    const { error } = await supabase
-      .from("ring_sizes")
-      .insert(ringSizeRecords)
+    const { error } = await supabase.from("ring_sizes").insert(ringSizeRecords)
 
     if (error) {
       logger.apiError("addRingSizes", error, { jewelryPieceId, sizes })
@@ -408,6 +420,6 @@ export class JewelryService {
       throw new Error("Failed to fetch ring sizes")
     }
 
-    return sizes?.map(s => s.size) || []
+    return sizes?.map((s) => s.size) || []
   }
 }

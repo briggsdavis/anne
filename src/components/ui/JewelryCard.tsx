@@ -1,9 +1,9 @@
 "use client"
 
-import type { JewelryPiece } from "@/types/jewelry"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
+import type { JewelryPiece } from "@/types/jewelry"
 
 interface JewelryCardProps {
   piece: JewelryPiece
@@ -32,6 +32,7 @@ export default function JewelryCard({
                 src={primaryImage.image_url}
                 alt={primaryImage.alt_text}
                 fill
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 className="object-cover"
                 priority={priority}
               />

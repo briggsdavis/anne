@@ -1,15 +1,11 @@
-'use client'
+"use client"
 
-import { SupabaseAuthProvider } from '@/components/providers/SupabaseAuthProvider'
+import { SupabaseAuthProvider } from "@/components/providers/SupabaseAuthProvider"
 
 interface ProvidersProps {
   children: React.ReactNode
 }
 
 export default function Providers({ children }: ProvidersProps) {
-  return (
-    <SupabaseAuthProvider>
-      {children}
-    </SupabaseAuthProvider>
-  )
+  return <SupabaseAuthProvider>{children}</SupabaseAuthProvider>
 }

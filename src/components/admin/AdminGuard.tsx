@@ -1,10 +1,10 @@
-'use client'
+"use client"
 
-import { useAuth } from '@/components/providers/SupabaseAuthProvider'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
-import LoadingSpinner from '@/components/ui/LoadingSpinner'
-import AdminErrorBoundary from './AdminErrorBoundary'
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
+import { useAuth } from "@/components/providers/SupabaseAuthProvider"
+import LoadingSpinner from "@/components/ui/LoadingSpinner"
+import AdminErrorBoundary from "./AdminErrorBoundary"
 
 interface AdminGuardProps {
   children: React.ReactNode
@@ -17,14 +17,14 @@ export default function AdminGuard({ children }: AdminGuardProps) {
   useEffect(() => {
     // Only redirect if we've finished loading auth and user is not authenticated
     if (!loading && !isAuthenticated) {
-      router.push('/admin/login')
+      router.push("/admin/login")
     }
   }, [isAuthenticated, loading, router])
 
   // Show loading while checking authentication
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center">
         <LoadingSpinner size="lg" />
       </div>
     )
@@ -33,7 +33,7 @@ export default function AdminGuard({ children }: AdminGuardProps) {
   // Show loading while redirecting unauthenticated users
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center">
         <LoadingSpinner size="lg" />
       </div>
     )

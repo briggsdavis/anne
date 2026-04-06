@@ -1,23 +1,26 @@
 "use client"
 
+import { motion } from "framer-motion"
+import { Search } from "lucide-react"
+import Link from "next/link"
+import { useRouter, useSearchParams } from "next/navigation"
+import { useEffect, useState } from "react"
 import JewelryCard from "@/components/ui/JewelryCard"
 import LoadingSpinner from "@/components/ui/LoadingSpinner"
 import { JewelryService } from "@/lib/jewelry"
 import type { JewelryPiece } from "@/types/jewelry"
 import { JEWELRY_CATEGORIES, JEWELRY_GENDERS } from "@/types/jewelry"
 import { sanitizeSearchQuery } from "@/utils/sanitize"
-import { motion } from "framer-motion"
-import { Search } from "lucide-react"
-import Link from "next/link"
-import { useRouter, useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
 
 interface GalleryClientProps {
   initialCategory?: string
   initialGender?: string
 }
 
-export default function GalleryClient({ initialCategory, initialGender }: GalleryClientProps) {
+export default function GalleryClient({
+  initialCategory,
+  initialGender,
+}: GalleryClientProps) {
   const [pieces, setPieces] = useState<JewelryPiece[]>([])
   const [filteredPieces, setFilteredPieces] = useState<JewelryPiece[]>([])
   const [loading, setLoading] = useState(true)
@@ -34,9 +37,9 @@ export default function GalleryClient({ initialCategory, initialGender }: Galler
 
   // Watch for URL parameter changes and update filters accordingly
   useEffect(() => {
-    const category = searchParams.get('category') || ''
-    const gender = searchParams.get('gender') || ''
-    
+    const category = searchParams.get("category") || ""
+    const gender = searchParams.get("gender") || ""
+
     setSelectedCategory(category)
     setSelectedGender(gender)
   }, [searchParams])
@@ -105,13 +108,13 @@ export default function GalleryClient({ initialCategory, initialGender }: Galler
   // Helper function to update URL with both category and gender
   const updateURL = (category: string, gender: string) => {
     const params = new URLSearchParams(searchParams.toString())
-    
+
     if (category) {
       params.set("category", category)
     } else {
       params.delete("category")
     }
-    
+
     if (gender) {
       params.set("gender", gender)
     } else {
@@ -139,7 +142,7 @@ export default function GalleryClient({ initialCategory, initialGender }: Galler
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
+          <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <h1 className="brand-accent text-4xl font-bold text-neutral-900 md:text-5xl">
               Gallery
             </h1>
@@ -173,7 +176,10 @@ export default function GalleryClient({ initialCategory, initialGender }: Galler
                 <label htmlFor="jewelry-search" className="sr-only">
                   Search jewelry collection
                 </label>
-                <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform text-neutral-400" aria-hidden="true" />
+                <Search
+                  className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform text-neutral-400"
+                  aria-hidden="true"
+                />
                 <input
                   id="jewelry-search"
                   type="text"

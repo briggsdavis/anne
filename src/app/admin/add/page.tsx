@@ -1,11 +1,5 @@
 "use client"
 
-import AdminGuard from "@/components/admin/AdminGuard"
-import ErrorAlert, { useErrorAlert } from "@/components/ui/ErrorAlert"
-import SuccessAlert, { useSuccessAlert } from "@/components/ui/SuccessAlert"
-import { JewelryService } from "@/lib/jewelry"
-import { COMMON_MATERIALS, JEWELRY_CATEGORIES, JEWELRY_GENDERS, RING_SIZES } from "@/types/jewelry"
-import { sanitizeJewelryFormData } from "@/utils/sanitize"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { motion } from "framer-motion"
 import { ArrowLeft, Plus, Save, Upload, X } from "lucide-react"
@@ -15,6 +9,17 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useFieldArray, useForm } from "react-hook-form"
 import { z } from "zod"
+import AdminGuard from "@/components/admin/AdminGuard"
+import ErrorAlert, { useErrorAlert } from "@/components/ui/ErrorAlert"
+import SuccessAlert, { useSuccessAlert } from "@/components/ui/SuccessAlert"
+import { JewelryService } from "@/lib/jewelry"
+import {
+  COMMON_MATERIALS,
+  JEWELRY_CATEGORIES,
+  JEWELRY_GENDERS,
+  RING_SIZES,
+} from "@/types/jewelry"
+import { sanitizeJewelryFormData } from "@/utils/sanitize"
 
 const jewelrySchema = z.object({
   title: z.string().min(2, "Title must be at least 2 characters"),
@@ -37,9 +42,19 @@ export default function AddJewelryPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("")
   const [selectedSizes, setSelectedSizes] = useState<number[]>([])
   const router = useRouter()
-  
-  const { error, isVisible: showError, showError: displayError, hideError } = useErrorAlert()
-  const { message: successMessage, isVisible: showSuccess, showSuccess: displaySuccess, hideSuccess } = useSuccessAlert()
+
+  const {
+    error,
+    isVisible: showError,
+    showError: displayError,
+    hideError,
+  } = useErrorAlert()
+  const {
+    message: successMessage,
+    isVisible: showSuccess,
+    showSuccess: displaySuccess,
+    hideSuccess,
+  } = useSuccessAlert()
 
   const {
     register,
@@ -63,7 +78,7 @@ export default function AddJewelryPage() {
   } = useFieldArray({
     control,
     name: "materials",
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any)
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,20 +91,22 @@ export default function AddJewelryPage() {
     }
 
     // Validate file types and sizes
-    const validFiles = files.filter(file => {
-      const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
+    const validFiles = files.filter((file) => {
+      const validTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"]
       const maxSize = 10 * 1024 * 1024 // 10MB
-      
+
       if (!validTypes.includes(file.type)) {
-        displayError(`Invalid file type: ${file.name}. Only JPEG, PNG, and WebP are allowed.`)
+        displayError(
+          `Invalid file type: ${file.name}. Only JPEG, PNG, and WebP are allowed.`,
+        )
         return false
       }
-      
+
       if (file.size > maxSize) {
         displayError(`File too large: ${file.name}. Maximum size is 10MB.`)
         return false
       }
-      
+
       return true
     })
 
@@ -115,10 +132,17 @@ export default function AddJewelryPage() {
   const addMaterial = (material: string) => {
     if (material) {
       // Check if material already exists by examining the form values
-      const currentMaterials = materialFields.map((_, index) => 
-        (document.querySelector(`input[name="materials.${index}"]`) as HTMLInputElement)?.value
-      ).filter(Boolean)
-      
+      const currentMaterials = materialFields
+        .map(
+          (_, index) =>
+            (
+              document.querySelector(
+                `input[name="materials.${index}"]`,
+              ) as HTMLInputElement
+            )?.value,
+        )
+        .filter(Boolean)
+
       if (!currentMaterials.includes(material)) {
         appendMaterial(material)
       }
@@ -136,9 +160,9 @@ export default function AddJewelryPage() {
 
   const handleSizeToggle = (size: number) => {
     const newSizes = selectedSizes.includes(size)
-      ? selectedSizes.filter(s => s !== size)
+      ? selectedSizes.filter((s) => s !== size)
       : [...selectedSizes, size].sort((a, b) => a - b)
-    
+
     setSelectedSizes(newSizes)
     setValue("available_sizes", newSizes)
   }
@@ -158,7 +182,7 @@ export default function AddJewelryPage() {
         price: data.price,
         is_featured: data.is_featured,
       }
-      
+
       // Create the jewelry piece first
       const piece = await JewelryService.createPiece(sanitizedData)
 
@@ -186,15 +210,11 @@ export default function AddJewelryPage() {
 
   return (
     <AdminGuard>
-      <ErrorAlert 
-        message={error} 
-        isVisible={showError} 
-        onClose={hideError} 
-      />
-      <SuccessAlert 
-        message={successMessage} 
-        isVisible={showSuccess} 
-        onClose={hideSuccess} 
+      <ErrorAlert message={error} isVisible={showError} onClose={hideError} />
+      <SuccessAlert
+        message={successMessage}
+        isVisible={showSuccess}
+        onClose={hideSuccess}
       />
       <div className="min-h-screen bg-neutral-50">
         {/* Header */}
@@ -426,7 +446,7 @@ export default function AddJewelryPage() {
                     <p className="text-sm text-neutral-600">
                       Select all available sizes for this ring (US sizes):
                     </p>
-                    
+
                     <div className="grid grid-cols-6 gap-3 md:grid-cols-8">
                       {RING_SIZES.map((size) => (
                         <button
@@ -435,8 +455,8 @@ export default function AddJewelryPage() {
                           onClick={() => handleSizeToggle(size)}
                           className={`rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
                             selectedSizes.includes(size)
-                              ? 'border-primary-500 bg-primary-50 text-primary-700'
-                              : 'border-neutral-300 bg-white text-neutral-700 hover:border-primary-300 hover:bg-primary-50'
+                              ? "border-primary-500 bg-primary-50 text-primary-700"
+                              : "border-neutral-300 bg-white text-neutral-700 hover:border-primary-300 hover:bg-primary-50"
                           }`}
                         >
                           {size}
@@ -447,7 +467,7 @@ export default function AddJewelryPage() {
                     {selectedSizes.length > 0 && (
                       <div className="rounded-md bg-neutral-50 p-3">
                         <p className="text-sm text-neutral-600">
-                          Selected sizes: {selectedSizes.join(', ')}
+                          Selected sizes: {selectedSizes.join(", ")}
                         </p>
                       </div>
                     )}
@@ -499,6 +519,7 @@ export default function AddJewelryPage() {
                               src={preview}
                               alt={`Preview ${index + 1}`}
                               fill
+                              unoptimized
                               className="rounded-lg border border-neutral-200 object-cover"
                             />
                             <button

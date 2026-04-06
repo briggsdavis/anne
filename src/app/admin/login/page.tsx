@@ -1,6 +1,5 @@
 "use client"
 
-import { useAuth } from "@/components/providers/SupabaseAuthProvider"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { motion } from "framer-motion"
 import { Eye, EyeOff, LogIn } from "lucide-react"
@@ -9,6 +8,7 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import { useAuth } from "@/components/providers/SupabaseAuthProvider"
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),

@@ -32,6 +32,7 @@ function Card({ index }: { index: number }) {
         src={image}
         alt={`${name} Collection`}
         fill
+        sizes="(max-width: 1024px) 50vw, 400px"
         className="rounded-xl object-cover transition-transform duration-300 group-hover:scale-105"
       />
 

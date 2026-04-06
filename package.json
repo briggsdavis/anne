@@ -1,36 +1,40 @@
 {
   "name": "anne",
   "version": "0.1.0",
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "oxlint",
+    "format": "oxfmt"
   },
   "dependencies": {
-    "@hookform/resolvers": "^5.1.1",
-    "@supabase/ssr": "^0.6.1",
-    "@supabase/supabase-js": "^2.50.5",
-    "dompurify": "^3.2.6",
-    "framer-motion": "^12.23.3",
-    "lucide-react": "^0.525.0",
-    "next": "15.3.5",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "react-hook-form": "^7.60.0",
-    "zod": "^4.0.5"
+    "@hookform/resolvers": "5.2.2",
+    "@supabase/ssr": "0.10.0",
+    "@supabase/supabase-js": "2.101.1",
+    "dompurify": "3.3.3",
+    "framer-motion": "12.38.0",
+    "lucide-react": "1.7.0",
+    "next": "16.2.2",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-hook-form": "7.72.1",
+    "zod": "4.3.6"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "3.3.1",
-    "@tailwindcss/postcss": "4.1.11",
-    "@types/node": "24.0.13",
-    "@types/react": "19.1.8",
-    "@types/react-dom": "19.1.6",
-    "eslint": "9.31.0",
-    "eslint-config-next": "15.3.5",
-    "prettier": "3.6.2",
-    "prettier-plugin-tailwindcss": "0.6.14",
-    "tailwindcss": "4.1.11",
-    "typescript": "5.8.3"
-  }
+    "@eslint/eslintrc": "3.3.5",
+    "@tailwindcss/postcss": "4.2.2",
+    "@types/node": "25.5.2",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "oxfmt": "^0.43.0",
+    "oxlint": "^1.58.0",
+    "tailwindcss": "4.2.2",
+    "typescript": "6.0.2"
+  },
+  "trustedDependencies": [
+    "sharp",
+    "unrs-resolver"
+  ]
 }

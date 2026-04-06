@@ -1,14 +1,18 @@
-import { z } from 'zod'
-import { logger } from '@/utils/logger'
+import { z } from "zod"
+import { logger } from "@/utils/logger"
 
 // Define environment variable schema
 const envSchema = z.object({
   // Next.js environment
-  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
-  
+  NODE_ENV: z
+    .enum(["development", "production", "test"])
+    .default("development"),
+
   // Supabase configuration (client-side)
-  NEXT_PUBLIC_SUPABASE_URL: z.string().url('Invalid Supabase URL'),
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1, 'Supabase anonymous key is required'),
+  NEXT_PUBLIC_SUPABASE_URL: z.string().url("Invalid Supabase URL"),
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: z
+    .string()
+    .min(1, "Supabase anonymous key is required"),
 })
 
 // Type for validated environment variables
@@ -34,11 +38,13 @@ export function getEnv(): Env {
 
     return validatedEnv
   } catch (error) {
-    logger.error('Environment validation failed', {
+    logger.error("Environment validation failed", {
       error: error instanceof Error ? error.message : String(error),
     })
-    
-    throw new Error('Invalid environment configuration. Please check your environment variables.')
+
+    throw new Error(
+      "Invalid environment configuration. Please check your environment variables.",
+    )
   }
 }
 
@@ -46,14 +52,14 @@ export function getEnv(): Env {
  * Check if we're in development mode
  */
 export function isDevelopment(): boolean {
-  return getEnv().NODE_ENV === 'development'
+  return getEnv().NODE_ENV === "development"
 }
 
 /**
  * Check if we're in production mode
  */
 export function isProduction(): boolean {
-  return getEnv().NODE_ENV === 'production'
+  return getEnv().NODE_ENV === "production"
 }
 
 /**
@@ -67,7 +73,6 @@ export function getSupabaseConfig() {
   }
 }
 
-
 /**
  * Validate environment on app startup
  * Call this early in your app initialization
@@ -75,9 +80,9 @@ export function getSupabaseConfig() {
 export function validateEnvironment() {
   try {
     getEnv()
-    logger.info('Environment validation successful')
+    logger.info("Environment validation successful")
   } catch (error) {
-    logger.error('Environment validation failed during startup', { error })
+    logger.error("Environment validation failed during startup", { error })
     // In production, we might want to exit the process
     if (isProduction()) {
       process.exit(1)

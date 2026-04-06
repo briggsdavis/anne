@@ -1,11 +1,5 @@
 "use client"
 
-import AdminGuard from "@/components/admin/AdminGuard"
-import { useAuth } from "@/components/providers/SupabaseAuthProvider"
-import LoadingSpinner from "@/components/ui/LoadingSpinner"
-import { JewelryService } from "@/lib/jewelry"
-import type { JewelryPiece } from "@/types/jewelry"
-import { logger } from "@/utils/logger"
 import { motion } from "framer-motion"
 import {
   DollarSign,
@@ -21,6 +15,12 @@ import {
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import AdminGuard from "@/components/admin/AdminGuard"
+import { useAuth } from "@/components/providers/SupabaseAuthProvider"
+import LoadingSpinner from "@/components/ui/LoadingSpinner"
+import { JewelryService } from "@/lib/jewelry"
+import type { JewelryPiece } from "@/types/jewelry"
+import { logger } from "@/utils/logger"
 
 export default function AdminPage() {
   const [pieces, setPieces] = useState<JewelryPiece[]>([])
@@ -217,7 +217,10 @@ export default function AdminPage() {
                     <div>
                       <p className="text-sm text-neutral-600">Total Value</p>
                       <p className="text-2xl font-bold text-neutral-900">
-                        ETB {stats.totalValue.toLocaleString('en-US', { maximumFractionDigits: 0 })}
+                        ETB{" "}
+                        {stats.totalValue.toLocaleString("en-US", {
+                          maximumFractionDigits: 0,
+                        })}
                       </p>
                     </div>
                     <DollarSign className="h-8 w-8 text-primary-600" />
@@ -285,12 +288,13 @@ export default function AdminPage() {
                           >
                             <td className="px-6 py-4">
                               <div className="flex items-center space-x-3">
-                                <div className="relative h-12 w-12 flex-shrink-0 rounded-lg bg-neutral-200">
+                                <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg bg-neutral-200">
                                   {piece.images?.[0] && (
                                     <Image
                                       src={piece.images[0].image_url}
                                       alt={piece.images[0].alt_text}
-                                      fill
+                                      width={48}
+                                      height={48}
                                       className="h-full w-full rounded-lg object-cover"
                                     />
                                   )}
@@ -316,11 +320,16 @@ export default function AdminPage() {
                                   {piece.gender}
                                 </span>
                               ) : (
-                                <span className="text-xs text-neutral-400">Not specified</span>
+                                <span className="text-xs text-neutral-400">
+                                  Not specified
+                                </span>
                               )}
                             </td>
                             <td className="px-6 py-4 font-medium">
-                              ETB {piece.price.toLocaleString('en-US', { maximumFractionDigits: 0 })}
+                              ETB{" "}
+                              {piece.price.toLocaleString("en-US", {
+                                maximumFractionDigits: 0,
+                              })}
                             </td>
                             <td className="px-6 py-4">
                               <button

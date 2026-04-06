@@ -8,6 +8,11 @@ const config: NextConfig = {
         hostname: "jejnrdxxcxixydvfecxi.supabase.co",
       },
     ],
+    minimumCacheTTL: 2678400,
+    formats: ["image/webp"],
+    deviceSizes: [640, 828, 1080, 1200, 1920],
+    imageSizes: [48, 96, 128, 256],
+    qualities: [75],
   },
 }
 

@@ -1,5 +1,14 @@
 "use client"
 
+import { zodResolver } from "@hookform/resolvers/zod"
+import { motion } from "framer-motion"
+import { ArrowLeft, Plus, Save, Upload, X } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { useFieldArray, useForm } from "react-hook-form"
+import { z } from "zod"
 import AdminGuard from "@/components/admin/AdminGuard"
 import ErrorAlert, { useErrorAlert } from "@/components/ui/ErrorAlert"
 import SuccessAlert, { useSuccessAlert } from "@/components/ui/SuccessAlert"
@@ -12,15 +21,6 @@ import {
   RING_SIZES,
 } from "@/types/jewelry"
 import { sanitizeJewelryFormData } from "@/utils/sanitize"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { motion } from "framer-motion"
-import { ArrowLeft, Plus, Save, Upload, X } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
-import { useFieldArray, useForm } from "react-hook-form"
-import { z } from "zod"
 
 const jewelrySchema = z.object({
   title: z.string().min(2, "Title must be at least 2 characters"),
@@ -111,9 +111,10 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
         setPiece(pieceData)
         setExistingImages(pieceData.images || [])
         setSelectedCategory(pieceData.category)
-        
+
         // Initialize ring sizes if this is a ring
-        const ringSizes = pieceData.ring_sizes?.map(rs => rs.size).sort((a, b) => a - b) || []
+        const ringSizes =
+          pieceData.ring_sizes?.map((rs) => rs.size).sort((a, b) => a - b) || []
         setSelectedSizes(ringSizes)
 
         // Populate form with existing data
@@ -223,9 +224,9 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
 
   const handleSizeToggle = (size: number) => {
     const newSizes = selectedSizes.includes(size)
-      ? selectedSizes.filter(s => s !== size)
+      ? selectedSizes.filter((s) => s !== size)
       : [...selectedSizes, size].sort((a, b) => a - b)
-    
+
     setSelectedSizes(newSizes)
     setValue("available_sizes", newSizes)
   }
@@ -536,7 +537,7 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
                     <p className="text-sm text-neutral-600">
                       Select all available sizes for this ring (US sizes):
                     </p>
-                    
+
                     <div className="grid grid-cols-6 gap-3 md:grid-cols-8">
                       {RING_SIZES.map((size) => (
                         <button
@@ -545,8 +546,8 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
                           onClick={() => handleSizeToggle(size)}
                           className={`rounded-md border px-3 py-2 text-sm font-medium transition-colors ${
                             selectedSizes.includes(size)
-                              ? 'border-primary-500 bg-primary-50 text-primary-700'
-                              : 'border-neutral-300 bg-white text-neutral-700 hover:border-primary-300 hover:bg-primary-50'
+                              ? "border-primary-500 bg-primary-50 text-primary-700"
+                              : "border-neutral-300 bg-white text-neutral-700 hover:border-primary-300 hover:bg-primary-50"
                           }`}
                         >
                           {size}
@@ -557,7 +558,7 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
                     {selectedSizes.length > 0 && (
                       <div className="rounded-md bg-neutral-50 p-3">
                         <p className="text-sm text-neutral-600">
-                          Selected sizes: {selectedSizes.join(', ')}
+                          Selected sizes: {selectedSizes.join(", ")}
                         </p>
                       </div>
                     )}
@@ -588,6 +589,7 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
                               src={image.image_url}
                               alt={image.alt_text}
                               fill
+                              sizes="(max-width: 768px) 45vw, 170px"
                               className="rounded-lg border border-neutral-200 object-cover"
                             />
                             <button
@@ -649,6 +651,7 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
                               src={preview}
                               alt={`New preview ${index + 1}`}
                               fill
+                              unoptimized
                               className="rounded-lg border border-neutral-200 object-cover"
                             />
                             <button
