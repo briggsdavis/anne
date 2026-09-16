@@ -4,8 +4,8 @@ import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import JewelryCard from "@/components/ui/JewelryCard"
-import LoadingSpinner from "@/components/ui/LoadingSpinner"
+import JewelryCard from "@/components/ui/jewelry-card"
+import LoadingSpinner from "@/components/ui/loading-spinner"
 import { JewelryService } from "@/lib/jewelry"
 import type { JewelryPiece } from "@/types/jewelry"
 
@@ -52,8 +52,8 @@ export default function FeaturedPieces() {
             Featured Collection
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-neutral-600">
-            Discover our most treasured pieces, each one carefully crafted to
-            showcase the beauty of Ethiopian artistry.
+            Discover our most treasured pieces, each one carefully crafted to showcase the beauty of
+            Ethiopian artistry.
           </p>
         </motion.div>
 
@@ -61,11 +61,7 @@ export default function FeaturedPieces() {
           <>
             <div className="mb-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {pieces.map((piece, index) => (
-                <JewelryCard
-                  key={piece.id}
-                  piece={piece}
-                  priority={index < 3}
-                />
+                <JewelryCard key={piece.id} piece={piece} priority={index < 3} />
               ))}
             </div>
 
@@ -84,9 +80,7 @@ export default function FeaturedPieces() {
           </>
         ) : (
           <div className="py-12 text-center">
-            <p className="text-neutral-600">
-              No featured pieces available at the moment.
-            </p>
+            <p className="text-neutral-600">No featured pieces available at the moment.</p>
           </div>
         )}
       </div>

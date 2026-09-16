@@ -318,11 +318,7 @@
   .brand-accent::after {
     @apply absolute -bottom-1 left-0 h-0.5 w-10 rounded-full;
     content: "";
-    background: linear-gradient(
-      90deg,
-      var(--color-primary-500),
-      var(--color-accent-500)
-    );
+    background: linear-gradient(90deg, var(--color-primary-500), var(--color-accent-500));
   }
 
   /* Line clamp utility */

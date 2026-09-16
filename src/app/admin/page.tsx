@@ -15,9 +15,9 @@ import {
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import AdminGuard from "@/components/admin/AdminGuard"
-import { useAuth } from "@/components/providers/SupabaseAuthProvider"
-import LoadingSpinner from "@/components/ui/LoadingSpinner"
+import AdminGuard from "@/components/admin/admin-guard"
+import { useAuth } from "@/components/providers/supabase-auth-provider"
+import LoadingSpinner from "@/components/ui/loading-spinner"
 import { JewelryService } from "@/lib/jewelry"
 import type { JewelryPiece } from "@/types/jewelry"
 import { logger } from "@/utils/logger"
@@ -44,9 +44,7 @@ export default function AdminPage() {
         const available = allPieces.filter((p) => !p.is_sold).length
         const sold = allPieces.filter((p) => p.is_sold).length
         const featured = allPieces.filter((p) => p.is_featured).length
-        const totalValue = allPieces
-          .filter((p) => !p.is_sold)
-          .reduce((sum, p) => sum + p.price, 0)
+        const totalValue = allPieces.filter((p) => !p.is_sold).reduce((sum, p) => sum + p.price, 0)
 
         setStats({
           total: allPieces.length,
@@ -82,11 +80,7 @@ export default function AdminPage() {
   }
 
   const handleDeletePiece = async (id: string) => {
-    if (
-      !confirm(
-        "Are you sure you want to delete this piece? This action cannot be undone.",
-      )
-    ) {
+    if (!confirm("Are you sure you want to delete this piece? This action cannot be undone.")) {
       return
     }
 
@@ -109,12 +103,8 @@ export default function AdminPage() {
           <div className="container py-6">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-3xl font-bold text-neutral-900">
-                  Admin Dashboard
-                </h1>
-                <p className="mt-1 text-neutral-600">
-                  Manage your jewelry collection
-                </p>
+                <h1 className="text-3xl font-bold text-neutral-900">Admin Dashboard</h1>
+                <p className="mt-1 text-neutral-600">Manage your jewelry collection</p>
               </div>
 
               <div className="flex items-center space-x-4">
@@ -148,9 +138,7 @@ export default function AdminPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-neutral-600">Total Pieces</p>
-                      <p className="text-2xl font-bold text-neutral-900">
-                        {stats.total}
-                      </p>
+                      <p className="text-2xl font-bold text-neutral-900">{stats.total}</p>
                     </div>
                     <Package className="h-8 w-8 text-primary-600" />
                   </div>
@@ -165,9 +153,7 @@ export default function AdminPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-neutral-600">Available</p>
-                      <p className="text-2xl font-bold text-green-600">
-                        {stats.available}
-                      </p>
+                      <p className="text-2xl font-bold text-green-600">{stats.available}</p>
                     </div>
                     <Eye className="h-8 w-8 text-green-600" />
                   </div>
@@ -182,9 +168,7 @@ export default function AdminPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-neutral-600">Sold</p>
-                      <p className="text-2xl font-bold text-red-600">
-                        {stats.sold}
-                      </p>
+                      <p className="text-2xl font-bold text-red-600">{stats.sold}</p>
                     </div>
                     <DollarSign className="h-8 w-8 text-red-600" />
                   </div>
@@ -199,9 +183,7 @@ export default function AdminPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-neutral-600">Featured</p>
-                      <p className="text-2xl font-bold text-primary-600">
-                        {stats.featured}
-                      </p>
+                      <p className="text-2xl font-bold text-primary-600">{stats.featured}</p>
                     </div>
                     <Settings className="h-8 w-8 text-primary-600" />
                   </div>
@@ -235,9 +217,7 @@ export default function AdminPage() {
                 transition={{ duration: 0.5, delay: 0.5 }}
                 className="mb-8 flex items-center justify-between"
               >
-                <h2 className="text-xl font-semibold text-neutral-900">
-                  Inventory Management
-                </h2>
+                <h2 className="text-xl font-semibold text-neutral-900">Inventory Management</h2>
 
                 <Link href="/admin/add" className="btn btn-primary">
                   <Plus className="h-4 w-4" />
@@ -286,6 +266,7 @@ export default function AdminPage() {
                             key={piece.id}
                             className="border-b border-neutral-100 hover:bg-neutral-50"
                           >
+                            {/* oxlint-disable-next-line jsx-a11y/control-has-associated-label */}
                             <td className="px-6 py-4">
                               <div className="flex items-center space-x-3">
                                 <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg bg-neutral-200">
@@ -320,9 +301,7 @@ export default function AdminPage() {
                                   {piece.gender}
                                 </span>
                               ) : (
-                                <span className="text-xs text-neutral-400">
-                                  Not specified
-                                </span>
+                                <span className="text-xs text-neutral-400">Not specified</span>
                               )}
                             </td>
                             <td className="px-6 py-4 font-medium">
@@ -333,12 +312,7 @@ export default function AdminPage() {
                             </td>
                             <td className="px-6 py-4">
                               <button
-                                onClick={() =>
-                                  handleToggleSoldStatus(
-                                    piece.id,
-                                    piece.is_sold,
-                                  )
-                                }
+                                onClick={() => handleToggleSoldStatus(piece.id, piece.is_sold)}
                                 className={`inline-block rounded-md px-2 py-1 text-xs font-medium ${
                                   piece.is_sold
                                     ? "bg-red-100 text-red-700 hover:bg-red-200"
@@ -362,6 +336,7 @@ export default function AdminPage() {
                                   target="_blank"
                                   className="rounded-md p-2 text-neutral-600 transition-colors hover:bg-primary-50 hover:text-primary-600"
                                   title="View piece"
+                                  aria-label={`View ${piece.title}`}
                                 >
                                   <Eye className="h-4 w-4" />
                                 </Link>
@@ -369,6 +344,7 @@ export default function AdminPage() {
                                   href={`/admin/edit/${piece.id}`}
                                   className="rounded-md p-2 text-neutral-600 transition-colors hover:bg-blue-50 hover:text-blue-600"
                                   title="Edit piece"
+                                  aria-label={`Edit ${piece.title}`}
                                 >
                                   <Edit3 className="h-4 w-4" />
                                 </Link>
@@ -376,6 +352,7 @@ export default function AdminPage() {
                                   onClick={() => handleDeletePiece(piece.id)}
                                   className="rounded-md p-2 text-neutral-600 transition-colors hover:bg-red-50 hover:text-red-600"
                                   title="Delete piece"
+                                  aria-label={`Delete ${piece.title}`}
                                 >
                                   <Trash2 className="h-4 w-4" />
                                 </button>

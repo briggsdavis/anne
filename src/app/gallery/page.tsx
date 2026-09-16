@@ -1,10 +1,8 @@
-import GalleryClient from "@/components/gallery/GalleryClient"
+import GalleryClient from "@/components/gallery/gallery-client"
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
 
-export default async function GalleryPage(props: {
-  searchParams: SearchParams
-}) {
+export default async function GalleryPage(props: { searchParams: SearchParams }) {
   const searchParams = await props.searchParams
   const category = searchParams.category
   const gender = searchParams.gender
@@ -13,10 +11,5 @@ export default async function GalleryPage(props: {
   const initialCategory = Array.isArray(category) ? category[0] : category
   const initialGender = Array.isArray(gender) ? gender[0] : gender
 
-  return (
-    <GalleryClient
-      initialCategory={initialCategory}
-      initialGender={initialGender}
-    />
-  )
+  return <GalleryClient initialCategory={initialCategory} initialGender={initialGender} />
 }

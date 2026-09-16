@@ -9,16 +9,11 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useFieldArray, useForm } from "react-hook-form"
 import { z } from "zod"
-import AdminGuard from "@/components/admin/AdminGuard"
-import ErrorAlert, { useErrorAlert } from "@/components/ui/ErrorAlert"
-import SuccessAlert, { useSuccessAlert } from "@/components/ui/SuccessAlert"
+import AdminGuard from "@/components/admin/admin-guard"
+import ErrorAlert, { useErrorAlert } from "@/components/ui/error-alert"
+import SuccessAlert, { useSuccessAlert } from "@/components/ui/success-alert"
 import { JewelryService } from "@/lib/jewelry"
-import {
-  COMMON_MATERIALS,
-  JEWELRY_CATEGORIES,
-  JEWELRY_GENDERS,
-  RING_SIZES,
-} from "@/types/jewelry"
+import { COMMON_MATERIALS, JEWELRY_CATEGORIES, JEWELRY_GENDERS, RING_SIZES } from "@/types/jewelry"
 import { sanitizeJewelryFormData } from "@/utils/sanitize"
 
 const jewelrySchema = z.object({
@@ -43,12 +38,7 @@ export default function AddJewelryPage() {
   const [selectedSizes, setSelectedSizes] = useState<number[]>([])
   const router = useRouter()
 
-  const {
-    error,
-    isVisible: showError,
-    showError: displayError,
-    hideError,
-  } = useErrorAlert()
+  const { error, isVisible: showError, showError: displayError, hideError } = useErrorAlert()
   const {
     message: successMessage,
     isVisible: showSuccess,
@@ -96,9 +86,7 @@ export default function AddJewelryPage() {
       const maxSize = 10 * 1024 * 1024 // 10MB
 
       if (!validTypes.includes(file.type)) {
-        displayError(
-          `Invalid file type: ${file.name}. Only JPEG, PNG, and WebP are allowed.`,
-        )
+        displayError(`Invalid file type: ${file.name}. Only JPEG, PNG, and WebP are allowed.`)
         return false
       }
 
@@ -135,11 +123,7 @@ export default function AddJewelryPage() {
       const currentMaterials = materialFields
         .map(
           (_, index) =>
-            (
-              document.querySelector(
-                `input[name="materials.${index}"]`,
-              ) as HTMLInputElement
-            )?.value,
+            (document.querySelector(`input[name="materials.${index}"]`) as HTMLInputElement)?.value,
         )
         .filter(Boolean)
 
@@ -211,26 +195,17 @@ export default function AddJewelryPage() {
   return (
     <AdminGuard>
       <ErrorAlert message={error} isVisible={showError} onClose={hideError} />
-      <SuccessAlert
-        message={successMessage}
-        isVisible={showSuccess}
-        onClose={hideSuccess}
-      />
+      <SuccessAlert message={successMessage} isVisible={showSuccess} onClose={hideSuccess} />
       <div className="min-h-screen bg-neutral-50">
         {/* Header */}
         <div className="border-b border-neutral-200 bg-white">
           <div className="container py-6">
             <div className="flex items-center space-x-4">
-              <Link
-                href="/admin"
-                className="rounded-lg p-2 transition-colors hover:bg-neutral-100"
-              >
+              <Link href="/admin" className="rounded-lg p-2 transition-colors hover:bg-neutral-100">
                 <ArrowLeft className="h-5 w-5 text-neutral-600" />
               </Link>
               <div>
-                <h1 className="text-3xl font-bold text-neutral-900">
-                  Add New Piece
-                </h1>
+                <h1 className="text-3xl font-bold text-neutral-900">Add New Piece</h1>
                 <p className="mt-1 text-neutral-600">
                   Create a new jewelry piece for your collection
                 </p>
@@ -249,9 +224,7 @@ export default function AddJewelryPage() {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
               {/* Basic Information */}
               <div className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm">
-                <h2 className="mb-6 text-xl font-semibold text-neutral-900">
-                  Basic Information
-                </h2>
+                <h2 className="mb-6 text-xl font-semibold text-neutral-900">Basic Information</h2>
 
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div className="md:col-span-2">
@@ -269,9 +242,7 @@ export default function AddJewelryPage() {
                       placeholder="e.g., Golden Ethiopian Cross Necklace"
                     />
                     {errors.title && (
-                      <p className="mt-1 text-sm text-red-600">
-                        {errors.title.message}
-                      </p>
+                      <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>
                     )}
                   </div>
 
@@ -291,9 +262,7 @@ export default function AddJewelryPage() {
                       placeholder="15000.00"
                     />
                     {errors.price && (
-                      <p className="mt-1 text-sm text-red-600">
-                        {errors.price.message}
-                      </p>
+                      <p className="mt-1 text-sm text-red-600">{errors.price.message}</p>
                     )}
                   </div>
 
@@ -318,9 +287,7 @@ export default function AddJewelryPage() {
                       ))}
                     </select>
                     {errors.category && (
-                      <p className="mt-1 text-sm text-red-600">
-                        {errors.category.message}
-                      </p>
+                      <p className="mt-1 text-sm text-red-600">{errors.category.message}</p>
                     )}
                   </div>
 
@@ -331,11 +298,7 @@ export default function AddJewelryPage() {
                     >
                       Target Gender (Optional)
                     </label>
-                    <select
-                      {...register("gender")}
-                      id="gender"
-                      className="input"
-                    >
+                    <select {...register("gender")} id="gender" className="input">
                       <option value="">Not specified</option>
                       {JEWELRY_GENDERS.map((gender) => (
                         <option key={gender.value} value={gender.value}>
@@ -360,9 +323,7 @@ export default function AddJewelryPage() {
                       placeholder="Describe the piece, its inspiration, materials, and craftsmanship..."
                     />
                     {errors.description && (
-                      <p className="mt-1 text-sm text-red-600">
-                        {errors.description.message}
-                      </p>
+                      <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
                     )}
                   </div>
                 </div>
@@ -370,16 +331,20 @@ export default function AddJewelryPage() {
 
               {/* Materials */}
               <div className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm">
-                <h2 className="mb-6 text-xl font-semibold text-neutral-900">
-                  Materials
-                </h2>
+                <h2 className="mb-6 text-xl font-semibold text-neutral-900">Materials</h2>
 
                 <div className="space-y-4">
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-neutral-700">
+                    <p
+                      id="common-materials-label"
+                      className="mb-2 block text-sm font-medium text-neutral-700"
+                    >
                       Common Materials (click to add)
-                    </label>
-                    <div className="flex flex-wrap gap-2">
+                    </p>
+                    <fieldset
+                      aria-labelledby="common-materials-label"
+                      className="flex flex-wrap gap-2"
+                    >
                       {COMMON_MATERIALS.map((material) => (
                         <button
                           key={material}
@@ -390,27 +355,29 @@ export default function AddJewelryPage() {
                           {material}
                         </button>
                       ))}
-                    </div>
+                    </fieldset>
                   </div>
 
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-neutral-700">
+                    <p
+                      id="selected-materials-label"
+                      className="mb-2 block text-sm font-medium text-neutral-700"
+                    >
                       Selected Materials
-                    </label>
-                    <div className="space-y-2">
+                    </p>
+                    <fieldset aria-labelledby="selected-materials-label" className="space-y-2">
                       {materialFields.map((field, index) => (
-                        <div
-                          key={field.id}
-                          className="flex items-center space-x-2"
-                        >
+                        <div key={field.id} className="flex items-center space-x-2">
                           <input
                             {...register(`materials.${index}` as const)}
+                            aria-label={`Material ${index + 1}`}
                             className="input flex-1"
                             placeholder="Enter material"
                           />
                           <button
                             type="button"
                             onClick={() => removeMaterial(index)}
+                            aria-label={`Remove material ${index + 1}`}
                             className="rounded-md p-2 text-red-600 transition-colors hover:bg-red-50"
                           >
                             <X className="h-4 w-4" />
@@ -425,11 +392,9 @@ export default function AddJewelryPage() {
                         <Plus className="h-4 w-4" />
                         Add Material
                       </button>
-                    </div>
+                    </fieldset>
                     {errors.materials && (
-                      <p className="mt-1 text-sm text-red-600">
-                        {errors.materials.message}
-                      </p>
+                      <p className="mt-1 text-sm text-red-600">{errors.materials.message}</p>
                     )}
                   </div>
                 </div>
@@ -477,25 +442,23 @@ export default function AddJewelryPage() {
 
               {/* Images */}
               <div className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm">
-                <h2 className="mb-6 text-xl font-semibold text-neutral-900">
-                  Images
-                </h2>
+                <h2 className="mb-6 text-xl font-semibold text-neutral-900">Images</h2>
 
                 <div className="space-y-4">
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-neutral-700">
+                    <label
+                      htmlFor="images-upload"
+                      className="mb-2 block text-sm font-medium text-neutral-700"
+                    >
                       Upload Images (Max 5)
                     </label>
                     <div className="relative rounded-lg border-2 border-dashed border-neutral-300 p-6 text-center transition-colors hover:border-primary-400">
                       <Upload className="mx-auto mb-2 h-8 w-8 text-neutral-400" />
-                      <p className="mb-2 text-neutral-600">
-                        Click to upload or drag and drop
-                      </p>
-                      <p className="text-sm text-neutral-500">
-                        PNG, JPG up to 10MB each
-                      </p>
+                      <p className="mb-2 text-neutral-600">Click to upload or drag and drop</p>
+                      <p className="text-sm text-neutral-500">PNG, JPG up to 10MB each</p>
                       <input
                         type="file"
+                        id="images-upload"
                         multiple
                         accept="image/*"
                         onChange={handleImageUpload}
@@ -506,15 +469,10 @@ export default function AddJewelryPage() {
 
                   {imagePreviews.length > 0 && (
                     <div>
-                      <p className="mb-2 text-sm font-medium text-neutral-700">
-                        Preview
-                      </p>
+                      <p className="mb-2 text-sm font-medium text-neutral-700">Preview</p>
                       <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
                         {imagePreviews.map((preview, index) => (
-                          <div
-                            key={index}
-                            className="group relative aspect-square"
-                          >
+                          <div key={index} className="group relative aspect-square">
                             <Image
                               src={preview}
                               alt={`Preview ${index + 1}`}
@@ -546,9 +504,7 @@ export default function AddJewelryPage() {
 
               {/* Settings */}
               <div className="rounded-xl border border-neutral-200 bg-white p-8 shadow-sm">
-                <h2 className="mb-6 text-xl font-semibold text-neutral-900">
-                  Settings
-                </h2>
+                <h2 className="mb-6 text-xl font-semibold text-neutral-900">Settings</h2>
 
                 <div className="space-y-6">
                   <div>
@@ -587,11 +543,7 @@ export default function AddJewelryPage() {
                 <Link href="/admin" className="btn btn-outline">
                   Cancel
                 </Link>
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="btn btn-primary"
-                >
+                <button type="submit" disabled={isSubmitting} className="btn btn-primary">
                   {isSubmitting ? (
                     <>
                       <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />

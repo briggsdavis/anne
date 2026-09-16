@@ -18,14 +18,13 @@ export default function Heritage() {
               Heritage in Every Detail
             </h2>
             <p className="mb-6 text-lg leading-relaxed text-neutral-600">
-              Our jewelry is more than adornment-it&apos;s a celebration of
-              Ethiopian culture, history, and the ancient art of goldsmithing
-              that has been passed down through generations.
+              Our jewelry is more than adornment-it&apos;s a celebration of Ethiopian culture,
+              history, and the ancient art of goldsmithing that has been passed down through
+              generations.
             </p>
             <p className="mb-8 text-lg leading-relaxed text-neutral-600">
-              From the intricate patterns inspired by traditional Ethiopian art
-              to the careful selection of materials, each piece tells a story of
-              our rich cultural heritage.
+              From the intricate patterns inspired by traditional Ethiopian art to the careful
+              selection of materials, each piece tells a story of our rich cultural heritage.
             </p>
           </motion.div>
 

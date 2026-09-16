@@ -4,13 +4,7 @@ export { createClient, supabase } from "./supabase-client"
 // Re-export server functions
 export { createServerSupabaseClient } from "./supabase-server"
 
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[]
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
 export type Database = {
   public: {

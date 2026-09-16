@@ -105,9 +105,7 @@ export const sanitizeJewelryFormData = (data: Record<string, unknown>) => {
     description: sanitizeHtml(String(data.description || "")).slice(0, 2000),
     admin_notes: sanitizeText(String(data.admin_notes || "")).slice(0, 1000),
     materials: Array.isArray(data.materials)
-      ? data.materials
-          .map((m: string) => sanitizeText(m).slice(0, 100))
-          .filter(Boolean)
+      ? data.materials.map((m: string) => sanitizeText(m).slice(0, 100)).filter(Boolean)
       : [],
     category: sanitizeText(String(data.category || "")),
     gender: data.gender ? sanitizeText(String(data.gender)) : undefined,
@@ -131,8 +129,7 @@ export const sanitizeRingSize = (size: number): number | null => {
 
   // Valid US ring sizes from 3 to 13 with half sizes
   const validSizes = [
-    3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5,
-    12, 12.5, 13,
+    3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13,
   ]
 
   return validSizes.includes(size) ? size : null

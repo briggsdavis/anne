@@ -1,8 +1,4 @@
-import type {
-  JewelryFormData,
-  JewelryImage,
-  JewelryPiece,
-} from "@/types/jewelry"
+import type { JewelryFormData, JewelryImage, JewelryPiece } from "@/types/jewelry"
 import { logger } from "@/utils/logger"
 import { supabase } from "./supabase-client"
 
@@ -113,11 +109,7 @@ export class JewelryService {
     }
 
     // If this is a ring and has available sizes, create the ring size records
-    if (
-      piece.category === "rings" &&
-      available_sizes &&
-      available_sizes.length > 0
-    ) {
+    if (piece.category === "rings" && available_sizes && available_sizes.length > 0) {
       await this.addRingSizes(piece.id, available_sizes)
     }
 
@@ -125,10 +117,7 @@ export class JewelryService {
   }
 
   // Update jewelry piece
-  static async updatePiece(
-    id: string,
-    data: Partial<JewelryFormData>,
-  ): Promise<JewelryPiece> {
+  static async updatePiece(id: string, data: Partial<JewelryFormData>): Promise<JewelryPiece> {
     // Separate ring sizes from the main data
     const { available_sizes, ...pieceData } = data
 
@@ -162,10 +151,7 @@ export class JewelryService {
 
   // Mark piece as sold
   static async markAsSold(id: string): Promise<void> {
-    const { error } = await supabase
-      .from("jewelry_pieces")
-      .update({ is_sold: true })
-      .eq("id", id)
+    const { error } = await supabase.from("jewelry_pieces").update({ is_sold: true }).eq("id", id)
 
     if (error) {
       logger.apiError("markAsSold", error, { pieceId: id })
@@ -175,10 +161,7 @@ export class JewelryService {
 
   // Mark piece as available
   static async markAsAvailable(id: string): Promise<void> {
-    const { error } = await supabase
-      .from("jewelry_pieces")
-      .update({ is_sold: false })
-      .eq("id", id)
+    const { error } = await supabase.from("jewelry_pieces").update({ is_sold: false }).eq("id", id)
 
     if (error) {
       logger.apiError("markAsAvailable", error, { pieceId: id })
@@ -209,10 +192,7 @@ export class JewelryService {
     }
 
     // Delete the jewelry piece (this will cascade delete the image records due to foreign key constraint)
-    const { error } = await supabase
-      .from("jewelry_pieces")
-      .delete()
-      .eq("id", id)
+    const { error } = await supabase.from("jewelry_pieces").delete().eq("id", id)
 
     if (error) {
       logger.apiError("deletePiece", error, { pieceId: id })
@@ -237,9 +217,7 @@ export class JewelryService {
       throw new Error("Failed to upload image")
     }
 
-    const { data } = supabase.storage
-      .from("jewelry-images")
-      .getPublicUrl(fileName)
+    const { data } = supabase.storage.from("jewelry-images").getPublicUrl(fileName)
 
     return data.publicUrl
   }
@@ -279,9 +257,7 @@ export class JewelryService {
     try {
       // Extract the file path from the public URL
       // Public URLs are in format: https://[project-id].supabase.co/storage/v1/object/public/jewelry-images/[file-path]
-      const urlParts = imageUrl.split(
-        "/storage/v1/object/public/jewelry-images/",
-      )
+      const urlParts = imageUrl.split("/storage/v1/object/public/jewelry-images/")
       if (urlParts.length !== 2) {
         logger.error("Invalid image URL format", { imageUrl })
         return
@@ -289,9 +265,7 @@ export class JewelryService {
 
       const filePath = urlParts[1]
 
-      const { error } = await supabase.storage
-        .from("jewelry-images")
-        .remove([filePath])
+      const { error } = await supabase.storage.from("jewelry-images").remove([filePath])
 
       if (error) {
         logger.apiError("deleteImageFromStorage", error, { imageUrl })
@@ -322,10 +296,7 @@ export class JewelryService {
     }
 
     // Delete the database record
-    const { error } = await supabase
-      .from("jewelry_images")
-      .delete()
-      .eq("id", imageId)
+    const { error } = await supabase.from("jewelry_images").delete().eq("id", imageId)
 
     if (error) {
       logger.apiError("deleteImage", error, { imageId })
@@ -377,10 +348,7 @@ export class JewelryService {
   }
 
   // Add ring sizes for a jewelry piece
-  static async addRingSizes(
-    jewelryPieceId: string,
-    sizes: number[],
-  ): Promise<void> {
+  static async addRingSizes(jewelryPieceId: string, sizes: number[]): Promise<void> {
     const ringSizeRecords = sizes.map((size) => ({
       jewelry_piece_id: jewelryPieceId,
       size,

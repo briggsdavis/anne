@@ -7,10 +7,7 @@ import { createClient } from "@/lib/supabase-client"
 interface AuthContextType {
   user: User | null
   loading: boolean
-  signInWithEmail: (
-    email: string,
-    password: string,
-  ) => Promise<{ error?: string }>
+  signInWithEmail: (email: string, password: string) => Promise<{ error?: string }>
   signOut: () => Promise<void>
   isAuthenticated: boolean
 }

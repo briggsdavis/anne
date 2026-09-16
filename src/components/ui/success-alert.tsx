@@ -18,14 +18,9 @@ export default function SuccessAlert({
   autoHide = true,
   duration = 3000,
 }: SuccessAlertProps) {
-  const [show, setShow] = useState(isVisible)
-
   useEffect(() => {
-    setShow(isVisible)
-
     if (isVisible && autoHide) {
       const timer = setTimeout(() => {
-        setShow(false)
         onClose()
       }, duration)
 
@@ -33,7 +28,7 @@ export default function SuccessAlert({
     }
   }, [isVisible, autoHide, duration, onClose])
 
-  if (!show) return null
+  if (!isVisible) return null
 
   return (
     <div className="animate-in slide-in-from-right fixed top-4 right-4 z-50 duration-300">
@@ -41,10 +36,8 @@ export default function SuccessAlert({
         <CheckCircle className="h-5 w-5 flex-shrink-0 text-green-600" />
         <p className="flex-1 text-sm text-green-800">{message}</p>
         <button
-          onClick={() => {
-            setShow(false)
-            onClose()
-          }}
+          onClick={onClose}
+          aria-label="Dismiss success message"
           className="text-green-600 transition-colors hover:text-green-800"
         >
           <X className="h-4 w-4" />

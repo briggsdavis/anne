@@ -2,9 +2,9 @@
 
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
-import { useAuth } from "@/components/providers/SupabaseAuthProvider"
-import LoadingSpinner from "@/components/ui/LoadingSpinner"
-import AdminErrorBoundary from "./AdminErrorBoundary"
+import { useAuth } from "@/components/providers/supabase-auth-provider"
+import LoadingSpinner from "@/components/ui/loading-spinner"
+import AdminErrorBoundary from "./admin-error-boundary"
 
 interface AdminGuardProps {
   children: React.ReactNode

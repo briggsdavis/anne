@@ -1,11 +1,11 @@
 import { Metadata } from "next"
 import { GFS_Didot, Nunito_Sans } from "next/font/google"
 import { ReactNode } from "react"
-import Footer from "@/components/layout/Footer"
+import Footer from "@/components/layout/footer"
 import "@/styles/base.css"
-import Header from "@/components/layout/Header"
-import Providers from "@/components/providers/Providers"
-import ErrorBoundary from "@/components/ui/ErrorBoundary"
+import Header from "@/components/layout/header"
+import Providers from "@/components/providers/providers"
+import ErrorBoundary from "@/components/ui/error-boundary"
 
 const didot = GFS_Didot({
   weight: "400",
@@ -21,22 +21,13 @@ export const metadata: Metadata = {
   title: { default: "Anne Silver", template: "%s - Anne Silver" },
   description:
     "Exquisite handcrafted Ethiopian jewelry celebrating heritage through timeless elegance. Discover our collection of unique gold and silver pieces.",
-  keywords: [
-    "Ethiopian jewelry",
-    "handcrafted",
-    "gold",
-    "silver",
-    "traditional",
-    "Anne Silver",
-  ],
+  keywords: ["Ethiopian jewelry", "handcrafted", "gold", "silver", "traditional", "Anne Silver"],
 }
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body
-        className={`flex min-h-screen flex-col ${didot.variable} ${nunito.variable}`}
-      >
+      <body className={`flex min-h-screen flex-col ${didot.variable} ${nunito.variable}`}>
         <Providers>
           <ErrorBoundary>
             <Header />

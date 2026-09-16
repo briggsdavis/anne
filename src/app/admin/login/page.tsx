@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { useAuth } from "@/components/providers/SupabaseAuthProvider"
+import { useAuth } from "@/components/providers/supabase-auth-provider"
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -85,10 +85,7 @@ export default function AdminLoginPage() {
           {/* Login Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div>
-              <label
-                htmlFor="email"
-                className="mb-2 block text-sm font-medium text-neutral-700"
-              >
+              <label htmlFor="email" className="mb-2 block text-sm font-medium text-neutral-700">
                 Email Address
               </label>
               <input
@@ -98,18 +95,11 @@ export default function AdminLoginPage() {
                 className="input"
                 placeholder="Enter admin email"
               />
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.email.message}
-                </p>
-              )}
+              {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>}
             </div>
 
             <div>
-              <label
-                htmlFor="password"
-                className="mb-2 block text-sm font-medium text-neutral-700"
-              >
+              <label htmlFor="password" className="mb-2 block text-sm font-medium text-neutral-700">
                 Password
               </label>
               <div className="relative">
@@ -125,25 +115,15 @@ export default function AdminLoginPage() {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute top-1/2 right-3 -translate-y-1/2 transform text-neutral-400 hover:text-neutral-600"
                 >
-                  {showPassword ? (
-                    <EyeOff className="h-5 w-5" />
-                  ) : (
-                    <Eye className="h-5 w-5" />
-                  )}
+                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
               </div>
               {errors.password && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.password.message}
-                </p>
+                <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
               )}
             </div>
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="btn btn-primary w-full"
-            >
+            <button type="submit" disabled={isSubmitting} className="btn btn-primary w-full">
               {isSubmitting ? (
                 <>
                   <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />

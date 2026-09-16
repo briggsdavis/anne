@@ -1,13 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import {
-  ArrowLeft,
-  ChevronLeft,
-  ChevronRight,
-  Mail,
-  ExternalLink,
-} from "lucide-react"
+import { ArrowLeft, ChevronLeft, ChevronRight, Mail, ExternalLink } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
@@ -184,9 +178,7 @@ export default function JewelryDetail({ piece }: JewelryDetailProps) {
 
             {/* Description */}
             <div>
-              <h2 className="mb-3 text-xl font-semibold text-neutral-900">
-                Description
-              </h2>
+              <h2 className="mb-3 text-xl font-semibold text-neutral-900">Description</h2>
               <p className="leading-relaxed whitespace-pre-wrap text-neutral-600">
                 {piece.description}
               </p>
@@ -195,9 +187,7 @@ export default function JewelryDetail({ piece }: JewelryDetailProps) {
             {/* Materials */}
             {piece.materials.length > 0 && (
               <div>
-                <h2 className="mb-3 text-xl font-semibold text-neutral-900">
-                  Materials
-                </h2>
+                <h2 className="mb-3 text-xl font-semibold text-neutral-900">Materials</h2>
                 <div className="flex flex-wrap gap-2">
                   {piece.materials.map((material, index) => (
                     <span
@@ -212,63 +202,50 @@ export default function JewelryDetail({ piece }: JewelryDetailProps) {
             )}
 
             {/* Ring Sizes (only for rings) */}
-            {piece.category === "rings" &&
-              piece.ring_sizes &&
-              piece.ring_sizes.length > 0 && (
-                <div>
-                  <h2 className="mb-3 text-xl font-semibold text-neutral-900">
-                    Available Sizes
-                  </h2>
-                  <div className="space-y-3">
-                    <div className="flex flex-wrap gap-2">
-                      {piece.ring_sizes
-                        .map((rs) => rs.size)
-                        .sort((a, b) => a - b)
-                        .map((size, index) => (
-                          <span
-                            key={index}
-                            className="inline-flex min-w-[3rem] items-center justify-center rounded-lg bg-primary-100 px-3 py-2 text-sm font-medium text-primary-700"
-                          >
-                            {size}
-                          </span>
-                        ))}
-                    </div>
-                    <p className="text-sm text-neutral-500">
-                      US ring sizes. Contact us for other sizes or custom
-                      fitting.
-                    </p>
+            {piece.category === "rings" && piece.ring_sizes && piece.ring_sizes.length > 0 && (
+              <div>
+                <h2 className="mb-3 text-xl font-semibold text-neutral-900">Available Sizes</h2>
+                <div className="space-y-3">
+                  <div className="flex flex-wrap gap-2">
+                    {piece.ring_sizes
+                      .map((rs) => rs.size)
+                      .sort((a, b) => a - b)
+                      .map((size, index) => (
+                        <span
+                          key={index}
+                          className="inline-flex min-w-[3rem] items-center justify-center rounded-lg bg-primary-100 px-3 py-2 text-sm font-medium text-primary-700"
+                        >
+                          {size}
+                        </span>
+                      ))}
                   </div>
+                  <p className="text-sm text-neutral-500">
+                    US ring sizes. Contact us for other sizes or custom fitting.
+                  </p>
                 </div>
-              )}
+              </div>
+            )}
 
             {/* Craftsmanship Info */}
             <div className="rounded-xl bg-primary-50 p-6">
-              <h3 className="mb-2 font-semibold text-neutral-900">
-                Ethiopian Craftsmanship
-              </h3>
+              <h3 className="mb-2 font-semibold text-neutral-900">Ethiopian Craftsmanship</h3>
               <p className="text-sm leading-relaxed text-neutral-600">
-                This piece is handcrafted by skilled Ethiopian artisans using
-                traditional techniques passed down through generations. Each
-                creation celebrates our rich cultural heritage and represents
-                hours of meticulous work and attention to detail.
+                This piece is handcrafted by skilled Ethiopian artisans using traditional techniques
+                passed down through generations. Each creation celebrates our rich cultural heritage
+                and represents hours of meticulous work and attention to detail.
               </p>
             </div>
 
             {/* Action Buttons */}
             <div className="space-y-4">
               {!piece.is_sold ? (
-                <button
-                  onClick={handleInquiry}
-                  className="btn btn-primary w-full"
-                >
+                <button onClick={handleInquiry} className="btn btn-primary w-full">
                   <Mail className="h-4 w-4" />
                   Inquire About This Piece
                 </button>
               ) : (
                 <div className="rounded-lg bg-neutral-100 p-4 text-center">
-                  <p className="font-medium text-neutral-600">
-                    This piece has been sold
-                  </p>
+                  <p className="font-medium text-neutral-600">This piece has been sold</p>
                   <p className="mt-1 text-sm text-neutral-500">
                     Contact us for similar pieces or custom commissions
                   </p>

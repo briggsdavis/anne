@@ -82,9 +82,7 @@ export default function Header() {
                     key={item.name}
                     href={item.href}
                     className={`text-sm font-medium transition-colors hover:text-primary-600 ${
-                      isActive(item.href)
-                        ? "text-primary-600"
-                        : "text-neutral-600"
+                      isActive(item.href) ? "text-primary-600" : "text-neutral-600"
                     }`}
                   >
                     {item.name}

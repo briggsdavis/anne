@@ -64,8 +64,8 @@ export default function CategoryGrid() {
         transition={{ duration: 0.8 }}
         className="mb-12 max-w-2xl text-center"
       >
-        Explore our carefully curated collections, each designed to celebrate
-        different aspects of Ethiopian jewelry artistry.
+        Explore our carefully curated collections, each designed to celebrate different aspects of
+        Ethiopian jewelry artistry.
       </motion.p>
 
       <div className="mx-auto w-full max-w-4xl space-y-6 p-6">
@@ -82,8 +82,8 @@ export default function CategoryGrid() {
           <h2>Sparkle up Your Life</h2>
 
           <p className="mx-auto max-w-3xl">
-            Discover unique jewelry collections crafted to showcase Ethiopian
-            heritage, elegance, and timeless artistry.
+            Discover unique jewelry collections crafted to showcase Ethiopian heritage, elegance,
+            and timeless artistry.
           </p>
         </div>
 

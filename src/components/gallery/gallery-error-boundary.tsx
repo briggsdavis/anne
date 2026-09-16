@@ -3,12 +3,9 @@
 import { Package, RefreshCw, Home } from "lucide-react"
 import Link from "next/link"
 import React from "react"
-import GlobalErrorBoundary from "@/components/ui/GlobalErrorBoundary"
+import GlobalErrorBoundary from "@/components/ui/global-error-boundary"
 
-const GalleryErrorFallback: React.FC<{ error?: Error; reset: () => void }> = ({
-  error,
-  reset,
-}) => (
+const GalleryErrorFallback: React.FC<{ error?: Error; reset: () => void }> = ({ error, reset }) => (
   <div className="flex min-h-[500px] items-center justify-center p-6">
     <div className="mx-auto max-w-md text-center">
       <div className="mb-6">
@@ -19,8 +16,8 @@ const GalleryErrorFallback: React.FC<{ error?: Error; reset: () => void }> = ({
           Gallery Temporarily Unavailable
         </h2>
         <p className="mb-6 text-neutral-600">
-          We&apos;re having trouble loading the jewelry collection right now.
-          This could be due to a temporary connection issue.
+          We&apos;re having trouble loading the jewelry collection right now. This could be due to a
+          temporary connection issue.
         </p>
       </div>
 
@@ -60,14 +57,8 @@ interface GalleryErrorBoundaryProps {
   children: React.ReactNode
 }
 
-const GalleryErrorBoundary: React.FC<GalleryErrorBoundaryProps> = ({
-  children,
-}) => {
-  return (
-    <GlobalErrorBoundary fallback={GalleryErrorFallback}>
-      {children}
-    </GlobalErrorBoundary>
-  )
+const GalleryErrorBoundary: React.FC<GalleryErrorBoundaryProps> = ({ children }) => {
+  return <GlobalErrorBoundary fallback={GalleryErrorFallback}>{children}</GlobalErrorBoundary>
 }
 
 export default GalleryErrorBoundary

@@ -1,6 +1,6 @@
 "use client"
 
-import { Facebook, Instagram } from "lucide-react"
+import { SiFacebook, SiInstagram } from "@icons-pack/react-simple-icons"
 import Link from "next/link"
 
 export default function Footer() {
@@ -17,9 +17,8 @@ export default function Footer() {
               Anne Silver
             </h3>
             <p className="text-sm leading-relaxed">
-              Celebrating Ethiopian heritage through exquisite handcrafted
-              jewelry. Each piece tells a story of tradition, artistry, and
-              timeless elegance.
+              Celebrating Ethiopian heritage through exquisite handcrafted jewelry. Each piece tells
+              a story of tradition, artistry, and timeless elegance.
             </p>
 
             <div className="flex gap-4">
@@ -28,7 +27,7 @@ export default function Footer() {
                 target="_blank"
                 className="text-primary-300 transition-colors hover:text-primary-200"
               >
-                <Instagram />
+                <SiInstagram />
               </Link>
 
               <Link
@@ -36,7 +35,7 @@ export default function Footer() {
                 target="_blank"
                 className="text-primary-300 transition-colors hover:text-primary-200"
               >
-                <Facebook />
+                <SiFacebook />
               </Link>
             </div>
           </div>
@@ -45,31 +44,19 @@ export default function Footer() {
           <div className="space-y-4">
             <h4 className="text-lg font-medium text-white">Quick Links</h4>
             <nav className="flex flex-col gap-2">
-              <Link
-                href="/gallery"
-                className="w-fit text-primary-300 hover:text-primary-200"
-              >
+              <Link href="/gallery" className="w-fit text-primary-300 hover:text-primary-200">
                 Gallery
               </Link>
 
-              <Link
-                href="/custom"
-                className="w-fit text-primary-300 hover:text-primary-200"
-              >
+              <Link href="/custom" className="w-fit text-primary-300 hover:text-primary-200">
                 Custom
               </Link>
 
-              <Link
-                href="/workshops"
-                className="w-fit text-primary-300 hover:text-primary-200"
-              >
+              <Link href="/workshops" className="w-fit text-primary-300 hover:text-primary-200">
                 Workshops
               </Link>
 
-              <Link
-                href="/contact"
-                className="w-fit text-primary-300 hover:text-primary-200"
-              >
+              <Link href="/contact" className="w-fit text-primary-300 hover:text-primary-200">
                 Contact
               </Link>
             </nav>
@@ -86,19 +73,10 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 grid border-t border-neutral-800 pt-8 md:grid-cols-3">
-          <Link
-            href="/admin"
-            className="mb-4 h-fit w-fit text-primary-300 transition-colors hover:text-primary-200 md:mb-0"
-          >
-            Admin
-          </Link>
+        <div className="mt-8 flex justify-between border-t border-neutral-800 pt-8">
+          <p>© {new Date().getFullYear()} Anne Silver. All rights reserved.</p>
 
-          <p className="md:justify-self-center">
-            © {new Date().getFullYear()} Anne Silver. All rights reserved.
-          </p>
-
-          <p className="md:justify-self-end">
+          <p>
             Made by{" "}
             <Link
               href="https://briggsdavis.com"

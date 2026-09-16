@@ -19,8 +19,8 @@ export default function CustomPage() {
               Custom Jewelry
             </h1>
             <p className="text-lg leading-relaxed text-neutral-600 md:text-xl">
-              Create a one-of-a-kind piece that tells your story through the
-              timeless artistry of Ethiopian craftsmanship.
+              Create a one-of-a-kind piece that tells your story through the timeless artistry of
+              Ethiopian craftsmanship.
             </p>
           </motion.div>
         </div>
@@ -40,22 +40,19 @@ export default function CustomPage() {
                 Your Vision, Our Expertise
               </h2>
               <p className="mb-6 text-lg leading-relaxed text-neutral-600">
-                At Anne Silver, we believe that the most meaningful jewelry is
-                deeply personal. Our custom design service combines your unique
-                vision with the exceptional skills of our Ethiopian artisans to
-                create pieces that are truly one-of-a-kind.
+                At Anne Silver, we believe that the most meaningful jewelry is deeply personal. Our
+                custom design service combines your unique vision with the exceptional skills of our
+                Ethiopian artisans to create pieces that are truly one-of-a-kind.
               </p>
               <p className="mb-6 text-lg leading-relaxed text-neutral-600">
-                Whether you&apos;re commemorating a special occasion, honoring
-                your heritage, or simply bringing a dream design to life, our
-                team will guide you through every step of the creation process.
-                From initial sketches to the final polish, your custom piece
-                will receive the meticulous attention it deserves.
+                Whether you&apos;re commemorating a special occasion, honoring your heritage, or
+                simply bringing a dream design to life, our team will guide you through every step
+                of the creation process. From initial sketches to the final polish, your custom
+                piece will receive the meticulous attention it deserves.
               </p>
               <p className="text-lg leading-relaxed text-neutral-600">
-                Each custom creation is more than jewelry - it&apos;s a wearable
-                work of art that carries your personal story and the rich
-                tradition of Ethiopian craftsmanship.
+                Each custom creation is more than jewelry - it&apos;s a wearable work of art that
+                carries your personal story and the rich tradition of Ethiopian craftsmanship.
               </p>
             </motion.div>
 
@@ -96,8 +93,8 @@ export default function CustomPage() {
                 How It Works
               </h2>
               <p className="text-lg leading-relaxed text-neutral-600">
-                Our custom design process is thoughtfully structured to ensure
-                your vision comes to life exactly as you imagine it.
+                Our custom design process is thoughtfully structured to ensure your vision comes to
+                life exactly as you imagine it.
               </p>
             </motion.div>
 
@@ -125,10 +122,9 @@ export default function CustomPage() {
                           Initial Consultation
                         </h3>
                         <p className="mb-0 leading-relaxed text-neutral-600">
-                          Share your ideas, inspirations, and preferences.
-                          We&apos;ll discuss design possibilities, materials,
-                          and incorporate traditional Ethiopian elements that
-                          resonate with your vision.
+                          Share your ideas, inspirations, and preferences. We&apos;ll discuss design
+                          possibilities, materials, and incorporate traditional Ethiopian elements
+                          that resonate with your vision.
                         </p>
                       </div>
                       <div className="w-full flex-shrink-0 md:h-full md:w-auto">
@@ -164,9 +160,8 @@ export default function CustomPage() {
                           Design Development
                         </h3>
                         <p className="mb-0 leading-relaxed text-neutral-600">
-                          Our artisans create detailed sketches and 3D
-                          renderings of your piece. We refine the design
-                          together until every detail perfectly captures your
+                          Our artisans create detailed sketches and 3D renderings of your piece. We
+                          refine the design together until every detail perfectly captures your
                           vision.
                         </p>
                       </div>
@@ -203,10 +198,9 @@ export default function CustomPage() {
                           Craftsmanship
                         </h3>
                         <p className="mb-0 leading-relaxed text-neutral-600">
-                          Your piece is meticulously handcrafted using
-                          traditional techniques. We provide updates throughout
-                          the process, ensuring transparency and your complete
-                          satisfaction.
+                          Your piece is meticulously handcrafted using traditional techniques. We
+                          provide updates throughout the process, ensuring transparency and your
+                          complete satisfaction.
                         </p>
                       </div>
                       <div className="w-full flex-shrink-0 md:h-full md:w-auto">
@@ -242,9 +236,9 @@ export default function CustomPage() {
                           Final Presentation
                         </h3>
                         <p className="mb-0 leading-relaxed text-neutral-600">
-                          Your completed custom piece is presented with a
-                          certificate of authenticity and care instructions,
-                          ready to become a treasured part of your story.
+                          Your completed custom piece is presented with a certificate of
+                          authenticity and care instructions, ready to become a treasured part of
+                          your story.
                         </p>
                       </div>
                       <div className="w-full flex-shrink-0 md:h-full md:w-auto">
@@ -300,9 +294,8 @@ export default function CustomPage() {
               Start Your Custom Journey
             </h2>
             <p className="mb-8 text-lg leading-relaxed text-neutral-600">
-              Ready to create something extraordinary? Contact us to begin
-              designing your custom piece. Let&apos;s transform your vision into
-              a timeless work of art.
+              Ready to create something extraordinary? Contact us to begin designing your custom
+              piece. Let&apos;s transform your vision into a timeless work of art.
             </p>
             <motion.a
               href="/contact"

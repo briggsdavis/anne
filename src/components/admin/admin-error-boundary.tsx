@@ -3,25 +3,19 @@
 import { AlertTriangle, Home, RefreshCw } from "lucide-react"
 import Link from "next/link"
 import React from "react"
-import GlobalErrorBoundary from "@/components/ui/GlobalErrorBoundary"
+import GlobalErrorBoundary from "@/components/ui/global-error-boundary"
 
-const AdminErrorFallback: React.FC<{ error?: Error; reset: () => void }> = ({
-  error,
-  reset,
-}) => (
+const AdminErrorFallback: React.FC<{ error?: Error; reset: () => void }> = ({ error, reset }) => (
   <div className="flex min-h-screen items-center justify-center bg-neutral-50 p-6">
     <div className="mx-auto max-w-lg text-center">
       <div className="mb-8">
         <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-red-100">
           <AlertTriangle className="h-10 w-10 text-red-600" />
         </div>
-        <h1 className="mb-3 text-2xl font-bold text-neutral-900">
-          Admin Dashboard Error
-        </h1>
+        <h1 className="mb-3 text-2xl font-bold text-neutral-900">Admin Dashboard Error</h1>
         <p className="mb-6 text-neutral-600">
-          The admin dashboard encountered an unexpected error. This could be due
-          to a network issue, database connection problem, or a temporary
-          service disruption.
+          The admin dashboard encountered an unexpected error. This could be due to a network issue,
+          database connection problem, or a temporary service disruption.
         </p>
         {process.env.NODE_ENV === "development" && error && (
           <details className="mb-6 text-left">
@@ -29,12 +23,8 @@ const AdminErrorFallback: React.FC<{ error?: Error; reset: () => void }> = ({
               Technical Details (Development Only)
             </summary>
             <div className="rounded-lg bg-neutral-100 p-4">
-              <p className="mb-2 text-sm font-medium text-neutral-800">
-                Error: {error.message}
-              </p>
-              <pre className="max-h-40 overflow-auto text-xs text-neutral-700">
-                {error.stack}
-              </pre>
+              <p className="mb-2 text-sm font-medium text-neutral-800">Error: {error.message}</p>
+              <pre className="max-h-40 overflow-auto text-xs text-neutral-700">{error.stack}</pre>
             </div>
           </details>
         )}
@@ -60,8 +50,7 @@ const AdminErrorFallback: React.FC<{ error?: Error; reset: () => void }> = ({
 
       <div className="mt-8 border-t border-neutral-200 pt-6">
         <p className="text-sm text-neutral-500">
-          If this error persists, please contact technical support with the
-          error details above.
+          If this error persists, please contact technical support with the error details above.
         </p>
       </div>
     </div>
@@ -72,9 +61,7 @@ interface AdminErrorBoundaryProps {
   children: React.ReactNode
 }
 
-const AdminErrorBoundary: React.FC<AdminErrorBoundaryProps> = ({
-  children,
-}) => {
+const AdminErrorBoundary: React.FC<AdminErrorBoundaryProps> = ({ children }) => {
   return (
     <GlobalErrorBoundary
       fallback={AdminErrorFallback}

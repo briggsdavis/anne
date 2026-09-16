@@ -1,6 +1,6 @@
 "use client"
 
-import { SupabaseAuthProvider } from "@/components/providers/SupabaseAuthProvider"
+import { SupabaseAuthProvider } from "@/components/providers/supabase-auth-provider"
 
 interface ProvidersProps {
   children: React.ReactNode

@@ -9,15 +9,10 @@ class Logger {
 
   constructor() {
     // Safely access NODE_ENV with fallback
-    this.isDevelopment =
-      typeof process !== "undefined" && process.env?.NODE_ENV === "development"
+    this.isDevelopment = typeof process !== "undefined" && process.env?.NODE_ENV === "development"
   }
 
-  private formatMessage(
-    level: LogLevel,
-    message: string,
-    context?: LogContext,
-  ): string {
+  private formatMessage(level: LogLevel, message: string, context?: LogContext): string {
     const timestamp = new Date().toISOString()
     const baseMessage = `[${timestamp}] [${level.toUpperCase()}] ${message}`
 
@@ -73,11 +68,7 @@ class Logger {
   }
 
   // Specialized error logging for API errors
-  apiError(
-    operation: string,
-    error: unknown,
-    additionalContext?: LogContext,
-  ): void {
+  apiError(operation: string, error: unknown, additionalContext?: LogContext): void {
     this.error(`API Error in ${operation}`, {
       error: error instanceof Error ? error.message : String(error),
       stack: error instanceof Error ? error.stack : undefined,

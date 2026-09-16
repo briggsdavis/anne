@@ -4,15 +4,11 @@ import { logger } from "@/utils/logger"
 // Define environment variable schema
 const envSchema = z.object({
   // Next.js environment
-  NODE_ENV: z
-    .enum(["development", "production", "test"])
-    .default("development"),
+  NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
 
   // Supabase configuration (client-side)
   NEXT_PUBLIC_SUPABASE_URL: z.string().url("Invalid Supabase URL"),
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: z
-    .string()
-    .min(1, "Supabase anonymous key is required"),
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1, "Supabase anonymous key is required"),
 })
 
 // Type for validated environment variables
@@ -42,9 +38,7 @@ export function getEnv(): Env {
       error: error instanceof Error ? error.message : String(error),
     })
 
-    throw new Error(
-      "Invalid environment configuration. Please check your environment variables.",
-    )
+    throw new Error("Invalid environment configuration. Please check your environment variables.")
   }
 }
 

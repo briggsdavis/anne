@@ -15,10 +15,7 @@ interface ErrorBoundaryProps {
   onError?: (error: Error, errorInfo: React.ErrorInfo) => void
 }
 
-const DefaultErrorFallback: React.FC<{ error?: Error; reset: () => void }> = ({
-  error,
-  reset,
-}) => (
+const DefaultErrorFallback: React.FC<{ error?: Error; reset: () => void }> = ({ error, reset }) => (
   <div className="flex min-h-[400px] items-center justify-center p-6">
     <div className="mx-auto max-w-md text-center">
       <div className="mb-4">
@@ -37,12 +34,10 @@ const DefaultErrorFallback: React.FC<{ error?: Error; reset: () => void }> = ({
             />
           </svg>
         </div>
-        <h2 className="mb-2 text-xl font-semibold text-neutral-900">
-          Something went wrong
-        </h2>
+        <h2 className="mb-2 text-xl font-semibold text-neutral-900">Something went wrong</h2>
         <p className="mb-6 text-neutral-600">
-          We encountered an unexpected error. Please try again or contact
-          support if the problem persists.
+          We encountered an unexpected error. Please try again or contact support if the problem
+          persists.
         </p>
         {process.env.NODE_ENV === "development" && error && (
           <details className="mb-4 text-left">
@@ -65,10 +60,7 @@ const DefaultErrorFallback: React.FC<{ error?: Error; reset: () => void }> = ({
   </div>
 )
 
-class GlobalErrorBoundary extends React.Component<
-  ErrorBoundaryProps,
-  ErrorBoundaryState
-> {
+class GlobalErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props)
     this.state = { hasError: false }
@@ -109,9 +101,7 @@ class GlobalErrorBoundary extends React.Component<
   render() {
     if (this.state.hasError) {
       const FallbackComponent = this.props.fallback || DefaultErrorFallback
-      return (
-        <FallbackComponent error={this.state.error} reset={this.handleReset} />
-      )
+      return <FallbackComponent error={this.state.error} reset={this.handleReset} />
     }
 
     return this.props.children

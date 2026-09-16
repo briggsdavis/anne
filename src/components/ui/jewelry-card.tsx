@@ -10,12 +10,8 @@ interface JewelryCardProps {
   priority?: boolean
 }
 
-export default function JewelryCard({
-  piece,
-  priority = false,
-}: JewelryCardProps) {
-  const primaryImage =
-    piece.images?.find((img) => img.is_primary) || piece.images?.[0]
+export default function JewelryCard({ piece, priority = false }: JewelryCardProps) {
+  const primaryImage = piece.images?.find((img) => img.is_primary) || piece.images?.[0]
 
   return (
     <motion.div
@@ -60,9 +56,7 @@ export default function JewelryCard({
                 maximumFractionDigits: 0,
               })}
             </p>
-            <p className="product-description line-clamp-2">
-              {piece.description}
-            </p>
+            <p className="product-description line-clamp-2">{piece.description}</p>
 
             {piece.materials.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-1">

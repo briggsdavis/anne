@@ -4,9 +4,9 @@ import { motion } from "framer-motion"
 import { Search } from "lucide-react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
-import JewelryCard from "@/components/ui/JewelryCard"
-import LoadingSpinner from "@/components/ui/LoadingSpinner"
+import { useEffect, useMemo, useState } from "react"
+import JewelryCard from "@/components/ui/jewelry-card"
+import LoadingSpinner from "@/components/ui/loading-spinner"
 import { JewelryService } from "@/lib/jewelry"
 import type { JewelryPiece } from "@/types/jewelry"
 import { JEWELRY_CATEGORIES, JEWELRY_GENDERS } from "@/types/jewelry"
@@ -17,32 +17,16 @@ interface GalleryClientProps {
   initialGender?: string
 }
 
-export default function GalleryClient({
-  initialCategory,
-  initialGender,
-}: GalleryClientProps) {
+export default function GalleryClient({ initialCategory, initialGender }: GalleryClientProps) {
   const [pieces, setPieces] = useState<JewelryPiece[]>([])
-  const [filteredPieces, setFilteredPieces] = useState<JewelryPiece[]>([])
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState("")
-  const [selectedCategory, setSelectedCategory] = useState<string>(
-    initialCategory || "",
-  )
-  const [selectedGender, setSelectedGender] = useState<string>(
-    initialGender || "",
-  )
   const [showSold, setShowSold] = useState(false)
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  // Watch for URL parameter changes and update filters accordingly
-  useEffect(() => {
-    const category = searchParams.get("category") || ""
-    const gender = searchParams.get("gender") || ""
-
-    setSelectedCategory(category)
-    setSelectedGender(gender)
-  }, [searchParams])
+  const selectedCategory = searchParams.get("category") ?? initialCategory ?? ""
+  const selectedGender = searchParams.get("gender") ?? initialGender ?? ""
 
   useEffect(() => {
     async function loadPieces() {
@@ -51,7 +35,6 @@ export default function GalleryClient({
           ? await JewelryService.getAllPieces()
           : await JewelryService.getAvailablePieces()
         setPieces(allPieces)
-        setFilteredPieces(allPieces)
       } catch (error) {
         console.error("Error loading pieces:", error)
       } finally {
@@ -62,7 +45,7 @@ export default function GalleryClient({
     loadPieces()
   }, [showSold])
 
-  useEffect(() => {
+  const filteredPieces = useMemo(() => {
     let filtered = pieces
 
     // Filter by search query
@@ -73,9 +56,7 @@ export default function GalleryClient({
           (piece) =>
             piece.title.toLowerCase().includes(sanitizedQuery) ||
             piece.description.toLowerCase().includes(sanitizedQuery) ||
-            piece.materials.some((material) =>
-              material.toLowerCase().includes(sanitizedQuery),
-            ),
+            piece.materials.some((material) => material.toLowerCase().includes(sanitizedQuery)),
         )
       }
     }
@@ -90,18 +71,16 @@ export default function GalleryClient({
       filtered = filtered.filter((piece) => piece.gender === selectedGender)
     }
 
-    setFilteredPieces(filtered)
+    return filtered
   }, [pieces, searchQuery, selectedCategory, selectedGender])
 
   // Update URL when category changes
   const handleCategoryChange = (category: string) => {
-    setSelectedCategory(category)
     updateURL(category, selectedGender)
   }
 
   // Update URL when gender changes
   const handleGenderChange = (gender: string) => {
-    setSelectedGender(gender)
     updateURL(selectedCategory, gender)
   }
 
@@ -156,8 +135,8 @@ export default function GalleryClient({
             </Link>
           </div>
           <p className="max-w-2xl text-lg text-neutral-600">
-            Explore our complete collection of handcrafted Ethiopian jewelry.
-            Each piece is a unique work of art celebrating our rich heritage.
+            Explore our complete collection of handcrafted Ethiopian jewelry. Each piece is a unique
+            work of art celebrating our rich heritage.
           </p>
         </motion.div>
 
@@ -285,12 +264,9 @@ export default function GalleryClient({
               <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-neutral-200">
                 <Search className="h-8 w-8 text-neutral-400" />
               </div>
-              <h3 className="mb-2 text-lg font-medium text-neutral-900">
-                No pieces found
-              </h3>
+              <h3 className="mb-2 text-lg font-medium text-neutral-900">No pieces found</h3>
               <p className="mb-4 text-neutral-600">
-                Try adjusting your search or filter criteria to find what
-                you&apos;re looking for.
+                Try adjusting your search or filter criteria to find what you&apos;re looking for.
               </p>
               <button
                 onClick={() => {

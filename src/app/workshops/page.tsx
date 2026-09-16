@@ -48,8 +48,8 @@ export default function WorkshopPage() {
               Jewelry Workshops
             </h1>
             <p className="text-lg leading-relaxed text-neutral-600 md:text-xl">
-              Discover the ancient art of Ethiopian jewelry making through
-              immersive workshops led by our master craftsmen.
+              Discover the ancient art of Ethiopian jewelry making through immersive workshops led
+              by our master craftsmen.
             </p>
           </motion.div>
         </div>
@@ -69,23 +69,20 @@ export default function WorkshopPage() {
                 Learn from Master Artisans
               </h2>
               <p className="mb-6 text-lg leading-relaxed text-neutral-600">
-                Anne Silver workshops offer a rare opportunity to learn
-                jewelry-making techniques that have been passed down through
-                generations of Ethiopian craftsmen. Our experienced artisans
-                will guide you through the fascinating process of creating your
+                Anne Silver workshops offer a rare opportunity to learn jewelry-making techniques
+                that have been passed down through generations of Ethiopian craftsmen. Our
+                experienced artisans will guide you through the fascinating process of creating your
                 own silver jewelry.
               </p>
               <p className="mb-6 text-lg leading-relaxed text-neutral-600">
-                Whether you&apos;re a complete beginner or an experienced
-                jewelry enthusiast, our workshops are designed to accommodate
-                all skill levels. You&apos;ll work with professional tools and
-                high-quality materials while learning about the cultural
+                Whether you&apos;re a complete beginner or an experienced jewelry enthusiast, our
+                workshops are designed to accommodate all skill levels. You&apos;ll work with
+                professional tools and high-quality materials while learning about the cultural
                 significance behind traditional Ethiopian designs.
               </p>
               <p className="text-lg leading-relaxed text-neutral-600">
-                Each participant leaves with their handcrafted piece and a
-                deeper appreciation for the artistry and heritage of Ethiopian
-                jewelry making.
+                Each participant leaves with their handcrafted piece and a deeper appreciation for
+                the artistry and heritage of Ethiopian jewelry making.
               </p>
             </motion.div>
 
@@ -125,8 +122,8 @@ export default function WorkshopPage() {
               Workshop Experience
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-neutral-600">
-              Our workshops combine traditional techniques with modern teaching
-              methods for an unforgettable learning experience.
+              Our workshops combine traditional techniques with modern teaching methods for an
+              unforgettable learning experience.
             </p>
           </motion.div>
 
@@ -143,12 +140,8 @@ export default function WorkshopPage() {
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary-100 transition-colors group-hover:bg-primary-200">
                   <feature.icon className="h-8 w-8 text-primary-600" />
                 </div>
-                <h3 className="mb-3 text-xl font-semibold text-neutral-900">
-                  {feature.title}
-                </h3>
-                <p className="leading-relaxed text-neutral-600">
-                  {feature.description}
-                </p>
+                <h3 className="mb-3 text-xl font-semibold text-neutral-900">{feature.title}</h3>
+                <p className="leading-relaxed text-neutral-600">{feature.description}</p>
               </motion.div>
             ))}
           </div>
@@ -170,8 +163,8 @@ export default function WorkshopPage() {
                 Available Workshops
               </h2>
               <p className="text-lg leading-relaxed text-neutral-600">
-                Choose from our range of workshops designed to suit different
-                interests and skill levels.
+                Choose from our range of workshops designed to suit different interests and skill
+                levels.
               </p>
             </motion.div>
 
@@ -197,9 +190,9 @@ export default function WorkshopPage() {
                   </Link>
 
                   <p className="mt-2 leading-relaxed text-neutral-600">
-                    Perfect for beginners. Learn basic techniques including
-                    sawing, filing, and polishing. Create a simple pendant or
-                    ring while discovering Ethiopian design traditions.
+                    Perfect for beginners. Learn basic techniques including sawing, filing, and
+                    polishing. Create a simple pendant or ring while discovering Ethiopian design
+                    traditions.
                   </p>
                 </div>
 
@@ -217,9 +210,8 @@ export default function WorkshopPage() {
                   </Link>
 
                   <p className="mt-2 leading-relaxed text-neutral-600">
-                    Explore traditional methods including filigree work and
-                    granulation. Create an authentic Ethiopian-style piece while
-                    learning about cultural symbolism.
+                    Explore traditional methods including filigree work and granulation. Create an
+                    authentic Ethiopian-style piece while learning about cultural symbolism.
                   </p>
                 </div>
 
@@ -290,14 +282,10 @@ export default function WorkshopPage() {
             </h2>
             <div className="mt-8 grid grid-cols-1 gap-4 text-left md:grid-cols-2">
               <div className="rounded-lg bg-white p-4">
-                <p className="mb-0 font-medium text-neutral-900">
-                  ✓ All tools and equipment
-                </p>
+                <p className="mb-0 font-medium text-neutral-900">✓ All tools and equipment</p>
               </div>
               <div className="rounded-lg bg-white p-4">
-                <p className="mb-0 font-medium text-neutral-900">
-                  ✓ High-quality silver materials
-                </p>
+                <p className="mb-0 font-medium text-neutral-900">✓ High-quality silver materials</p>
               </div>
               <div className="rounded-lg bg-white p-4">
                 <p className="mb-0 font-medium text-neutral-900">
@@ -305,19 +293,13 @@ export default function WorkshopPage() {
                 </p>
               </div>
               <div className="rounded-lg bg-white p-4">
-                <p className="mb-0 font-medium text-neutral-900">
-                  ✓ Your finished jewelry piece
-                </p>
+                <p className="mb-0 font-medium text-neutral-900">✓ Your finished jewelry piece</p>
               </div>
               <div className="rounded-lg bg-white p-4">
-                <p className="mb-0 font-medium text-neutral-900">
-                  ✓ Certificate of completion
-                </p>
+                <p className="mb-0 font-medium text-neutral-900">✓ Certificate of completion</p>
               </div>
               <div className="rounded-lg bg-white p-4">
-                <p className="mb-0 font-medium text-neutral-900">
-                  ✓ Light refreshments
-                </p>
+                <p className="mb-0 font-medium text-neutral-900">✓ Light refreshments</p>
               </div>
             </div>
           </motion.div>
@@ -338,8 +320,8 @@ export default function WorkshopPage() {
               Book Your Workshop
             </h2>
             <p className="mb-8 text-lg leading-relaxed text-neutral-600">
-              Ready to embark on your jewelry-making journey? Contact us to
-              check availability and book your workshop experience.
+              Ready to embark on your jewelry-making journey? Contact us to check availability and
+              book your workshop experience.
             </p>
             <motion.a
               href="/contact"

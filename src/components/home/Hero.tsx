@@ -21,8 +21,8 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="mb-8 max-w-lg text-lg leading-relaxed text-white md:text-xl"
           >
-            Celebrating our rich heritage through handcrafted pieces that tell
-            stories of tradition, artistry, and elegance.
+            Celebrating our rich heritage through handcrafted pieces that tell stories of tradition,
+            artistry, and elegance.
           </motion.p>
 
           <motion.div

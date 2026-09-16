@@ -14,10 +14,7 @@ interface ErrorBoundaryProps {
   fallback?: React.ComponentType<{ error: Error; resetError: () => void }>
 }
 
-class ErrorBoundaryClass extends React.Component<
-  ErrorBoundaryProps,
-  ErrorBoundaryState
-> {
+class ErrorBoundaryClass extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props)
     this.state = { hasError: false }
@@ -40,42 +37,24 @@ class ErrorBoundaryClass extends React.Component<
     if (this.state.hasError) {
       if (this.props.fallback) {
         const FallbackComponent = this.props.fallback
-        return (
-          <FallbackComponent
-            error={this.state.error!}
-            resetError={this.resetError}
-          />
-        )
+        return <FallbackComponent error={this.state.error!} resetError={this.resetError} />
       }
 
-      return (
-        <DefaultErrorFallback
-          error={this.state.error!}
-          resetError={this.resetError}
-        />
-      )
+      return <DefaultErrorFallback error={this.state.error!} resetError={this.resetError} />
     }
 
     return this.props.children
   }
 }
 
-function DefaultErrorFallback({
-  error,
-  resetError,
-}: {
-  error: Error
-  resetError: () => void
-}) {
+function DefaultErrorFallback({ error, resetError }: { error: Error; resetError: () => void }) {
   return (
     <div className="flex min-h-[400px] items-center justify-center p-8">
       <div className="max-w-md text-center">
         <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
           <AlertTriangle className="h-8 w-8 text-red-600" />
         </div>
-        <h2 className="mb-2 text-xl font-semibold text-neutral-900">
-          Something went wrong
-        </h2>
+        <h2 className="mb-2 text-xl font-semibold text-neutral-900">Something went wrong</h2>
         <p className="mb-4 text-neutral-600">
           We encountered an unexpected error. Please try refreshing the page.
         </p>
@@ -99,9 +78,6 @@ function DefaultErrorFallback({
   )
 }
 
-export default function ErrorBoundary({
-  children,
-  fallback,
-}: ErrorBoundaryProps) {
+export default function ErrorBoundary({ children, fallback }: ErrorBoundaryProps) {
   return <ErrorBoundaryClass fallback={fallback}>{children}</ErrorBoundaryClass>
 }

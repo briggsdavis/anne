@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
-import JewelryDetail from "@/components/gallery/JewelryDetail"
+import JewelryDetail from "@/components/gallery/jewelry-detail"
 import { JewelryService } from "@/lib/jewelry"
 
 interface Props {
@@ -37,16 +37,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function JewelryDetailPage({ params }: Props) {
+  let piece
   try {
     const { id } = await params
-    const piece = await JewelryService.getPieceById(id)
-
-    if (!piece) {
-      notFound()
-    }
-
-    return <JewelryDetail piece={piece} />
+    piece = await JewelryService.getPieceById(id)
   } catch {
     notFound()
   }
+
+  if (!piece) {
+    notFound()
+  }
+
+  return <JewelryDetail piece={piece} />
 }
