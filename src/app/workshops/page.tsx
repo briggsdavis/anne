@@ -96,7 +96,7 @@ export default function WorkshopPage() {
             >
               <div className="aspect-[4/5] overflow-hidden rounded-2xl">
                 <Image
-                  src="/back.png"
+                  src="/workshop-participant-at-jewelers-bench.png"
                   alt="Workshop in Action - Hands-On Learning Experience"
                   width={1000}
                   height={500}
@@ -254,7 +254,7 @@ export default function WorkshopPage() {
               >
                 <div className="aspect-[9/10] overflow-hidden rounded-2xl">
                   <Image
-                    src="/tools.jpg"
+                    src="/jewelry-workshop-tool-wall.jpg"
                     alt="Workshop Participants - Creating Together"
                     width={600}
                     height={600}

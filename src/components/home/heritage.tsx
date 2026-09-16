@@ -37,7 +37,7 @@ export default function Heritage() {
           >
             <div className="aspect-square overflow-hidden rounded-2xl">
               <Image
-                src="/case.jpg"
+                src="/jewelry-shop-display-case.jpg"
                 alt="Ethiopian Heritage - Traditional Craftsmanship"
                 width={1000}
                 height={1000}

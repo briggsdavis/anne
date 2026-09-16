@@ -66,7 +66,7 @@ export default function CustomPage() {
             >
               <div className="relative aspect-[4/5] w-[80%] overflow-hidden rounded-2xl">
                 <Image
-                  src="/filler.png"
+                  src="/silver-necklace-and-rings-on-model.png"
                   alt="Custom design process"
                   fill
                   sizes="(max-width: 768px) 80vw, 600px"
@@ -130,7 +130,7 @@ export default function CustomPage() {
                       <div className="w-full flex-shrink-0 md:h-full md:w-auto">
                         <div className="relative aspect-square h-[200px] w-full md:w-[200px]">
                           <Image
-                            src="/initial.png"
+                            src="/rectangular-stone-cutout-ring.png"
                             alt="Initial consultation process"
                             fill
                             sizes="(max-width: 768px) 100vw, 200px"
@@ -168,7 +168,7 @@ export default function CustomPage() {
                       <div className="w-full flex-shrink-0 md:h-full md:w-auto">
                         <div className="relative aspect-square h-[200px] w-full md:w-[200px]">
                           <Image
-                            src="/design.png"
+                            src="/ornate-ring-design-sketch.png"
                             alt="Design development process"
                             fill
                             sizes="(max-width: 768px) 100vw, 200px"
@@ -206,7 +206,7 @@ export default function CustomPage() {
                       <div className="w-full flex-shrink-0 md:h-full md:w-auto">
                         <div className="relative aspect-square h-[200px] w-full md:w-[200px]">
                           <Image
-                            src="/crafting.png"
+                            src="/jeweler-torch-closeup.png"
                             alt="Craftsmanship process"
                             fill
                             sizes="(max-width: 768px) 100vw, 200px"
@@ -244,7 +244,7 @@ export default function CustomPage() {
                       <div className="w-full flex-shrink-0 md:h-full md:w-auto">
                         <div className="relative aspect-square h-[200px] w-full md:w-[200px]">
                           <Image
-                            src="/presentation.png"
+                            src="/blue-stone-statement-ring-on-hand.png"
                             alt="Final presentation"
                             fill
                             sizes="(max-width: 768px) 100vw, 200px"
@@ -268,7 +268,7 @@ export default function CustomPage() {
             >
               <div className="relative aspect-[16/9] overflow-hidden rounded-2xl">
                 <Image
-                  src="/artisan.png"
+                  src="/jeweler-at-torch-workbench.png"
                   alt="Artisan at work - Traditional Ethiopian jewelry craftsmanship"
                   fill
                   sizes="(max-width: 768px) 100vw, 840px"

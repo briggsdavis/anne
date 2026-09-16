@@ -56,7 +56,7 @@ export default function Header() {
           <div className="container py-4">
             <Link href="/" className="block">
               <Image
-                src="/logo.png"
+                src="/anne-silver-logo.png"
                 alt="Anne Silver"
                 width={300}
                 height={100}

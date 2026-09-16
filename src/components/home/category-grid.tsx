@@ -7,12 +7,12 @@ import Link from "next/link"
 const ML = motion.create(Link)
 
 const categories = [
-  { name: "Earrings", slug: "earrings", image: "/earrings.png" },
-  { name: "Necklaces", slug: "necklaces", image: "/necklaces.png" },
-  { name: "Rings", slug: "rings", image: "/rings.png" },
-  { name: "Bracelets", slug: "bracelets", image: "/bracelets.png" },
-  { name: "Crosses", slug: "crosses", image: "/crosses.png" },
-  { name: "Sets", slug: "sets", image: "/sets.png" },
+  { name: "Earrings", slug: "earrings", image: "/silver-drop-earring-on-model.png" },
+  { name: "Necklaces", slug: "necklaces", image: "/silver-pendant-on-brown-shirt.png" },
+  { name: "Rings", slug: "rings", image: "/silver-gemstone-rings-on-hands.png" },
+  { name: "Bracelets", slug: "bracelets", image: "/silver-bangle-and-filigree-ring.png" },
+  { name: "Crosses", slug: "crosses", image: "/ethiopian-cross-pendant-on-model.png" },
+  { name: "Sets", slug: "sets", image: "/round-stone-earring-and-pendant-set.png" },
 ]
 
 function Card({ index }: { index: number }) {
