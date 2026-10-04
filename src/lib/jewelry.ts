@@ -60,7 +60,7 @@ export class JewelryService {
       .eq("is_featured", true)
       .eq("is_sold", false)
       .order("created_at", { ascending: false })
-      .limit(6)
+      .limit(5)
 
     if (error) {
       logger.apiError("getFeaturedPieces", error)

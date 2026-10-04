@@ -7,13 +7,14 @@ export default function Heritage() {
   return (
     <section className="bg-gradient-to-br from-secondary-50 to-primary-50/20 py-16 lg:py-24">
       <div className="container">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.85fr)] lg:gap-16">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
+            <p className="mb-3 text-sm tracking-[0.2em] text-primary-600 uppercase">Our heritage</p>
             <h2 className="brand-accent mb-6 text-3xl font-bold text-neutral-900 md:text-4xl">
               Heritage in Every Detail
             </h2>
@@ -35,19 +36,15 @@ export default function Heritage() {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="aspect-square overflow-hidden rounded-2xl">
+            <div className="aspect-[4/3] overflow-hidden">
               <Image
-                src="/jewelry-shop-display-case.jpg"
-                alt="Ethiopian Heritage - Traditional Craftsmanship"
-                width={1000}
-                height={1000}
+                src="/spreaddecor.jpeg"
+                alt="A spread of handcrafted Anne Silver jewelry"
+                width={1400}
+                height={1050}
                 className="h-full w-full object-cover"
               />
             </div>
-
-            {/* Decorative patterns */}
-            <div className="brand-pattern absolute -top-4 -left-4 h-8 w-8 rounded-lg opacity-60"></div>
-            <div className="brand-pattern absolute -right-4 -bottom-4 h-12 w-12 rounded-lg opacity-40"></div>
           </motion.div>
         </div>
       </div>

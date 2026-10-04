@@ -56,25 +56,6 @@ export default function JewelryCard({ piece, priority = false }: JewelryCardProp
                 maximumFractionDigits: 0,
               })}
             </p>
-            <p className="product-description line-clamp-2">{piece.description}</p>
-
-            {piece.materials.length > 0 && (
-              <div className="mt-3 flex flex-wrap gap-1">
-                {piece.materials.slice(0, 2).map((material, index) => (
-                  <span
-                    key={index}
-                    className="inline-block rounded-md bg-primary-100 px-2 py-1 text-xs text-primary-700"
-                  >
-                    {material}
-                  </span>
-                ))}
-                {piece.materials.length > 2 && (
-                  <span className="inline-block px-2 py-1 text-xs text-neutral-500">
-                    +{piece.materials.length - 2} more
-                  </span>
-                )}
-              </div>
-            )}
           </div>
         </div>
       </Link>

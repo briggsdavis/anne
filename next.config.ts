@@ -7,6 +7,10 @@ const config: NextConfig = {
         protocol: "https",
         hostname: "jejnrdxxcxixydvfecxi.supabase.co",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
     ],
     minimumCacheTTL: 2678400,
     formats: ["image/webp"],

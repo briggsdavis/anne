@@ -1,12 +1,28 @@
 "use client"
 
 import { SiFacebook, SiInstagram } from "@icons-pack/react-simple-icons"
+import { motion, useScroll, useTransform } from "framer-motion"
 import Link from "next/link"
+import { useRef } from "react"
 
 export default function Footer() {
+  const footerRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: footerRef,
+    offset: ["start end", "end start"],
+  })
+  const contentY = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"])
+
   return (
-    <footer className="bg-neutral-900 text-neutral-300">
-      <div className="container py-12">
+    <motion.footer
+      ref={footerRef}
+      initial={{ clipPath: "inset(9% 0 0 0)" }}
+      whileInView={{ clipPath: "inset(0% 0 0 0)" }}
+      viewport={{ once: true, amount: 0.08 }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      className="relative overflow-hidden bg-black text-neutral-300"
+    >
+      <motion.div className="relative z-10 container py-12" style={{ y: contentY }}>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {/* Brand Section */}
           <div className="space-y-4">
@@ -23,8 +39,10 @@ export default function Footer() {
 
             <div className="flex gap-4">
               <Link
-                href="https://instagram.com/annesilver_ethiopia1"
+                href="https://www.instagram.com/annesilver_ethiopia1/?hl=en"
                 target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Anne Silver on Instagram"
                 className="text-primary-300 transition-colors hover:text-primary-200"
               >
                 <SiInstagram />
@@ -44,12 +62,16 @@ export default function Footer() {
           <div className="space-y-4">
             <h4 className="text-lg font-medium text-white">Quick Links</h4>
             <nav className="flex flex-col gap-2">
-              <Link href="/gallery" className="w-fit text-primary-300 hover:text-primary-200">
-                Gallery
+              <Link href="/shop" className="w-fit text-primary-300 hover:text-primary-200">
+                Shop
               </Link>
 
-              <Link href="/custom" className="w-fit text-primary-300 hover:text-primary-200">
-                Custom
+              <Link href="/bespoke" className="w-fit text-primary-300 hover:text-primary-200">
+                Customs and Repairs
+              </Link>
+
+              <Link href="/giftcard" className="w-fit text-primary-300 hover:text-primary-200">
+                Giftcard
               </Link>
 
               <Link href="/workshops" className="w-fit text-primary-300 hover:text-primary-200">
@@ -87,7 +109,7 @@ export default function Footer() {
             </Link>
           </p>
         </div>
-      </div>
-    </footer>
+      </motion.div>
+    </motion.footer>
   )
 }

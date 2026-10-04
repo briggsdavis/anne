@@ -1,3 +1,4 @@
+import About from "@/components/home/about"
 import CategoryGrid from "@/components/home/category-grid"
 import FeaturedPieces from "@/components/home/featured-pieces"
 import Heritage from "@/components/home/heritage"
@@ -8,6 +9,7 @@ export default function Home() {
     <>
       <Hero />
       <FeaturedPieces />
+      <About />
       <CategoryGrid />
       <Heritage />
     </>

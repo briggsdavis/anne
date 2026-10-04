@@ -25,18 +25,20 @@ function Card({ index }: { index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: index * 0.01 }}
       viewport={{ once: true }}
-      href={`/gallery?category=${slug}`}
-      className={`group relative block overflow-hidden rounded-xl ${portrait ? "aspect-[1/2] w-1/2" : "aspect-[2/1] w-full"}`}
+      href={`/shop?category=${slug}`}
+      className={`group relative block overflow-hidden ${portrait ? "aspect-[1/2] w-1/2" : "aspect-[2/1] w-full"}`}
     >
-      <Image
-        src={image}
-        alt={`${name} Collection`}
-        fill
-        sizes="(max-width: 1024px) 50vw, 400px"
-        className="rounded-xl object-cover transition-transform duration-300 group-hover:scale-105"
-      />
+      <div className="absolute inset-0 transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:scale-105">
+        <Image
+          src={image}
+          alt={`${name} Collection`}
+          fill
+          sizes="(max-width: 1024px) 50vw, 400px"
+          className="object-cover"
+        />
+      </div>
 
-      <div className="absolute inset-0 rounded-xl bg-black/50" />
+      <div className="absolute inset-0 bg-black/50" />
 
       <div className="absolute inset-0 flex items-center justify-center">
         <p className="mb-0 text-white">{name}</p>
@@ -47,28 +49,23 @@ function Card({ index }: { index: number }) {
 
 export default function CategoryGrid() {
   return (
-    <div className="flex flex-col items-center py-16 lg:py-24">
-      <motion.h2
+    <div className="py-16 lg:py-24">
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="brand-accent"
+        className="container mb-10 grid items-end gap-6 md:grid-cols-2"
       >
-        Shop by Category
-      </motion.h2>
+        <h2 className="brand-accent mb-0 text-left">Shop by Category</h2>
 
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="mb-12 max-w-2xl text-center"
-      >
-        Explore our carefully curated collections, each designed to celebrate different aspects of
-        Ethiopian jewelry artistry.
-      </motion.p>
+        <p className="mb-0 max-w-2xl text-left md:justify-self-end">
+          Explore our carefully curated collections, each designed to celebrate different aspects of
+          Ethiopian jewelry artistry.
+        </p>
+      </motion.div>
 
-      <div className="mx-auto w-full max-w-4xl space-y-6 p-6">
+      <div className="container">
         <div className="flex gap-6">
           <Card index={0} />
 
@@ -78,10 +75,10 @@ export default function CategoryGrid() {
           </div>
         </div>
 
-        <div className="my-16 text-center">
-          <h2>Sparkle up Your Life</h2>
+        <div className="my-10 grid items-end gap-6 md:grid-cols-2">
+          <h2 className="mb-0 text-left">Sparkle up Your Life</h2>
 
-          <p className="mx-auto max-w-3xl">
+          <p className="mb-0 max-w-2xl text-left md:justify-self-end">
             Discover unique jewelry collections crafted to showcase Ethiopian heritage, elegance,
             and timeless artistry.
           </p>

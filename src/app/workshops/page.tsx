@@ -36,18 +36,27 @@ export default function WorkshopPage() {
   return (
     <div className="min-h-screen bg-neutral-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-50 to-secondary-50 py-16 lg:py-24">
-        <div className="container">
+      <section className="relative h-[50svh] min-h-[24rem] overflow-hidden">
+        <Image
+          src="/secondarydecor3.jpeg"
+          alt="Anne Silver jewelry arrangement"
+          fill
+          sizes="100vw"
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+        <div className="relative container flex h-full items-end pb-10 lg:pb-14">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="mx-auto max-w-3xl text-center"
+            className="max-w-3xl"
           >
-            <h1 className="brand-accent mb-6 text-4xl font-bold text-neutral-900 md:text-5xl">
+            <h1 className="brand-accent mb-4 text-4xl font-bold text-white md:text-5xl">
               Jewelry Workshops
             </h1>
-            <p className="text-lg leading-relaxed text-neutral-600 md:text-xl">
+            <p className="mb-0 text-lg leading-relaxed text-white/90 md:text-xl">
               Discover the ancient art of Ethiopian jewelry making through immersive workshops led
               by our master craftsmen.
             </p>
@@ -58,13 +67,16 @@ export default function WorkshopPage() {
       {/* Introduction Section */}
       <section className="bg-white py-16 lg:py-24">
         <div className="container">
-          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.85fr)] lg:gap-16">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
+              <p className="mb-3 text-sm tracking-[0.2em] text-primary-600 uppercase">
+                Learn the craft
+              </p>
               <h2 className="mb-6 text-3xl font-bold text-neutral-900 md:text-4xl">
                 Learn from Master Artisans
               </h2>
@@ -94,12 +106,12 @@ export default function WorkshopPage() {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="aspect-[4/5] overflow-hidden rounded-2xl">
+              <div className="aspect-[4/3] overflow-hidden">
                 <Image
                   src="/workshop-participant-at-jewelers-bench.png"
                   alt="Workshop in Action - Hands-On Learning Experience"
-                  width={1000}
-                  height={500}
+                  width={1400}
+                  height={1050}
                   className="h-full w-full object-cover"
                 />
               </div>
@@ -252,7 +264,7 @@ export default function WorkshopPage() {
                 viewport={{ once: true }}
                 className="relative lg:sticky lg:top-24"
               >
-                <div className="aspect-[9/10] overflow-hidden rounded-2xl">
+                <div className="aspect-[9/10] overflow-hidden">
                   <Image
                     src="/jewelry-workshop-tool-wall.jpg"
                     alt="Workshop Participants - Creating Together"
@@ -296,9 +308,6 @@ export default function WorkshopPage() {
                 <p className="mb-0 font-medium text-neutral-900">✓ Your finished jewelry piece</p>
               </div>
               <div className="rounded-lg bg-white p-4">
-                <p className="mb-0 font-medium text-neutral-900">✓ Certificate of completion</p>
-              </div>
-              <div className="rounded-lg bg-white p-4">
                 <p className="mb-0 font-medium text-neutral-900">✓ Light refreshments</p>
               </div>
             </div>
@@ -323,12 +332,7 @@ export default function WorkshopPage() {
               Ready to embark on your jewelry-making journey? Contact us to check availability and
               book your workshop experience.
             </p>
-            <motion.a
-              href="/contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center rounded-lg bg-primary-600 px-8 py-3 font-medium text-white transition-colors hover:bg-primary-700"
-            >
+            <motion.a href="/contact" className="btn btn-primary">
               Book Now
             </motion.a>
           </motion.div>

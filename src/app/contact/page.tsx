@@ -1,7 +1,9 @@
 "use client"
 
+import { SiInstagram } from "@icons-pack/react-simple-icons"
 import { motion } from "framer-motion"
 import { Clock, Mail, MapPin, Phone } from "lucide-react"
+import Image from "next/image"
 
 const contactInfo = [
   {
@@ -34,18 +36,27 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-neutral-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-50 to-secondary-50 py-16 lg:py-24">
-        <div className="container">
+      <section className="relative h-[50svh] min-h-[24rem] overflow-hidden">
+        <Image
+          src="/decor7.jpeg"
+          alt="Anne Silver jewelry display"
+          fill
+          sizes="100vw"
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+        <div className="relative container flex h-full items-end pb-10 lg:pb-14">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="mx-auto max-w-3xl text-center"
+            className="max-w-3xl"
           >
-            <h1 className="brand-accent mb-6 text-4xl font-bold text-neutral-900 md:text-5xl">
+            <h1 className="brand-accent mb-4 text-4xl font-bold text-white md:text-5xl">
               Contact Us
             </h1>
-            <p className="text-lg leading-relaxed text-neutral-600 md:text-xl">
+            <p className="mb-0 text-lg leading-relaxed text-white/90 md:text-xl">
               Have a question about our jewelry or interested in a custom piece? We&apos;d love to
               hear from you.
             </p>
@@ -88,6 +99,29 @@ export default function ContactPage() {
                     </div>
                   </motion.div>
                 ))}
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: contactInfo.length * 0.1 }}
+                  className="flex items-start space-x-4"
+                >
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-primary-100">
+                    <SiInstagram className="h-6 w-6 text-primary-600" />
+                  </div>
+                  <div>
+                    <h3 className="mb-1 font-semibold text-neutral-900">Instagram</h3>
+                    <a
+                      href="https://www.instagram.com/annesilver_ethiopia1/?hl=en"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mb-1 block font-medium text-primary-600 transition-colors hover:text-primary-700"
+                    >
+                      @annesilver_ethiopia1
+                    </a>
+                    <p className="text-sm text-neutral-600">Follow our latest work and updates</p>
+                  </div>
+                </motion.div>
               </div>
 
               <motion.div

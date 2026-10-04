@@ -1,10 +1,10 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { ArrowLeft, ChevronLeft, ChevronRight, Mail, ExternalLink } from "lucide-react"
+import { AnimatePresence, motion, type PanInfo } from "framer-motion"
+import { ArrowLeft, ChevronLeft, ChevronRight, ExternalLink, Mail, X } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import type { JewelryPiece } from "@/types/jewelry"
 
 interface JewelryDetailProps {
@@ -16,19 +16,43 @@ export default function JewelryDetail({ piece }: JewelryDetailProps) {
   const [isImageModalOpen, setIsImageModalOpen] = useState(false)
 
   const images =
-    piece.images?.sort((a, b) => {
+    [...(piece.images ?? [])].sort((a, b) => {
       if (a.is_primary) return -1
       if (b.is_primary) return 1
       return a.display_order - b.display_order
     }) || []
 
-  const nextImage = () => {
+  const nextImage = useCallback(() => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length)
+  }, [images.length])
+
+  const prevImage = useCallback(() => {
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
+  }, [images.length])
+
+  const handleSwipeEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    if (info.offset.x < -55) nextImage()
+    if (info.offset.x > 55) prevImage()
   }
 
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
-  }
+  useEffect(() => {
+    if (!isImageModalOpen) return
+
+    const previousOverflow = document.body.style.overflow
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsImageModalOpen(false)
+      if (event.key === "ArrowRight" && images.length > 1) nextImage()
+      if (event.key === "ArrowLeft" && images.length > 1) prevImage()
+    }
+
+    document.body.style.overflow = "hidden"
+    window.addEventListener("keydown", handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [images.length, isImageModalOpen, nextImage, prevImage])
 
   const handleInquiry = () => {
     const subject = encodeURIComponent(`Inquiry about ${piece.title}`)
@@ -44,11 +68,11 @@ export default function JewelryDetail({ piece }: JewelryDetailProps) {
       <div className="border-b border-neutral-200 bg-white">
         <div className="container py-4">
           <Link
-            href="/gallery"
+            href="/shop"
             className="inline-flex items-center space-x-2 text-neutral-600 transition-colors hover:text-primary-600"
           >
             <ArrowLeft className="h-4 w-4" />
-            <span>Back to Gallery</span>
+            <span>Back to Shop</span>
           </Link>
         </div>
       </div>
@@ -64,16 +88,26 @@ export default function JewelryDetail({ piece }: JewelryDetailProps) {
             {images.length > 0 ? (
               <div className="space-y-4">
                 {/* Main Image */}
-                <div className="relative aspect-square overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
-                  <Image
-                    src={images[currentImageIndex].image_url}
-                    alt={images[currentImageIndex].alt_text}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="cursor-zoom-in object-cover"
-                    onClick={() => setIsImageModalOpen(true)}
-                    priority
-                  />
+                <div className="relative aspect-square overflow-hidden border border-neutral-200 bg-white shadow-sm">
+                  <motion.div
+                    key={images[currentImageIndex].id}
+                    drag={images.length > 1 ? "x" : false}
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.12}
+                    onDragEnd={handleSwipeEnd}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={images[currentImageIndex].image_url}
+                      alt={images[currentImageIndex].alt_text}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="cursor-zoom-in object-cover"
+                      onClick={() => setIsImageModalOpen(true)}
+                      draggable={false}
+                      priority
+                    />
+                  </motion.div>
 
                   {piece.is_sold && (
                     <div className="absolute inset-0 flex items-center justify-center bg-black/60">
@@ -104,31 +138,37 @@ export default function JewelryDetail({ piece }: JewelryDetailProps) {
 
                 {/* Thumbnail images */}
                 {images.length > 1 && (
-                  <div className="grid grid-cols-4 gap-2">
-                    {images.map((image, index) => (
-                      <button
-                        key={image.id}
-                        onClick={() => setCurrentImageIndex(index)}
-                        className={`aspect-square overflow-hidden rounded-lg border-2 transition-colors ${
-                          index === currentImageIndex
-                            ? "border-primary-500"
-                            : "border-neutral-200 hover:border-neutral-300"
-                        }`}
-                      >
-                        <Image
-                          src={image.image_url}
-                          alt={image.alt_text}
-                          width={100}
-                          height={100}
-                          className="h-full w-full object-cover"
-                        />
-                      </button>
-                    ))}
+                  <div>
+                    <div className="flex gap-2 overflow-x-auto pb-2">
+                      {images.map((image, index) => (
+                        <button
+                          key={image.id}
+                          onClick={() => setCurrentImageIndex(index)}
+                          className={`h-20 w-20 shrink-0 overflow-hidden border-2 transition-colors ${
+                            index === currentImageIndex
+                              ? "border-primary-500"
+                              : "border-neutral-200 hover:border-neutral-300"
+                          }`}
+                          aria-label={`View image ${index + 1} of ${images.length}`}
+                        >
+                          <Image
+                            src={image.image_url}
+                            alt={image.alt_text}
+                            width={100}
+                            height={100}
+                            className="h-full w-full object-cover"
+                          />
+                        </button>
+                      ))}
+                    </div>
+                    <p className="mt-1 mb-0 text-center text-sm text-neutral-500">
+                      {currentImageIndex + 1} / {images.length}
+                    </p>
                   </div>
                 )}
               </div>
             ) : (
-              <div className="flex aspect-square items-center justify-center rounded-2xl bg-neutral-200">
+              <div className="flex aspect-square items-center justify-center bg-neutral-200">
                 <span className="text-neutral-500">No images available</span>
               </div>
             )}
@@ -268,58 +308,108 @@ export default function JewelryDetail({ piece }: JewelryDetailProps) {
           </motion.div>
         </div>
 
-        {/* Image Modal */}
-        {isImageModalOpen && images.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
-            onClick={() => setIsImageModalOpen(false)}
-          >
-            <div className="relative max-h-full max-w-4xl">
-              <Image
-                src={images[currentImageIndex].image_url}
-                alt={images[currentImageIndex].alt_text}
-                width={800}
-                height={800}
-                className="max-h-full max-w-full object-contain"
-              />
-
-              {/* Close button */}
-              <button
-                onClick={() => setIsImageModalOpen(false)}
-                className="absolute top-4 right-4 rounded-full bg-white/20 p-2 text-white transition-colors hover:bg-white/30"
+        {/* Image lightbox */}
+        <AnimatePresence>
+          {isImageModalOpen && images.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 md:p-8"
+              onClick={() => setIsImageModalOpen(false)}
+              role="dialog"
+              aria-modal="true"
+              aria-label={`${piece.title} image gallery`}
+            >
+              <div
+                className="relative flex h-full w-full max-w-6xl flex-col items-center gap-4"
+                onClick={(event) => event.stopPropagation()}
               >
-                <ChevronRight className="h-6 w-6 rotate-45" />
-              </button>
+                <button
+                  onClick={() => setIsImageModalOpen(false)}
+                  className="absolute top-0 right-0 z-20 cursor-pointer rounded-full bg-white/15 p-2 text-white transition-colors hover:bg-white/25"
+                  aria-label="Close image gallery"
+                >
+                  <X className="h-6 w-6" />
+                </button>
 
-              {/* Navigation in modal */}
-              {images.length > 1 && (
-                <>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      prevImage()
-                    }}
-                    className="absolute top-1/2 left-4 -translate-y-1/2 transform rounded-full bg-white/20 p-3 text-white transition-colors hover:bg-white/30"
-                  >
-                    <ChevronLeft className="h-6 w-6" />
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      nextImage()
-                    }}
-                    className="absolute top-1/2 right-4 -translate-y-1/2 transform rounded-full bg-white/20 p-3 text-white transition-colors hover:bg-white/30"
-                  >
-                    <ChevronRight className="h-6 w-6" />
-                  </button>
-                </>
-              )}
-            </div>
-          </motion.div>
-        )}
+                <div className="relative min-h-0 w-full flex-1 overflow-hidden">
+                  <AnimatePresence initial={false} mode="popLayout">
+                    <motion.div
+                      key={images[currentImageIndex].id}
+                      initial={{ opacity: 0.35, scale: 0.985 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0.2, scale: 0.985 }}
+                      transition={{ duration: 0.28 }}
+                      drag={images.length > 1 ? "x" : false}
+                      dragConstraints={{ left: 0, right: 0 }}
+                      dragElastic={0.14}
+                      onDragEnd={handleSwipeEnd}
+                      className="absolute inset-0"
+                    >
+                      <Image
+                        src={images[currentImageIndex].image_url}
+                        alt={images[currentImageIndex].alt_text}
+                        fill
+                        sizes="95vw"
+                        className="object-contain"
+                        draggable={false}
+                        priority
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+
+                  {images.length > 1 && (
+                    <>
+                      <button
+                        onClick={prevImage}
+                        className="absolute top-1/2 left-2 z-10 -translate-y-1/2 cursor-pointer rounded-full bg-black/35 p-3 text-white transition-colors hover:bg-black/60 md:left-4"
+                        aria-label="Previous image"
+                      >
+                        <ChevronLeft className="h-6 w-6" />
+                      </button>
+                      <button
+                        onClick={nextImage}
+                        className="absolute top-1/2 right-2 z-10 -translate-y-1/2 cursor-pointer rounded-full bg-black/35 p-3 text-white transition-colors hover:bg-black/60 md:right-4"
+                        aria-label="Next image"
+                      >
+                        <ChevronRight className="h-6 w-6" />
+                      </button>
+                    </>
+                  )}
+                </div>
+
+                {images.length > 1 && (
+                  <div className="flex max-w-full gap-2 overflow-x-auto pb-1">
+                    {images.map((image, index) => (
+                      <button
+                        key={image.id}
+                        onClick={() => setCurrentImageIndex(index)}
+                        className={`relative h-16 w-16 shrink-0 cursor-pointer overflow-hidden border-2 md:h-20 md:w-20 ${
+                          index === currentImageIndex ? "border-white" : "border-white/25"
+                        }`}
+                        aria-label={`Open image ${index + 1} of ${images.length}`}
+                      >
+                        <Image
+                          src={image.image_url}
+                          alt={image.alt_text}
+                          fill
+                          sizes="80px"
+                          className="object-cover"
+                        />
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                <p className="mb-0 text-sm text-white/75">
+                  {currentImageIndex + 1} / {images.length}
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   )

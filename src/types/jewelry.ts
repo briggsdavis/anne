@@ -44,7 +44,16 @@ export interface JewelryFormData {
   available_sizes?: number[]
 }
 
-export type JewelryCategory = "necklaces" | "rings" | "earrings" | "bracelets" | "crosses" | "sets"
+export type JewelryCategory =
+  | "necklaces"
+  | "rings"
+  | "earrings"
+  | "bracelets"
+  | "crosses"
+  | "sets"
+  | "pendants"
+  | "chains"
+  | "home-accessories"
 
 export type JewelryGender = "male" | "female"
 
@@ -54,7 +63,10 @@ export const JEWELRY_CATEGORIES: { value: JewelryCategory; label: string }[] = [
   { value: "earrings", label: "Earrings" },
   { value: "bracelets", label: "Bracelets" },
   { value: "necklaces", label: "Necklaces" },
+  { value: "pendants", label: "Pendants" },
+  { value: "chains", label: "Chains" },
   { value: "sets", label: "Jewelry Sets" },
+  { value: "home-accessories", label: "Home Accessories" },
 ]
 
 export const JEWELRY_GENDERS: { value: JewelryGender; label: string }[] = [

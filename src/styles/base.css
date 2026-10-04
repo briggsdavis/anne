@@ -38,15 +38,24 @@
   --shadow-primary-md: 0 4px 8px 0 rgba(12, 43, 63, 0.15);
   --shadow-primary-lg: 0 8px 16px 0 rgba(12, 43, 63, 0.2);
 
-  --font-fancy: "GFS Didot";
-  --font-basic: "Nunito Sans";
+  --font-fancy: var(--font-playfair);
+  --font-basic: var(--font-playfair);
+  --font-nav: var(--font-amita);
 }
 
 @layer base {
   body {
     @apply bg-neutral-50 font-basic text-base leading-normal text-neutral-800;
+    font-family: var(--font-playfair), Georgia, serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font-family: inherit;
   }
 
   h1,
@@ -56,6 +65,7 @@
   h5,
   h6 {
     @apply mb-4 font-fancy font-semibold text-neutral-900;
+    font-family: var(--font-playfair), Georgia, serif;
     margin-top: 0;
   }
 
@@ -103,8 +113,11 @@
 
 @layer components {
   .btn {
-    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-transparent px-6 py-3 text-base leading-normal font-medium no-underline transition-all;
-    font-family: var(--font-basic);
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-transparent px-6 py-3 text-base leading-normal font-medium no-underline;
+    font-family: var(--font-playfair), Georgia, serif;
+    transition:
+      background-color 650ms ease,
+      border-color 650ms ease;
   }
 
   .btn-primary {
@@ -113,16 +126,23 @@
   }
 
   .btn-primary:hover {
-    @apply -translate-y-0.5 border-primary-600 bg-primary-600;
-    box-shadow: var(--shadow-primary-md);
+    color: white;
+    background-color: color-mix(in srgb, var(--color-primary-500) 60%, black);
+    border-color: color-mix(in srgb, var(--color-primary-500) 60%, black);
   }
 
   .btn-primary:active {
-    @apply translate-y-0 border-primary-700 bg-primary-700;
+    color: white;
   }
 
   .btn-secondary {
-    @apply border-secondary-500 bg-secondary-500 text-white hover:-translate-y-0.5 hover:border-secondary-600 hover:bg-secondary-600;
+    @apply border-secondary-500 bg-secondary-500 text-white;
+  }
+
+  .btn-secondary:hover {
+    color: white;
+    background-color: color-mix(in srgb, var(--color-secondary-500) 60%, black);
+    border-color: color-mix(in srgb, var(--color-secondary-500) 60%, black);
   }
 
   .btn-outline {
@@ -143,7 +163,7 @@
 
   .input {
     @apply block w-full rounded-md border border-neutral-300 bg-white px-4 py-3 text-base leading-normal text-neutral-900 transition-colors;
-    font-family: var(--font-basic);
+    font-family: var(--font-playfair), Georgia, serif;
   }
 
   .input:focus {
@@ -245,11 +265,7 @@
   }
 
   .product-card {
-    @apply overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm transition-all hover:-translate-y-1 hover:border-primary-200;
-  }
-
-  .product-card:hover {
-    box-shadow: var(--shadow-primary-md);
+    @apply overflow-hidden bg-transparent transition-opacity hover:opacity-90;
   }
 
   .product-image {
@@ -265,16 +281,16 @@
   }
 
   .product-info {
-    @apply p-6;
+    @apply px-2 py-5 text-center;
   }
 
   .product-title {
-    @apply mb-2 text-xl font-semibold text-neutral-900;
-    font-family: var(--font-family-secondary);
+    @apply mb-1 text-lg font-semibold text-neutral-900;
+    font-family: var(--font-playfair), Georgia, serif;
   }
 
   .product-price {
-    @apply mb-4 text-lg font-bold text-primary-600;
+    @apply mb-0 text-base font-semibold text-primary-600;
   }
 
   .product-description {
@@ -282,7 +298,10 @@
   }
 
   .container {
-    @apply mx-auto w-full max-w-6xl px-4;
+    width: 90%;
+    max-width: none;
+    margin-inline: auto;
+    padding-inline: 0;
   }
 
   .container-sm {
@@ -298,7 +317,40 @@
   }
 
   .container-xl {
-    @apply max-w-6xl;
+    max-width: none;
+  }
+
+  .nav-font {
+    font-family: var(--font-amita), cursive;
+  }
+
+  .nav-font a,
+  .nav-font button,
+  .nav-font input {
+    font-family: inherit;
+  }
+
+  .nav-link {
+    position: relative;
+    transition: color 250ms ease;
+  }
+
+  .nav-link::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    content: "";
+    background: var(--color-primary-500);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 320ms ease;
+  }
+
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after {
+    transform: scaleX(1);
   }
 
   .brand-pattern {
@@ -315,12 +367,6 @@
     @apply relative;
   }
 
-  .brand-accent::after {
-    @apply absolute -bottom-1 left-0 h-0.5 w-10 rounded-full;
-    content: "";
-    background: linear-gradient(90deg, var(--color-primary-500), var(--color-accent-500));
-  }
-
   /* Line clamp utility */
   .line-clamp-2 {
     display: -webkit-box;
@@ -334,5 +380,60 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+}
+
+/* Keep the storefront's universal margin above Tailwind's container utility. */
+.container {
+  width: 90%;
+  max-width: none;
+  margin-inline: auto;
+  padding-inline: 0;
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: calc(100% - 2rem);
+  }
+}
+
+.scroll-reveal-image,
+.scroll-reveal-text {
+  transition-delay: var(--scroll-reveal-delay, 0ms);
+  will-change: opacity, filter, transform;
+}
+
+.scroll-reveal-image {
+  opacity: 0;
+  filter: blur(16px);
+  transform: scale(1.015);
+  transition-property: opacity, filter, transform;
+  transition-duration: 950ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-reveal-text {
+  opacity: 0;
+  filter: blur(7px);
+  transform: translateY(14px);
+  transition-property: opacity, filter, transform;
+  transition-duration: 800ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-reveal-image.is-visible,
+.scroll-reveal-text.is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal-image,
+  .scroll-reveal-text {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
   }
 }

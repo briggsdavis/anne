@@ -1,161 +1,327 @@
 "use client"
 
 import { AnimatePresence, motion } from "framer-motion"
-import { Menu, X } from "lucide-react"
+import { Menu, Search, X } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useEffect, useRef, useState } from "react"
+import { usePathname, useRouter } from "next/navigation"
+import { FormEvent, useEffect, useMemo, useState } from "react"
+import { JewelryService } from "@/lib/jewelry"
+import type { JewelryPiece } from "@/types/jewelry"
 
-const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Gallery", href: "/gallery" },
-  { name: "Women", href: "/gallery?gender=female" },
-  { name: "Men", href: "/gallery?gender=male" },
-  { name: "Custom", href: "/custom" },
-  { name: "Workshops", href: "/workshops" },
-  { name: "Contact", href: "/contact" },
+const primaryRoutes = ["/", "/shop", "/bespoke", "/workshops", "/giftcard", "/contact"]
+
+const shopLinks = [
+  { name: "Rings", href: "/shop?category=rings" },
+  { name: "Bracelets", href: "/shop?category=bracelets" },
+  { name: "Pendants", href: "/shop?category=pendants" },
+  { name: "Necklaces", href: "/shop?category=necklaces" },
+  { name: "Chains", href: "/shop?category=chains" },
+  { name: "Sets", href: "/shop?category=sets" },
+  { name: "Men's Jewelry", href: "/shop?gender=male" },
+  { name: "Ethiopian Crosses", href: "/shop?category=crosses" },
+  { name: "Home Accessories", href: "/shop?category=home-accessories" },
 ]
+
+function ShopDropdown() {
+  return (
+    <div className="group relative flex h-20 items-center">
+      <Link href="/shop" className="nav-link px-1 py-2 text-sm text-neutral-700">
+        Shop
+      </Link>
+      <div className="pointer-events-none absolute top-full left-1/2 z-50 w-56 -translate-x-1/2 translate-y-2 border border-neutral-100 bg-white p-3 opacity-0 shadow-[0_8px_16px_rgba(0,0,0,0.10)] transition-all duration-300 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100">
+        {shopLinks.map((item) => (
+          <Link
+            key={item.name}
+            href={item.href}
+            className="block px-4 py-2 text-center text-sm text-neutral-800 hover:bg-neutral-50"
+          >
+            {item.name}
+          </Link>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isNavSticky, setIsNavSticky] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [query, setQuery] = useState("")
+  const [searchPieces, setSearchPieces] = useState<JewelryPiece[]>([])
+  const [searchLoading, setSearchLoading] = useState(false)
+  const [searchLoaded, setSearchLoaded] = useState(false)
   const pathname = usePathname()
-  const logoRef = useRef<HTMLDivElement>(null)
-  const headerRef = useRef<HTMLElement>(null)
-
-  const isActive = (href: string) => {
-    if (href === "/") {
-      return pathname === "/"
-    }
-    return pathname.startsWith(href)
-  }
+  const router = useRouter()
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (logoRef.current && headerRef.current) {
-        const logoHeight = logoRef.current.offsetHeight
-        const scrollPosition = window.scrollY
+    primaryRoutes.forEach((route) => router.prefetch(route))
+  }, [router])
 
-        // Make nav sticky when logo is scrolled out of view
-        setIsNavSticky(scrollPosition > logoHeight)
-      }
+  useEffect(() => {
+    if (!isSearchOpen || searchLoaded) return
+
+    let cancelled = false
+    setSearchLoading(true)
+
+    JewelryService.getAvailablePieces()
+      .then((pieces) => {
+        if (!cancelled) setSearchPieces(pieces)
+      })
+      .catch(() => {
+        if (!cancelled) setSearchPieces([])
+      })
+      .finally(() => {
+        if (!cancelled) {
+          setSearchLoading(false)
+          setSearchLoaded(true)
+        }
+      })
+
+    return () => {
+      cancelled = true
     }
+  }, [isSearchOpen, searchLoaded])
 
-    window.addEventListener("scroll", handleScroll)
-    handleScroll() // Check initial position
+  const searchResults = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase()
+    if (!normalizedQuery) return []
 
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    return searchPieces.filter((piece) => piece.title.toLowerCase().includes(normalizedQuery))
+  }, [query, searchPieces])
+
+  const submitSearch = (event: FormEvent) => {
+    event.preventDefault()
+    const value = query.trim()
+    router.push(value ? `/shop?q=${encodeURIComponent(value)}` : "/shop")
+    setIsSearchOpen(false)
+  }
+
+  const navLink = (href: string, label: string) => {
+    const path = href.split("#")[0]
+    const isActive = path === "/" ? pathname === "/" : pathname.startsWith(path)
+
+    return (
+      <Link
+        href={href}
+        className={`nav-link px-1 py-2 text-sm ${
+          isActive ? "text-primary-600" : "text-neutral-700"
+        }`}
+      >
+        {label}
+      </Link>
+    )
+  }
 
   return (
-    <>
-      <header ref={headerRef} className="w-full">
-        {/* Logo Section */}
-        <div ref={logoRef} className="border-b border-neutral-200 bg-white">
-          <div className="container py-4">
-            <Link href="/" className="block">
+    <header className="sticky top-0 z-50 w-full">
+      <nav className="w-full bg-white shadow-[0_5px_16px_rgba(12,43,63,0.09)]">
+        <div className="nav-font container">
+          <div className="flex h-20 items-center">
+            <Link href="/" aria-label="Anne Silver home" className="shrink-0">
               <Image
                 src="/anne-silver-logo.png"
                 alt="Anne Silver"
-                width={300}
-                height={100}
-                className="mx-auto h-12 w-auto md:h-16"
+                width={180}
+                height={60}
+                className="h-12 w-auto"
                 priority
               />
             </Link>
-          </div>
-        </div>
 
-        {/* Navigation Section */}
-        <nav
-          className={`w-full border-b border-neutral-200 bg-white/95 backdrop-blur transition-all duration-300 supports-[backdrop-filter]:bg-white/60 ${
-            isNavSticky ? "fixed top-0 z-50" : "relative"
-          }`}
-        >
-          <div className="container">
-            <div className="flex h-16 items-center justify-center md:justify-center">
-              {/* Desktop Navigation - Centered */}
-              <div className="hidden items-center space-x-8 md:flex">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={`text-sm font-medium transition-colors hover:text-primary-600 ${
-                      isActive(item.href) ? "text-primary-600" : "text-neutral-600"
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+            <div className="ml-auto hidden items-center xl:flex">
+              <div className="flex items-center gap-6 whitespace-nowrap">
+                <ShopDropdown />
+                {navLink("/bespoke", "Customs and Repairs")}
+                {navLink("/workshops", "Workshop")}
+                {navLink("/giftcard", "Giftcard")}
+                {navLink("/contact", "Contact")}
               </div>
 
-              {/* Mobile: Logo text and menu button */}
-              <div className="flex w-full items-center justify-between md:hidden">
-                <Link href="/" className="brand-accent">
-                  <span
-                    className="text-xl font-bold text-neutral-900"
-                    style={{ fontFamily: "var(--font-family-secondary)" }}
-                  >
-                    Anne Silver
-                  </span>
-                </Link>
-
-                {/* Mobile menu button */}
-                <button
-                  className="md:hidden"
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                  aria-expanded={isMenuOpen}
-                  aria-controls="mobile-menu"
-                >
-                  {isMenuOpen ? (
-                    <X className="h-6 w-6 text-neutral-600" />
+              <div className="ml-6 flex h-7 items-center border-l border-neutral-300 pl-6">
+                <AnimatePresence initial={false} mode="wait">
+                  {isSearchOpen ? (
+                    <motion.form
+                      key="search-field"
+                      onSubmit={submitSearch}
+                      initial={{ width: 0, opacity: 0 }}
+                      animate={{ width: 270, opacity: 1 }}
+                      exit={{ width: 0, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: "easeInOut" }}
+                      className="flex items-center overflow-hidden border-b border-neutral-400"
+                    >
+                      <Search className="h-4 w-4 shrink-0 text-neutral-500" />
+                      <input
+                        value={query}
+                        onChange={(event) => setQuery(event.target.value)}
+                        placeholder="Search piece names..."
+                        className="min-w-0 grow bg-transparent px-3 py-2 text-sm outline-none"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setIsSearchOpen(false)}
+                        className="cursor-pointer p-1 text-neutral-500"
+                        aria-label="Close search"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </motion.form>
                   ) : (
-                    <Menu className="h-6 w-6 text-neutral-600" />
+                    <motion.button
+                      key="search-button"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      type="button"
+                      onClick={() => setIsSearchOpen(true)}
+                      className="cursor-pointer p-2 text-neutral-700 transition-colors hover:text-primary-600"
+                      aria-label="Search pieces"
+                    >
+                      <Search className="h-5 w-5" />
+                    </motion.button>
                   )}
-                </button>
+                </AnimatePresence>
               </div>
             </div>
 
-            {/* Mobile Navigation */}
-            <AnimatePresence>
-              {isMenuOpen && (
-                <motion.div
-                  id="mobile-menu"
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="border-t border-neutral-200 bg-white md:hidden"
-                  role="menu"
-                  aria-labelledby="mobile-menu-button"
-                >
-                  <div className="space-y-1 px-4 py-4">
-                    {navigation.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className={`block px-3 py-2 text-base font-medium transition-colors hover:text-primary-600 ${
-                          isActive(item.href)
-                            ? "rounded-md bg-primary-50 text-primary-600"
-                            : "text-neutral-600"
-                        }`}
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <div className="ml-auto flex items-center gap-3 xl:hidden">
+              <button
+                onClick={() => setIsSearchOpen((open) => !open)}
+                className="cursor-pointer"
+                aria-label="Search pieces"
+              >
+                <Search className="h-5 w-5" />
+              </button>
+              <button onClick={() => setIsMenuOpen((open) => !open)} aria-label="Toggle menu">
+                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </button>
+            </div>
           </div>
-        </nav>
-      </header>
 
-      {/* Spacer to prevent content jump when nav becomes sticky */}
-      {isNavSticky && <div className="h-16" />}
-    </>
+          <AnimatePresence>
+            {isSearchOpen && (
+              <motion.form
+                onSubmit={submitSearch}
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="overflow-hidden xl:hidden"
+              >
+                <div className="flex border-t border-neutral-200 py-4">
+                  <input
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                    placeholder="Search by piece name..."
+                    className="w-full border-b border-neutral-400 bg-transparent px-2 py-2 outline-none"
+                  />
+                  <button type="submit" className="px-4 text-sm text-primary-600">
+                    Search
+                  </button>
+                </div>
+              </motion.form>
+            )}
+          </AnimatePresence>
+
+          <AnimatePresence>
+            {isMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="overflow-hidden border-t border-neutral-200 xl:hidden"
+              >
+                <div className="grid grid-cols-2 gap-1 py-4">
+                  {[
+                    ["Shop", "/shop"],
+                    ["Customs and Repairs", "/bespoke"],
+                    ["Workshop", "/workshops"],
+                    ["Giftcard", "/giftcard"],
+                    ["Contact", "/contact"],
+                  ].map(([name, href]) => (
+                    <Link
+                      key={name}
+                      href={href}
+                      onClick={() => setIsMenuOpen(false)}
+                      className="px-3 py-2 text-neutral-700"
+                    >
+                      {name}
+                    </Link>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <AnimatePresence>
+            {isSearchOpen && query.trim() && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                className="overflow-hidden"
+              >
+                <div
+                  className="max-h-[68vh] overflow-y-auto border-t border-neutral-200 py-6"
+                  style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+                >
+                  {searchLoading ? (
+                    <p className="mb-0 py-8 text-center text-sm text-neutral-500">
+                      Searching pieces…
+                    </p>
+                  ) : searchResults.length > 0 ? (
+                    <div className="grid grid-cols-2 gap-x-5 gap-y-7 md:grid-cols-4">
+                      {searchResults.map((piece) => {
+                        const primaryImage =
+                          piece.images?.find((image) => image.is_primary) ?? piece.images?.[0]
+
+                        return (
+                          <Link
+                            key={piece.id}
+                            href={`/gallery/${piece.id}`}
+                            onClick={() => {
+                              setIsSearchOpen(false)
+                              setQuery("")
+                            }}
+                            className="group block text-center"
+                          >
+                            <div className="relative aspect-square overflow-hidden bg-neutral-100">
+                              {primaryImage ? (
+                                <Image
+                                  src={primaryImage.image_url}
+                                  alt={primaryImage.alt_text}
+                                  fill
+                                  sizes="(max-width: 768px) 45vw, 22vw"
+                                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+                                />
+                              ) : (
+                                <div className="flex h-full items-center justify-center text-xs text-neutral-400">
+                                  No image
+                                </div>
+                              )}
+                            </div>
+                            <h3 className="mt-3 mb-1 truncate text-base font-medium text-neutral-900">
+                              {piece.title}
+                            </h3>
+                            <p className="mb-0 text-sm font-semibold text-primary-600">
+                              ETB{" "}
+                              {piece.price.toLocaleString("en-US", { maximumFractionDigits: 0 })}
+                            </p>
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  ) : (
+                    <p className="mb-0 py-8 text-center text-sm text-neutral-500">
+                      No pieces match “{query.trim()}”.
+                    </p>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </nav>
+    </header>
   )
 }

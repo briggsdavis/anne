@@ -59,7 +59,7 @@ export default function FeaturedPieces() {
 
         {pieces.length > 0 ? (
           <>
-            <div className="mb-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mb-12 grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-5">
               {pieces.map((piece, index) => (
                 <JewelryCard key={piece.id} piece={piece} priority={index < 3} />
               ))}
@@ -72,7 +72,7 @@ export default function FeaturedPieces() {
               viewport={{ once: true }}
               className="text-center"
             >
-              <Link href="/gallery" className="btn btn-primary">
+              <Link href="/shop" className="btn btn-primary">
                 View All Pieces
                 <ArrowRight className="h-4 w-4" />
               </Link>
