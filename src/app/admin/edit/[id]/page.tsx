@@ -341,15 +341,15 @@ export default function EditJewelryPage({ params }: EditJewelryPageProps) {
                       htmlFor="price"
                       className="mb-2 block text-sm font-medium text-neutral-700"
                     >
-                      Price (ETB)
+                      Price (USD)
                     </label>
                     <input
                       {...register("price", { valueAsNumber: true })}
                       type="number"
-                      step="0.01"
+                      step="0.05"
                       id="price"
                       className="input"
-                      placeholder="15000.00"
+                      placeholder="25.00"
                     />
                     {errors.price && (
                       <p className="mt-1 text-sm text-red-600">{errors.price.message}</p>

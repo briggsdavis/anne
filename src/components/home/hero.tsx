@@ -6,7 +6,11 @@ import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 
-const slides = ["/hero.jpeg", "/hero1.jpeg", "/hero2.jpeg"]
+const slides = [
+  "/citrine-earrings-palm.jpeg",
+  "/moonstone-pendant-palm.jpeg",
+  "/opal-necklace-palm.jpeg",
+]
 
 export default function Hero() {
   const [activeSlide, setActiveSlide] = useState(0)

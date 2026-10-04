@@ -8,6 +8,7 @@ import { usePathname, useRouter } from "next/navigation"
 import { FormEvent, useEffect, useMemo, useState } from "react"
 import { JewelryService } from "@/lib/jewelry"
 import type { JewelryPiece } from "@/types/jewelry"
+import { formatPrice } from "@/utils/currency"
 
 const primaryRoutes = ["/", "/shop", "/bespoke", "/workshops", "/giftcard", "/contact"]
 
@@ -49,8 +50,8 @@ export default function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [query, setQuery] = useState("")
   const [searchPieces, setSearchPieces] = useState<JewelryPiece[]>([])
-  const [searchLoading, setSearchLoading] = useState(false)
   const [searchLoaded, setSearchLoaded] = useState(false)
+  const searchLoading = isSearchOpen && !searchLoaded
   const pathname = usePathname()
   const router = useRouter()
 
@@ -62,7 +63,6 @@ export default function Header() {
     if (!isSearchOpen || searchLoaded) return
 
     let cancelled = false
-    setSearchLoading(true)
 
     JewelryService.getAvailablePieces()
       .then((pieces) => {
@@ -72,10 +72,7 @@ export default function Header() {
         if (!cancelled) setSearchPieces([])
       })
       .finally(() => {
-        if (!cancelled) {
-          setSearchLoading(false)
-          setSearchLoaded(true)
-        }
+        if (!cancelled) setSearchLoaded(true)
       })
 
     return () => {
@@ -304,8 +301,7 @@ export default function Header() {
                               {piece.title}
                             </h3>
                             <p className="mb-0 text-sm font-semibold text-primary-600">
-                              ETB{" "}
-                              {piece.price.toLocaleString("en-US", { maximumFractionDigits: 0 })}
+                              {formatPrice(piece.price)}
                             </p>
                           </Link>
                         )

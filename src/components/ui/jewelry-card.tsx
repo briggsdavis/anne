@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import type { JewelryPiece } from "@/types/jewelry"
+import { formatPrice } from "@/utils/currency"
 
 interface JewelryCardProps {
   piece: JewelryPiece
@@ -50,12 +51,7 @@ export default function JewelryCard({ piece, priority = false }: JewelryCardProp
             <h3 className="product-title overflow-hidden overflow-ellipsis whitespace-nowrap">
               {piece.title}
             </h3>
-            <p className="product-price">
-              ETB{" "}
-              {piece.price.toLocaleString("en-US", {
-                maximumFractionDigits: 0,
-              })}
-            </p>
+            <p className="product-price">{formatPrice(piece.price)}</p>
           </div>
         </div>
       </Link>

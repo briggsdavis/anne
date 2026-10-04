@@ -10,6 +10,7 @@ import {
   Package,
   Plus,
   Settings,
+  Tag,
   Trash2,
 } from "lucide-react"
 import Image from "next/image"
@@ -20,6 +21,7 @@ import { useAuth } from "@/components/providers/supabase-auth-provider"
 import LoadingSpinner from "@/components/ui/loading-spinner"
 import { JewelryService } from "@/lib/jewelry"
 import type { JewelryPiece } from "@/types/jewelry"
+import { formatPrice } from "@/utils/currency"
 import { logger } from "@/utils/logger"
 
 export default function AdminPage() {
@@ -199,10 +201,7 @@ export default function AdminPage() {
                     <div>
                       <p className="text-sm text-neutral-600">Total Value</p>
                       <p className="text-2xl font-bold text-neutral-900">
-                        ETB{" "}
-                        {stats.totalValue.toLocaleString("en-US", {
-                          maximumFractionDigits: 0,
-                        })}
+                        {formatPrice(stats.totalValue)}
                       </p>
                     </div>
                     <DollarSign className="h-8 w-8 text-primary-600" />
@@ -219,10 +218,16 @@ export default function AdminPage() {
               >
                 <h2 className="text-xl font-semibold text-neutral-900">Inventory Management</h2>
 
-                <Link href="/admin/add" className="btn btn-primary">
-                  <Plus className="h-4 w-4" />
-                  Add New Piece
-                </Link>
+                <div className="flex items-center gap-3">
+                  <Link href="/admin/workshop-prices" className="btn btn-outline">
+                    <Tag className="h-4 w-4" />
+                    Workshop Prices
+                  </Link>
+                  <Link href="/admin/add" className="btn btn-primary">
+                    <Plus className="h-4 w-4" />
+                    Add New Piece
+                  </Link>
+                </div>
               </motion.div>
 
               {/* Inventory Table */}
@@ -304,12 +309,7 @@ export default function AdminPage() {
                                 <span className="text-xs text-neutral-400">Not specified</span>
                               )}
                             </td>
-                            <td className="px-6 py-4 font-medium">
-                              ETB{" "}
-                              {piece.price.toLocaleString("en-US", {
-                                maximumFractionDigits: 0,
-                              })}
-                            </td>
+                            <td className="px-6 py-4 font-medium">{formatPrice(piece.price)}</td>
                             <td className="px-6 py-4">
                               <button
                                 onClick={() => handleToggleSoldStatus(piece.id, piece.is_sold)}

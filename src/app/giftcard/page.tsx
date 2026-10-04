@@ -9,7 +9,7 @@ export default function GiftcardPage() {
     <div className="min-h-screen bg-white">
       <section className="relative h-[50svh] min-h-[24rem] overflow-hidden">
         <Image
-          src="/decor2.jpeg"
+          src="/opal-drop-earrings-red.jpeg"
           alt="Anne Silver jewelry detail"
           fill
           sizes="100vw"
@@ -23,7 +23,6 @@ export default function GiftcardPage() {
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl"
           >
-            <p className="mb-3 text-sm tracking-[0.2em] text-white/75 uppercase">Anne Silver</p>
             <h1 className="mb-4 text-5xl text-white">Giftcard</h1>
             <p className="mb-0 max-w-2xl text-lg text-white/90">
               A thoughtful gift, chosen in their own time.

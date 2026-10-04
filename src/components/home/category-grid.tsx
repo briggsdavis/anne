@@ -41,7 +41,7 @@ function Card({ index }: { index: number }) {
       <div className="absolute inset-0 bg-black/50" />
 
       <div className="absolute inset-0 flex items-center justify-center">
-        <p className="mb-0 text-white">{name}</p>
+        <p className="mb-0 text-[2rem] text-white">{name}</p>
       </div>
     </ML>
   )

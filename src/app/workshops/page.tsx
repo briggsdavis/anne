@@ -4,6 +4,10 @@ import { motion } from "framer-motion"
 import { Calendar, Clock, Hammer, Users } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { useEffect, useState } from "react"
+import LoadingSpinner from "@/components/ui/loading-spinner"
+import { WorkshopPriceService, type WorkshopPrice } from "@/lib/workshop-prices"
+import { formatPrice } from "@/utils/currency"
 
 const workshopFeatures = [
   {
@@ -32,13 +36,43 @@ const workshopFeatures = [
   },
 ]
 
+type PriceRow = {
+  type: string
+  note?: string
+  options: WorkshopPrice[]
+}
+
+function groupPrices(prices: WorkshopPrice[]): PriceRow[] {
+  const rows: PriceRow[] = []
+  for (const price of prices) {
+    let row = rows.find((r) => r.type === price.workshop_type)
+    if (!row) {
+      row = { type: price.workshop_type, options: [] }
+      rows.push(row)
+    }
+    if (!row.note && price.type_note) row.note = price.type_note
+    row.options.push(price)
+  }
+  return rows
+}
+
 export default function WorkshopPage() {
+  const [priceRows, setPriceRows] = useState<PriceRow[]>([])
+  const [pricesLoading, setPricesLoading] = useState(true)
+
+  useEffect(() => {
+    WorkshopPriceService.getAll()
+      .then((prices) => setPriceRows(groupPrices(prices)))
+      .catch(() => setPriceRows([]))
+      .finally(() => setPricesLoading(false))
+  }, [])
+
   return (
     <div className="min-h-screen bg-neutral-50">
       {/* Hero Section */}
       <section className="relative h-[50svh] min-h-[24rem] overflow-hidden">
         <Image
-          src="/secondarydecor3.jpeg"
+          src="/agate-pendants-blue.jpeg"
           alt="Anne Silver jewelry arrangement"
           fill
           sizes="100vw"
@@ -74,9 +108,6 @@ export default function WorkshopPage() {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <p className="mb-3 text-sm tracking-[0.2em] text-primary-600 uppercase">
-                Learn the craft
-              </p>
               <h2 className="mb-6 text-3xl font-bold text-neutral-900 md:text-4xl">
                 Learn from Master Artisans
               </h2>
@@ -276,6 +307,105 @@ export default function WorkshopPage() {
               </motion.div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Price List Section */}
+      <section className="bg-secondary-50 py-16 lg:py-24">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mx-auto max-w-3xl"
+          >
+            <div className="mb-10 text-center">
+              <h2 className="brand-accent mb-4 text-3xl font-bold text-neutral-900 italic md:text-4xl">
+                Jewelry Making Price List
+              </h2>
+              <div className="mx-auto h-px w-32 bg-secondary-400" />
+            </div>
+
+            <div className="overflow-x-auto border-2 border-secondary-500 bg-white/60 p-1">
+              <table className="w-full min-w-[34rem] border-collapse text-center text-neutral-800">
+                <colgroup>
+                  <col className="w-[32%]" />
+                  <col className="w-[36%]" />
+                  <col className="w-[32%]" />
+                </colgroup>
+                <thead>
+                  <tr className="bg-secondary-100">
+                    {["Type", "Material", "Price"].map((heading) => (
+                      <th
+                        key={heading}
+                        scope="col"
+                        className="border border-secondary-300 px-4 py-3 text-lg font-semibold md:text-xl"
+                      >
+                        {heading}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="text-base md:text-lg">
+                  {pricesLoading && (
+                    <tr>
+                      <td colSpan={3} className="border border-secondary-300 px-4 py-8">
+                        <LoadingSpinner />
+                      </td>
+                    </tr>
+                  )}
+                  {!pricesLoading && priceRows.length === 0 && (
+                    <tr>
+                      <td
+                        colSpan={3}
+                        className="border border-secondary-300 px-4 py-8 text-neutral-600"
+                      >
+                        Contact us for current workshop pricing.
+                      </td>
+                    </tr>
+                  )}
+                  {priceRows.map((row) =>
+                    row.options.map((option, optionIndex) => (
+                      <tr key={option.id}>
+                        {optionIndex === 0 && (
+                          <th
+                            scope="row"
+                            rowSpan={row.options.length}
+                            className="border border-secondary-300 px-4 py-5 text-lg font-semibold md:text-xl"
+                          >
+                            {row.type}
+                            {row.note && (
+                              <span className="mt-1 block text-sm font-normal text-neutral-600 md:text-base">
+                                {row.note}
+                              </span>
+                            )}
+                          </th>
+                        )}
+                        <td className="border border-secondary-300 px-4 py-5">
+                          {option.material}
+                          {option.detail && (
+                            <span className="block text-neutral-600">{option.detail}</span>
+                          )}
+                        </td>
+                        <td className="border border-secondary-300 px-4 py-5">
+                          <span className="font-semibold">
+                            {formatPrice(option.price)}
+                            {option.is_starting_price && "+"}
+                          </span>
+                          {option.price_note && (
+                            <span className="mt-1 block text-xs text-neutral-600 md:text-sm">
+                              {option.price_note}
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    )),
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </motion.div>
         </div>
       </section>
 

@@ -27,6 +27,11 @@ export default function GalleryClient({
   const [pieces, setPieces] = useState<JewelryPiece[]>([])
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState(initialSearch ?? "")
+  const [prevInitialSearch, setPrevInitialSearch] = useState(initialSearch)
+  if (initialSearch !== prevInitialSearch) {
+    setPrevInitialSearch(initialSearch)
+    setSearchQuery(initialSearch ?? "")
+  }
   const [showSold, setShowSold] = useState(false)
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -50,10 +55,6 @@ export default function GalleryClient({
 
     loadPieces()
   }, [showSold])
-
-  useEffect(() => {
-    setSearchQuery(initialSearch ?? "")
-  }, [initialSearch])
 
   const filteredPieces = useMemo(() => {
     let filtered = pieces
@@ -117,7 +118,7 @@ export default function GalleryClient({
     <div className="min-h-screen bg-neutral-50">
       <section className="relative h-[50svh] min-h-[24rem] overflow-hidden">
         <Image
-          src="/decor3.jpeg"
+          src="/citrine-pendant-blue.jpeg"
           alt="Anne Silver jewelry collection"
           fill
           sizes="100vw"

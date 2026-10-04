@@ -6,6 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useCallback, useEffect, useState } from "react"
 import type { JewelryPiece } from "@/types/jewelry"
+import { formatPrice } from "@/utils/currency"
 
 interface JewelryDetailProps {
   piece: JewelryPiece
@@ -191,10 +192,7 @@ export default function JewelryDetail({ piece }: JewelryDetailProps) {
               </h1>
               <div className="mb-6 flex items-center space-x-4">
                 <span className="text-3xl font-bold text-primary-600">
-                  ETB{" "}
-                  {piece.price.toLocaleString("en-US", {
-                    maximumFractionDigits: 0,
-                  })}
+                  {formatPrice(piece.price)}
                 </span>
                 {piece.is_sold && (
                   <span className="rounded-md bg-red-100 px-3 py-1 text-sm font-medium text-red-700">
@@ -318,10 +316,12 @@ export default function JewelryDetail({ piece }: JewelryDetailProps) {
               transition={{ duration: 0.25 }}
               className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 md:p-8"
               onClick={() => setIsImageModalOpen(false)}
+              // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- animated overlay; native <dialog> fights motion
               role="dialog"
               aria-modal="true"
               aria-label={`${piece.title} image gallery`}
             >
+              {/* oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- stopPropagation guard only */}
               <div
                 className="relative flex h-full w-full max-w-6xl flex-col items-center gap-4"
                 onClick={(event) => event.stopPropagation()}

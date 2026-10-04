@@ -38,7 +38,7 @@ export default function ContactPage() {
       {/* Hero Section */}
       <section className="relative h-[50svh] min-h-[24rem] overflow-hidden">
         <Image
-          src="/decor7.jpeg"
+          src="/gemstone-rings-blue.jpeg"
           alt="Anne Silver jewelry display"
           fill
           sizes="100vw"

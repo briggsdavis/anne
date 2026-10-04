@@ -9,7 +9,7 @@ export default function CustomPage() {
       {/* Hero Section */}
       <section className="relative h-[50svh] min-h-[24rem] overflow-hidden">
         <Image
-          src="/secondary%20decor.jpeg"
+          src="/amber-necklace-blue.jpeg"
           alt="Anne Silver jewelry detail"
           fill
           sizes="100vw"
@@ -45,9 +45,6 @@ export default function CustomPage() {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <p className="mb-3 text-sm tracking-[0.2em] text-primary-600 uppercase">
-                Bespoke jewelry
-              </p>
               <h2 className="mb-6 text-3xl font-bold text-neutral-900 md:text-4xl">
                 Your Vision, Our Expertise
               </h2>
@@ -78,7 +75,7 @@ export default function CustomPage() {
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
-                  src="/model21.jpeg"
+                  src="/model-amber-necklace-closeup.jpeg"
                   alt="Anne Silver jewelry styled on a model"
                   fill
                   sizes="(max-width: 1024px) 90vw, 60vw"
@@ -317,7 +314,6 @@ export default function CustomPage() {
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
           >
-            <p className="mb-3 text-sm tracking-[0.2em] text-primary-600 uppercase">Repairs</p>
             <h2 className="mb-6 text-4xl">Care that extends the life of every piece</h2>
             <p className="text-lg leading-relaxed text-neutral-600">
               Our workshop can assess cleaning, polishing, clasp replacement, resizing, and common

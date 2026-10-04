@@ -290,7 +290,7 @@
   }
 
   .product-price {
-    @apply mb-0 text-base font-semibold text-primary-600;
+    @apply mb-0 text-sm text-primary-600;
   }
 
   .product-description {

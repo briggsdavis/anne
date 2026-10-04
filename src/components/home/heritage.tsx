@@ -14,7 +14,6 @@ export default function Heritage() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <p className="mb-3 text-sm tracking-[0.2em] text-primary-600 uppercase">Our heritage</p>
             <h2 className="brand-accent mb-6 text-3xl font-bold text-neutral-900 md:text-4xl">
               Heritage in Every Detail
             </h2>
@@ -38,7 +37,7 @@ export default function Heritage() {
           >
             <div className="aspect-[4/3] overflow-hidden">
               <Image
-                src="/spreaddecor.jpeg"
+                src="/ring-collection-red.jpeg"
                 alt="A spread of handcrafted Anne Silver jewelry"
                 width={1400}
                 height={1050}

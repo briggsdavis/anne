@@ -30,7 +30,6 @@ export default function About() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <p className="mb-3 text-sm tracking-[0.2em] text-primary-600 uppercase">Our story</p>
           <h2 className="mb-6 text-4xl">Made in Addis Ababa</h2>
           <p className="text-lg leading-relaxed text-neutral-600">
             Anne Silver began as a small Addis Ababa workshop with a simple purpose: to preserve the

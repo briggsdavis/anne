@@ -96,7 +96,14 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 flex justify-between border-t border-neutral-800 pt-8">
-          <p>© {new Date().getFullYear()} Anne Silver. All rights reserved.</p>
+          <p>
+            ©{" "}
+            {
+              // oxlint-disable-next-line react/purity -- year drift is harmless
+              new Date().getFullYear()
+            }{" "}
+            Anne Silver. All rights reserved.
+          </p>
 
           <p>
             Made by{" "}

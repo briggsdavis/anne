@@ -1,0 +1,412 @@
+{
+  "jewelry_pieces": [
+    {
+      "id": "02bf75d2-9360-4074-9f56-d1478d26aeb4",
+      "title": "Opal Silver Ring 3",
+      "price": 7600.0
+    },
+    {
+      "id": "063a3778-be49-414c-9136-387f2c216ef7",
+      "title": "Africa earring",
+      "price": 1300.0
+    },
+    {
+      "id": "0884a7c8-2aa8-4327-b786-df43277a9768",
+      "title": "Square Telsem Ring",
+      "price": 6500.0
+    },
+    {
+      "id": "1344b2e5-9794-47a1-b2b2-0e1e63a6679e",
+      "title": "Silver ring 056",
+      "price": 4000.0
+    },
+    {
+      "id": "186317d5-2b3b-498b-998b-da689652428b",
+      "title": "Cross Earring",
+      "price": 2800.0
+    },
+    {
+      "id": "19220483-cb97-4e2f-8ef5-8284d96cef17",
+      "title": "Silver Erring 007",
+      "price": 4300.0
+    },
+    {
+      "id": "1c738217-2923-4091-a2dc-bee1c4f21d5a",
+      "title": "cross 19",
+      "price": 2200.0
+    },
+    {
+      "id": "2059c092-332c-40c4-988a-227bf3631617",
+      "title": "Axum Cross 04",
+      "price": 2800.0
+    },
+    {
+      "id": "21edc428-ebc1-40c4-8ebb-e8d98a1942ba",
+      "title": "Silver Ring 012",
+      "price": 1800.0
+    },
+    {
+      "id": "23fb7632-86e6-4439-8f20-6c3f16518047",
+      "title": " Cross 12",
+      "price": 5400.0
+    },
+    {
+      "id": "2c05a6d2-6818-4091-a515-2f0518cd7745",
+      "title": "Opal Ring",
+      "price": 7000.0
+    },
+    {
+      "id": "2db7a16d-5e80-4592-80fd-63553d6a3f46",
+      "title": "Silver Ring 047",
+      "price": 1700.0
+    },
+    {
+      "id": "34edc4fa-5d1c-4ec2-bad3-528a6b0450ec",
+      "title": "Menelilk",
+      "price": 2200.0
+    },
+    {
+      "id": "36af18b4-2996-46d5-9cbb-000c1bf1fae4",
+      "title": "Erban Axum cross",
+      "price": 2300.0
+    },
+    {
+      "id": "3a50a631-8c73-4277-be2c-50457ff9366d",
+      "title": "Ethiopia cutout ring ",
+      "price": 1000.0
+    },
+    {
+      "id": "3b7cf57c-7467-4c7f-a6b3-b96556417f81",
+      "title": "Ensra Earring",
+      "price": 3400.0
+    },
+    {
+      "id": "43afd338-1b91-4574-b4a4-d71dbf999c55",
+      "title": "Overlapped Opal Ring",
+      "price": 2700.0
+    },
+    {
+      "id": "44f04657-1a1b-4a27-ad1c-f6b045efd942",
+      "title": "Lalibela 06",
+      "price": 3500.0
+    },
+    {
+      "id": "473b1e9a-b183-41ea-a508-bc989aecde0c",
+      "title": "Jebena Earring",
+      "price": 2000.0
+    },
+    {
+      "id": "48e89d1a-540e-40da-b489-e4627fbd7198",
+      "title": "Silver Earring 044",
+      "price": 5200.0
+    },
+    {
+      "id": "4a4549e9-73e0-4031-b0d1-0ef4f7427e28",
+      "title": "Giraffe Earring",
+      "price": 1500.0
+    },
+    {
+      "id": "4d72e589-99a1-45fc-bede-068557c32af4",
+      "title": "7 Days Ring",
+      "price": 1900.0
+    },
+    {
+      "id": "4e44c85d-a344-4800-b83b-d15c5df334fa",
+      "title": "Cross 40",
+      "price": 900.0
+    },
+    {
+      "id": "514f7f52-3f6d-41e6-bee7-2b36ff4a6744",
+      "title": "Silver Earring 045",
+      "price": 4700.0
+    },
+    {
+      "id": "53eb59ab-0484-4057-a6b9-66491163b7b8",
+      "title": "Silver Ring 019",
+      "price": 5000.0
+    },
+    {
+      "id": "5bd8f89a-592b-4099-8613-e73ddfff33c0",
+      "title": "Encircled Giraffe Earring",
+      "price": 5800.0
+    },
+    {
+      "id": "5e8c6a91-9dc6-40be-ae21-f99abfb181d2",
+      "title": "Overlapped  Opal Ring",
+      "price": 3200.0
+    },
+    {
+      "id": "62173f68-4f7f-4105-980c-211e273421bc",
+      "title": "Open Bangle Silver  Bracelet",
+      "price": 6700.0
+    },
+    {
+      "id": "6503d98a-8220-405b-82a9-4e4fd2b3bb55",
+      "title": "Silver Earring 063",
+      "price": 4300.0
+    },
+    {
+      "id": "6c116d1f-ce51-4fcd-b8de-6cf4f937e9b2",
+      "title": "Africa face earring",
+      "price": 2900.0
+    },
+    {
+      "id": "6e783bd8-43eb-4ca6-905b-eeb134bd6d3a",
+      "title": "Overlapped Opal Ring ",
+      "price": 4400.0
+    },
+    {
+      "id": "722cf88b-9444-41ab-bdbb-2795a401b6d3",
+      "title": "Cross 48",
+      "price": 3000.0
+    },
+    {
+      "id": "75b49db1-5c70-495f-86b2-d8606fb84688",
+      "title": "Encircled Star Earring",
+      "price": 4500.0
+    },
+    {
+      "id": "7e13edde-23c8-444a-8f3d-e63ed26626f0",
+      "title": "Silver Earring 023",
+      "price": 5700.0
+    },
+    {
+      "id": "7f6f109a-3661-4436-aae9-c5d454f1df6a",
+      "title": "Silver Earring 003",
+      "price": 3900.0
+    },
+    {
+      "id": "805cd272-9e60-453f-af5e-da4835192bdd",
+      "title": "Cross 11",
+      "price": 8500.0
+    },
+    {
+      "id": "83b7c598-67ae-4987-9337-a6e4fed06004",
+      "title": "Silver earring 019",
+      "price": 4900.0
+    },
+    {
+      "id": "8972a750-33e7-47cd-96a3-3bf09c867669",
+      "title": "Cross 41",
+      "price": 2500.0
+    },
+    {
+      "id": "8c483be6-f7cf-4622-8342-474f32af402b",
+      "title": "Cross 52",
+      "price": 1900.0
+    },
+    {
+      "id": "91718370-e133-4cd2-b5ad-9cfae5e0dd04",
+      "title": "Cross 49",
+      "price": 3000.0
+    },
+    {
+      "id": "9315a6a2-09ba-4df7-ab6d-cf639e766d2d",
+      "title": "Gojo bet Earring",
+      "price": 5600.0
+    },
+    {
+      "id": "94f59c2d-761b-4d97-bd34-d092f89e91be",
+      "title": "Warped Silver Ring",
+      "price": 3000.0
+    },
+    {
+      "id": "95a876e8-22fd-423d-8a5e-d08f7b3fe402",
+      "title": "Silver Ring 058",
+      "price": 1800.0
+    },
+    {
+      "id": "9a05cbb8-19c9-4acb-ad17-13881a7e5936",
+      "title": "Afro Aygeba Cross 07",
+      "price": 2200.0
+    },
+    {
+      "id": "a0f9c4dc-facb-45ab-b0fd-d57b7ebbba4c",
+      "title": "Silver 012",
+      "price": 2600.0
+    },
+    {
+      "id": "a68424b4-48a7-4133-aa9a-f8a8b5257535",
+      "title": "Oval Africa Plate Earring",
+      "price": 4000.0
+    },
+    {
+      "id": "a759e077-1478-4d27-8cd2-b3d8b7d60c3c",
+      "title": "Tringle Telsem ring ",
+      "price": 1755.0
+    },
+    {
+      "id": "aaf9b2d2-f9ff-4bb0-a8cf-42768ff7c8c7",
+      "title": "Africa cutout Ring",
+      "price": 900.0
+    },
+    {
+      "id": "abd38dda-b1c0-475c-b19d-dba1e894c500",
+      "title": "Open Bangle Silver Braclet",
+      "price": 6400.0
+    },
+    {
+      "id": "b00ab5f1-5349-4132-a96c-2dd058a09881",
+      "title": "Ethiopian Earring",
+      "price": 1200.0
+    },
+    {
+      "id": "b032e1b6-6aa9-4df8-9670-fb0b4ab94c60",
+      "title": "Silver cuff Bracelet",
+      "price": 20200.0
+    },
+    {
+      "id": "b3eb7399-4087-4431-8968-f7714260e6d5",
+      "title": "Bunna earring",
+      "price": 900.0
+    },
+    {
+      "id": "b9f3178c-ef6e-4944-adee-dd96c9dc7e12",
+      "title": "David Star 22",
+      "price": 2000.0
+    },
+    {
+      "id": "ba3c20f6-900e-481d-ae78-6fbe9786a6f8",
+      "title": "Cross 31",
+      "price": 2000.0
+    },
+    {
+      "id": "bb2660dd-5912-4f71-8b3a-b38f4661de7a",
+      "title": "Half Circle Telsem Ring",
+      "price": 2700.0
+    },
+    {
+      "id": "bf17e3c9-0ee5-44e0-942c-56f10a5b0a2f",
+      "title": "Cross 14",
+      "price": 3000.0
+    },
+    {
+      "id": "c25bd8e4-ef94-4598-814d-a38c148ba5fe",
+      "title": "Gold and Opal Drop Necklace",
+      "price": 15000.0
+    },
+    {
+      "id": "c44a784c-0d57-42bc-9d8d-caad951825fa",
+      "title": "Silver Ring 024",
+      "price": 1000.0
+    },
+    {
+      "id": "ca10592c-94c1-47a7-a1c6-8eccc8e6bc5a",
+      "title": "Encircled Opal Earring",
+      "price": 7100.0
+    },
+    {
+      "id": "cb887f83-78b8-4087-af2b-eb2ccfd05b8d",
+      "title": "Gojo bet Earring 2 ",
+      "price": 2500.0
+    },
+    {
+      "id": "cc0a8fba-90a3-4cf9-8644-2e8de4028de7",
+      "title": "Silver Earring 014",
+      "price": 4699.99
+    },
+    {
+      "id": "d2526dcf-1b59-4cfe-a765-3ca8e90f1df1",
+      "title": "Cross 32",
+      "price": 3200.0
+    },
+    {
+      "id": "d60a2aa4-3c46-4b12-85c4-ec70e0597f19",
+      "title": "Star Silver earring",
+      "price": 1099.98
+    },
+    {
+      "id": "d6fe55da-997d-4c1f-8107-2bf0f45c20d3",
+      "title": "Silver Earring 008",
+      "price": 5300.0
+    },
+    {
+      "id": "d83b2293-5189-472f-8295-13a56f30c352",
+      "title": "Cross 17",
+      "price": 2400.0
+    },
+    {
+      "id": "de6deb8b-1367-4385-b59a-15e7c309d136",
+      "title": "Silver Ring 050",
+      "price": 1199.99
+    },
+    {
+      "id": "e184716a-9883-4f01-82ee-9e0405e15d29",
+      "title": "Cross 45",
+      "price": 3199.97
+    },
+    {
+      "id": "e870cd33-13ad-49de-912a-f37f02c75e7b",
+      "title": "Cross 26",
+      "price": 2600.0
+    },
+    {
+      "id": "f02d045c-0b08-4226-8aa2-95cb7de3911a",
+      "title": "David Star+Cross24",
+      "price": 2300.0
+    },
+    {
+      "id": "f18433d1-307f-44a6-857f-a87554f8a6ba",
+      "title": "Lion of Judah Ring 2",
+      "price": 4200.0
+    },
+    {
+      "id": "f4d150d3-0fd5-4363-ae37-45d94212bb9e",
+      "title": "Flower Petal Earing",
+      "price": 2750.0
+    },
+    {
+      "id": "fa64214d-b83b-4803-812c-82851174601e",
+      "title": "Kirar Ring",
+      "price": 4600.0
+    },
+    {
+      "id": "fc1dc291-6209-4106-ab08-3ba58f3152f4",
+      "title": "Butterfly",
+      "price": 2200.0
+    },
+    {
+      "id": "fedaf957-0cf1-43be-90af-926721575b5b",
+      "title": "Overlapped Opal Ring ",
+      "price": 2700.0
+    }
+  ],
+  "workshop_prices": [
+    {
+      "id": "22539b61-9c0b-4dbf-a7c2-73fc42282fa0",
+      "workshop_type": "Cross Making",
+      "material": "Copper / Brass",
+      "price": 7800.0
+    },
+    {
+      "id": "58025ff9-0e6c-4af9-9360-c7b3e92775a3",
+      "workshop_type": "Ring Making",
+      "material": "Copper / Brass",
+      "price": 7500.0
+    },
+    {
+      "id": "71610916-eee2-4042-8af2-13fd07796d34",
+      "workshop_type": "Cross Making",
+      "material": "Silver",
+      "price": 12600.0
+    },
+    {
+      "id": "9a397073-a4d2-4a23-9793-c73abcf9bc3b",
+      "workshop_type": "Ring Making",
+      "material": "Silver",
+      "price": 12300.0
+    },
+    {
+      "id": "b1ee4b2b-e309-4fb1-86e9-dccf1faa6c0e",
+      "workshop_type": "Gemstone Setting",
+      "material": "Copper / Brass",
+      "price": 8000.0
+    },
+    {
+      "id": "f35a043f-dfaf-4018-a812-fc67b56446cf",
+      "workshop_type": "Gemstone Setting",
+      "material": "Silver",
+      "price": 10300.0
+    }
+  ]
+}
