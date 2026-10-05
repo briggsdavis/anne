@@ -178,13 +178,14 @@ export default function ContactPage() {
             <h2 className="mb-6 text-3xl font-bold text-neutral-900 md:text-4xl">
               Go visit our store.
             </h2>
-            <div className="relative aspect-square overflow-hidden rounded-xl shadow-primary-lg md:aspect-[16/9]">
+            <div className="mx-auto max-w-3xl overflow-hidden rounded-xl shadow-primary-lg">
               <Image
                 src="/anne-silver-exterior.jpg"
                 alt="Exterior entrance of the Anne Silver store"
-                fill
-                sizes="(min-width: 1280px) 1200px, 100vw"
-                className="object-cover"
+                width={1254}
+                height={1254}
+                sizes="(min-width: 768px) 768px, 100vw"
+                className="h-auto w-full"
               />
             </div>
           </motion.div>
