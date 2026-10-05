@@ -259,7 +259,7 @@ export default function Header() {
                 className="overflow-hidden"
               >
                 <div
-                  className="max-h-[68vh] overflow-y-auto border-t border-neutral-200 py-6"
+                  className="border-t border-neutral-200 py-6"
                   style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
                 >
                   {searchLoading ? (
@@ -267,7 +267,10 @@ export default function Header() {
                       Searching pieces…
                     </p>
                   ) : searchResults.length > 0 ? (
-                    <div className="grid grid-cols-2 gap-x-5 gap-y-7 md:grid-cols-4">
+                    <div
+                      className="flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain pb-4"
+                      aria-label="Search results"
+                    >
                       {searchResults.map((piece) => {
                         const primaryImage =
                           piece.images?.find((image) => image.is_primary) ?? piece.images?.[0]
@@ -280,7 +283,7 @@ export default function Header() {
                               setIsSearchOpen(false)
                               setQuery("")
                             }}
-                            className="group block text-center"
+                            className="group block w-40 shrink-0 snap-start text-center sm:w-48 md:w-52 xl:w-56"
                           >
                             <div className="relative aspect-square overflow-hidden bg-neutral-100">
                               {primaryImage ? (
@@ -288,7 +291,7 @@ export default function Header() {
                                   src={primaryImage.image_url}
                                   alt={primaryImage.alt_text}
                                   fill
-                                  sizes="(max-width: 768px) 45vw, 22vw"
+                                  sizes="(max-width: 640px) 160px, (max-width: 768px) 192px, (max-width: 1280px) 208px, 224px"
                                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
                                 />
                               ) : (
