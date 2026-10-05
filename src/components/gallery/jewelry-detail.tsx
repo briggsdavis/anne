@@ -298,8 +298,6 @@ export default function JewelryDetail({ piece }: JewelryDetailProps) {
 
             {/* Additional Info */}
             <div className="space-y-1 text-sm text-neutral-500">
-              <p>• Free worldwide shipping on all pieces</p>
-              <p>• Certificate of authenticity included</p>
               <p>• 30-day return policy</p>
               <p>• Custom sizing available upon request</p>
             </div>

@@ -53,6 +53,8 @@ export type JewelryCategory =
   | "sets"
   | "pendants"
   | "chains"
+  | "cufflinks"
+  | "tie-pins"
   | "home-accessories"
 
 export type JewelryGender = "male" | "female"
@@ -65,6 +67,8 @@ export const JEWELRY_CATEGORIES: { value: JewelryCategory; label: string }[] = [
   { value: "necklaces", label: "Necklaces" },
   { value: "pendants", label: "Pendants" },
   { value: "chains", label: "Chains" },
+  { value: "cufflinks", label: "Cufflinks" },
+  { value: "tie-pins", label: "Tie Pins" },
   { value: "sets", label: "Jewelry Sets" },
   { value: "home-accessories", label: "Home Accessories" },
 ]

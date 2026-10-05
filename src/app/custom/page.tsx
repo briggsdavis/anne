@@ -245,9 +245,8 @@ export default function CustomPage() {
                           Final Presentation
                         </h3>
                         <p className="mb-0 leading-relaxed text-neutral-600">
-                          Your completed custom piece is presented with a certificate of
-                          authenticity and care instructions, ready to become a treasured part of
-                          your story.
+                          Your completed custom piece is presented with care instructions, ready to
+                          become a treasured part of your story.
                         </p>
                       </div>
                       <div className="w-full flex-shrink-0 md:h-full md:w-auto">
