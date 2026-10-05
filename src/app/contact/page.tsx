@@ -166,6 +166,30 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      <section className="pb-16 lg:pb-24">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="mb-6 text-3xl font-bold text-neutral-900 md:text-4xl">
+              Go visit our store.
+            </h2>
+            <div className="relative aspect-square overflow-hidden rounded-xl shadow-primary-lg md:aspect-[16/9]">
+              <Image
+                src="/anne-silver-exterior.jpg"
+                alt="Exterior entrance of the Anne Silver store"
+                fill
+                sizes="(min-width: 1280px) 1200px, 100vw"
+                className="object-cover"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </section>
     </div>
   )
 }
