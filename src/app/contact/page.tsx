@@ -174,18 +174,31 @@ export default function ContactPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8 }}
+            className="grid overflow-hidden rounded-xl bg-primary-900 shadow-primary-lg lg:grid-cols-2"
           >
-            <h2 className="mb-6 text-3xl font-bold text-neutral-900 md:text-4xl">
-              Go visit our store.
-            </h2>
-            <div className="mx-auto max-w-3xl overflow-hidden rounded-xl shadow-primary-lg">
+            <div className="flex flex-col justify-center px-8 py-12 text-white md:px-12 lg:px-16">
+              <p className="mb-4 text-sm font-semibold tracking-[0.2em] text-primary-300 uppercase">
+                Visit us
+              </p>
+              <h2 className="mb-6 text-3xl font-bold text-white md:text-4xl">
+                Go visit our store.
+              </h2>
+              <div className="flex items-start gap-3 text-primary-100">
+                <MapPin className="mt-1 h-5 w-5 flex-shrink-0 text-primary-300" />
+                <div>
+                  <p className="mb-1 font-semibold text-white">Our Main Store</p>
+                  <p className="mb-0">Addis Ababa, Ethiopia</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative aspect-square min-h-[22rem] lg:min-h-0">
               <Image
                 src="/anne-silver-exterior.jpg"
                 alt="Exterior entrance of the Anne Silver store"
-                width={1254}
-                height={1254}
-                sizes="(min-width: 768px) 768px, 100vw"
-                className="h-auto w-full"
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-cover"
               />
             </div>
           </motion.div>
